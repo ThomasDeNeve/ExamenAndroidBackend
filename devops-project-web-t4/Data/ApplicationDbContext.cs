@@ -95,8 +95,8 @@ namespace devops_project_web_t4.Data
             reservation.Property(r => r.To).IsRequired();
             reservation.Property(r => r.IsConfirmed).IsRequired();
 
-            reservation.HasOne(r => r.Customer).WithMany().HasForeignKey(r => r.CustumerId).IsRequired();
-            reservation.HasOne(r => r.MeetingRoom).WithMany().HasForeignKey(r => r.RoomId).IsRequired();
+            reservation.HasOne(r => r.Customer).WithMany().HasForeignKey(r => r.CustomerId).IsRequired();
+            reservation.HasOne(r => r.Room).WithMany().HasForeignKey(r => r.RoomId).IsRequired();
             reservation.HasOne(r => r.Seat).WithMany().HasForeignKey(r => r.SeatId).IsRequired();
         }
 
@@ -111,6 +111,8 @@ namespace devops_project_web_t4.Data
             customer.Property(c => c.Email);
             customer.Property(c => c.Tel);
             customer.Property(c => c.BTW);
+
+            //customer.HasMany(c => c.Reservations).WithOne();
         }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devops_project_web_t4.Data;
 
 namespace devops_project_web_t4.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211016153519_customerIdAanpassing")]
+    partial class customerIdAanpassing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,6 +293,9 @@ namespace devops_project_web_t4.Data.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CustomerId1")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("From")
                         .HasColumnType("datetime2");
 
@@ -312,6 +317,8 @@ namespace devops_project_web_t4.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("CustomerId1");
 
                     b.HasIndex("RoomId");
 
@@ -449,6 +456,10 @@ namespace devops_project_web_t4.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Customer", null)
+                        .WithMany("Reservations")
+                        .HasForeignKey("CustomerId1");
+
                     b.HasOne("devops_project_web_t4.Areas.Domain.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
@@ -502,6 +513,11 @@ namespace devops_project_web_t4.Data.Migrations
                         .HasForeignKey("devops_project_web_t4.Areas.Domain.MeetingRoom", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Customer", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>

@@ -17,6 +17,6 @@ namespace devops_project_web_t4.Areas.Domain
         public string Email { get; set; }
         public string BTW { get; set; }
         public string Tel { get; set; }
-        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
+        //public List<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

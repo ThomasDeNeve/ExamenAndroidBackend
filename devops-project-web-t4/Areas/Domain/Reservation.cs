@@ -13,7 +13,7 @@ namespace devops_project_web_t4.Areas.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public Customer Customer { get; set; }
-        public int CustumerId { get; set; }
+        public int CustomerId { get; set; }
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         
@@ -21,7 +21,7 @@ namespace devops_project_web_t4.Areas.Domain
         public Seat Seat { get; set; }
         public int SeatId { get; set; }
         //Verwijzing voor EF
-        public MeetingRoom MeetingRoom { get; set;}
+        public Room Room { get; set;}
         public int RoomId { get; set; }
 
         [NotMapped] //Wordt hiermee niet opgenomen in de EF mapping
