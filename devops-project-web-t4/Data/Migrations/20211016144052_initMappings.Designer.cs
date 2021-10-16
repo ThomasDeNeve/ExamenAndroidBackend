@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devops_project_web_t4.Data;
 
 namespace devops_project_web_t4.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211016144052_initMappings")]
+    partial class initMappings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -343,18 +345,16 @@ namespace devops_project_web_t4.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("PriceFullDay")
-                        .HasColumnType("float")
-                        .HasColumnName("PriceFullDay");
+                        .HasColumnType("float");
 
                     b.Property<double>("PriceHalfDay")
-                        .HasColumnType("float")
-                        .HasColumnName("PriceHalfDay");
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Room");
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Seat", b =>

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Domain
 {
-    public abstract class MeetingRoom : Room
+    public class MeetingRoom : Room
     {
         public double PriceEvening { get; set; }
         public double PriceTwoHours { get; set; }
@@ -23,6 +23,7 @@ namespace devops_project_web_t4.Areas.Domain
         /*
          * Deze implementatie gebeurt door de RoomAdapter subklasse
          */
-        public abstract override void ReserveSeat(Seat seat);
+        public override void ReserveSeat(Seat seat)
+        { }
     }
 }

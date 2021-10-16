@@ -24,9 +24,11 @@ namespace devops_project_web_t4.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<Location>(MapLocation);
+            builder.Entity<Room>(MapRoom);
             builder.Entity<MeetingRoom>(MapMeetingRoom);
             builder.Entity<CoworkRoom>(MapCoworkRoom);
             builder.Entity<Seat>(MapSeat);
+            builder.Entity <Customer>(MapCustomer);
             builder.Entity<Reservation>(MapReservation);
         }
 
@@ -45,41 +47,41 @@ namespace devops_project_web_t4.Data
 
             location.HasMany(l => l.Rooms).WithOne();
         }
+
+        private static void MapRoom(EntityTypeBuilder<Room> room)
+        {
+            room.ToTable("Room");
+            //room.HasKey(r => r.Id);
+            room.HasOne(r => r.Reservation).WithOne();
+            room.HasMany(r => r.Seats).WithOne();
+
+            room.Property(r => r.Name).IsRequired();
+
+            room.Property(r => r.PriceFullDay).HasColumnName("PriceFullDay").IsRequired();
+            room.Property(r => r.PriceHalfDay).HasColumnName("PriceHalfDay").IsRequired();
+
+            /*room.HasDiscriminator<string>("room_type")
+                .HasValue<MeetingRoom>("meetingroom")
+                .HasValue<CoworkRoom>("coworkroom");*/
+        }
         private static void MapMeetingRoom(EntityTypeBuilder<MeetingRoom> room)
         {
             room.ToTable("MeetingRoom");
 
-            room.HasKey(r => r.Id);
-
-            room.Property(r => r.Name).IsRequired();
             room.Property(r => r.PriceEvening).IsRequired();
-            room.Property(r => r.PriceTwoHours).IsRequired();
-            room.Property(r => r.PriceFullDay).IsRequired();
-            room.Property(r => r.PriceHalfDay).IsRequired();
-
-            room.HasOne(r => r.Reservation).WithOne();
-            room.HasMany(r => r.Seats).WithOne();
+            room.Property(r => r.PriceTwoHours).IsRequired(); 
         }
 
         private static void MapCoworkRoom(EntityTypeBuilder<CoworkRoom> room)
         {
             room.ToTable("CoworkRoom");
-
-            room.HasKey(r => r.Id);
-
-            room.Property(r => r.Name).IsRequired();
-            room.Property(r => r.PriceFullDay).IsRequired();
-            room.Property(r => r.PriceHalfDay).IsRequired();
-
-            room.HasOne(r => r.Reservation).WithOne();
-            room.HasMany(r => r.Seats).WithOne();
         }
 
         private static void MapSeat(EntityTypeBuilder<Seat> seat)
         {
             seat.ToTable("Seat");
 
-            seat.HasKey(s => s.Id);
+            //seat.HasKey(s => s.Id);
             //seat.HasOne(s => s.Room).WithMany().IsRequired();
         }
 
@@ -87,15 +89,28 @@ namespace devops_project_web_t4.Data
         {
             reservation.ToTable("Reservation");
 
-            reservation.HasKey(r => r.Id);
+            //reservation.HasKey(r => r.Id);
 
             reservation.Property(r => r.From).IsRequired();
             reservation.Property(r => r.To).IsRequired();
             reservation.Property(r => r.IsConfirmed).IsRequired();
 
-            reservation.HasOne(r => r.Customer).WithMany();
-            reservation.HasOne(r => r.MeetingRoom).WithMany();
-            reservation.HasOne(r => r.Seat).WithMany();
+            reservation.HasOne(r => r.Customer).WithMany().HasForeignKey(r => r.CustumerId).IsRequired();
+            reservation.HasOne(r => r.MeetingRoom).WithMany().HasForeignKey(r => r.RoomId).IsRequired();
+            reservation.HasOne(r => r.Seat).WithMany().HasForeignKey(r => r.SeatId).IsRequired();
+        }
+
+        private static void MapCustomer(EntityTypeBuilder<Customer> customer)
+        {
+            customer.ToTable("Customer");
+
+            //customer.HasKey(c => c.Id);
+
+            customer.Property(c => c.Firstname);
+            customer.Property(c => c.Lastname);
+            customer.Property(c => c.Email);
+            customer.Property(c => c.Tel);
+            customer.Property(c => c.BTW);
         }
     }
 }
