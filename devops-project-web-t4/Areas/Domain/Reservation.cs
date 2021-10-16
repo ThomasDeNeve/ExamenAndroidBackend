@@ -12,32 +12,19 @@ namespace devops_project_web_t4.Areas.Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public Customer Customer { get; set; }
-        public int CustomerId { get; set; }
+        
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         
-        //Verwijzing voor EF
-        public Seat Seat { get; set; }
+        public CoworkSeat Seat { get; set; }
         public int SeatId { get; set; }
-        //Verwijzing voor EF
-        public Room Room { get; set;}
+
+        public MeetingRoom MeetingRoom { get; set;}
         public int RoomId { get; set; }
 
-        [NotMapped] //Wordt hiermee niet opgenomen in de EF mapping
-        //public ReservationStrategy ReservationStrategy { get; set; }
+        public Customer Customer { get; set; }
+        public int CustomerId { get; set; }
         
         public bool IsConfirmed { get; set; }
-
-        /*public void Confirm(Seat seat)
-        {
-            ReservationStrategy.Reserve(seat);
-            IsConfirmed = true;
-        }
-        public void Confirm(Room room)
-        {
-            ReservationStrategy.Reserve(room);
-            IsConfirmed = true;
-        }*/
     }
 }

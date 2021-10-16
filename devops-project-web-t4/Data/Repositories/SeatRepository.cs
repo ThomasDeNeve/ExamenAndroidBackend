@@ -9,7 +9,7 @@ namespace devops_project_web_t4.Data.Repositories
 {
     public class SeatRepository : ISeatRepository
     {
-        private DbSet<Seat> _seats;
+        private DbSet<CoworkSeat> _seats;
         private ApplicationDbContext _dbContext;
 
         public SeatRepository(ApplicationDbContext dbContext)
@@ -18,22 +18,22 @@ namespace devops_project_web_t4.Data.Repositories
             _seats = _dbContext.Seats;
         }
 
-        public void Add(Seat seat)
+        public void Add(CoworkSeat seat)
         {
             _seats.Add(seat);
         }
 
-        public ICollection<Seat> GetAll()
+        public ICollection<CoworkSeat> GetAll()
         {
             return _seats.ToList();
         }
 
-        public Seat GetById(int id)
+        public CoworkSeat GetById(int id)
         {
             return _seats.SingleOrDefault(s => s.Id == id);
         }
 
-        public void Remove(Seat seat)
+        public void Remove(CoworkSeat seat)
         {
             _seats.Remove(seat);
         }

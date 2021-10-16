@@ -17,6 +17,7 @@ namespace devops_project_web_t4.Areas.Domain
         public int Number { get; set; }
         public string PostalCode { get; set; }
         public string Place { get; set; }
-        public List<Room> Rooms { get; set; } = new List<Room>();
+        public List<MeetingRoom> MeetingRooms { get; set; } = new List<MeetingRoom>();
+        public List<CoworkSeat> CoWorkSeats { get; set; } = new List<CoworkSeat>();
     }
 }

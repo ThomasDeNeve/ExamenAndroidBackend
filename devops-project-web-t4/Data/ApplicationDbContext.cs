@@ -17,7 +17,7 @@ namespace devops_project_web_t4.Data
 
         public DbSet<Location> Locations { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Seat> Seats { get; set; }
+        public DbSet<CoworkSeat> Seats { get; set; }
         public DbSet<Reservation> Reservations {get;set;}
         public DbSet<Customer> Customers { get; set; }
 
@@ -28,7 +28,7 @@ namespace devops_project_web_t4.Data
             builder.Entity<Room>(MapRoom);
             builder.Entity<MeetingRoom>(MapMeetingRoom);
             builder.Entity<CoworkRoom>(MapCoworkRoom);
-            builder.Entity<Seat>(MapSeat);
+            builder.Entity<CoworkSeat>(MapSeat);
             builder.Entity<Customer>(MapCustomer);
             builder.Entity<Reservation>(MapReservation);
         }
@@ -78,7 +78,7 @@ namespace devops_project_web_t4.Data
             room.ToTable("CoworkRoom");
         }
 
-        private static void MapSeat(EntityTypeBuilder<Seat> seat)
+        private static void MapSeat(EntityTypeBuilder<CoworkSeat> seat)
         {
             seat.ToTable("Seat");
 

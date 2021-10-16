@@ -12,6 +12,9 @@ namespace devops_project_web_t4.Areas.Controllers
         private Customer _currentCustomer;
         private Location _currentLocation;
 
+        private Room _currentRoom;
+        private CoworkSeat _currentSeat;
+
         IReservationRepository _reservationRepository;
         ILocationRepository _locationRepository;
         IRoomRepository _roomRepository;
@@ -27,34 +30,37 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             _currentLocation = _locationRepository.GetById(locationId);
         }
-
-        public void ReserveMeetingRoom(int roomId, DateTime from, DateTime to)
+        public void SelectRoom(int roomId)
         {
-            Room room = _roomRepository.GetById(roomId);
+            _currentRoom = _currentLocation.Rooms.FirstOrDefault(r => r.Id == roomId);
+        }
+        public void SelectSeat(int seatId)
+        {
+            _currentSeat = _currentRoom.Seats.FirstOrDefault(s => s.Id == seatId);
+        }
 
+        public void ReserveMeetingRoom(DateTime from, DateTime to)
+        {
             Reservation reservation = new()
             {
                 Customer = _currentCustomer,
                 From = from,
                 To = to,
-                Room = room
+                Room = _currentRoom
             };
 
             _reservationRepository.Add(reservation);
             _reservationRepository.SaveChanges();
         }
 
-        public void ReserveSeat(int roomId, int seatId, DateTime from, DateTime to)
+        public void ReserveSeat(DateTime from, DateTime to)
         {
-            Room room = _roomRepository.GetById(roomId);
-            Seat seat = room.Seats.FirstOrDefault(s => s.Id == seatId);
-
             Reservation reservation = new()
             {
                 Customer = _currentCustomer,
                 From = from,
                 To = to,
-                Seat = seat
+                Seat = _currentSeat
             };
 
             _reservationRepository.Add(reservation);
