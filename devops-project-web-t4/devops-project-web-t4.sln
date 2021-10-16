@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devops-project-web-t4", "devops-project-web-t4.csproj", "{3D0E0DAD-40A5-4B9C-916D-6899A459668A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devops-project-web-t4-TEST", "..\devops-project-web-t4-TEST\devops-project-web-t4-TEST.csproj", "{A7307CB2-9D08-4E67-8BE4-3BF04133599B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devops-project-web-t4-TEST", "..\devops-project-web-t4-TEST\devops-project-web-t4-TEST.csproj", "{A7307CB2-9D08-4E67-8BE4-3BF04133599B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

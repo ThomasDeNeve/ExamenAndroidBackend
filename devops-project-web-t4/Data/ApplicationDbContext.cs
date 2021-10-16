@@ -19,6 +19,7 @@ namespace devops_project_web_t4.Data
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Reservation> Reservations {get;set;}
+        public DbSet<Customer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -28,7 +29,7 @@ namespace devops_project_web_t4.Data
             builder.Entity<MeetingRoom>(MapMeetingRoom);
             builder.Entity<CoworkRoom>(MapCoworkRoom);
             builder.Entity<Seat>(MapSeat);
-            builder.Entity <Customer>(MapCustomer);
+            builder.Entity<Customer>(MapCustomer);
             builder.Entity<Reservation>(MapReservation);
         }
 

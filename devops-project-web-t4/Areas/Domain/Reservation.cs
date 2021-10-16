@@ -25,11 +25,11 @@ namespace devops_project_web_t4.Areas.Domain
         public int RoomId { get; set; }
 
         [NotMapped] //Wordt hiermee niet opgenomen in de EF mapping
-        public ReservationStrategy ReservationStrategy { get; set; }
+        //public ReservationStrategy ReservationStrategy { get; set; }
         
         public bool IsConfirmed { get; set; }
 
-        public void Confirm(Seat seat)
+        /*public void Confirm(Seat seat)
         {
             ReservationStrategy.Reserve(seat);
             IsConfirmed = true;
@@ -38,6 +38,6 @@ namespace devops_project_web_t4.Areas.Domain
         {
             ReservationStrategy.Reserve(room);
             IsConfirmed = true;
-        }
+        }*/
     }
 }

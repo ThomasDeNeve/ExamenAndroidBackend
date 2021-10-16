@@ -20,7 +20,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>gAACAAAAAAAAAAAAEkAAAAYAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <HashCode>AABCAAAAAAAAAAAAEkAAAAQAAAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Areas\Domain\Room.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -33,19 +33,19 @@
   <Class Name="devops_project_web_t4.Areas.Domain.CoworkRoom">
     <Position X="5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Areas\Domain\CoworkRoom.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="devops_project_web_t4.Areas.Domain.MeetingRoom">
     <Position X="1.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAEAAAAAgAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Areas\Domain\MeetingRoom.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="devops_project_web_t4.Areas.Domain.Seat">
-    <Position X="5.5" Y="3.25" Width="1.5" />
+    <Position X="6.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Areas\Domain\Seat.cs</FileName>
@@ -54,60 +54,26 @@
   <Class Name="devops_project_web_t4.Areas.Domain.Reservation">
     <Position X="7.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgECQAAAAAAQAAAAAAAAQAEAAAAIAAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AgECAAACAAAAAAAAABAAQAAAAAAIABAAAIAgAAAAAAA=</HashCode>
       <FileName>Areas\Domain\Reservation.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="ReservationStrategy" />
+      <Property Name="Customer" />
     </ShowAsAssociation>
   </Class>
   <Class Name="devops_project_web_t4.Areas.Controllers.Controller">
     <Position X="0.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAAAAIAAAAAAIAAAQAABCAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAIAAAAAAAAAAAAAAAIAAJAAAAAABAAACAAAAIA=</HashCode>
       <FileName>Areas\Controllers\Controller.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="devops_project_web_t4.Areas.Domain.RoomAdapter">
-    <Position X="5" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Areas\Domain\RoomAdapter.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="MeetingRoom" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="devops_project_web_t4.Areas.Domain.ReservationStrategy">
-    <Position X="11.5" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
-      <FileName>Areas\Domain\RoomStrategy.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="devops_project_web_t4.Areas.Domain.ReservationAsCoworkingRoomStrategy">
-    <Position X="13" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
-      <FileName>Areas\Domain\ReservationAsCoworkingRoomStrategy.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="devops_project_web_t4.Areas.Domain.ReservationAsMeetingRoomStrategy">
-    <Position X="10" Y="6.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
-      <FileName>Areas\Domain\ReservationAsMeetingRoomStrategy.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="devops_project_web_t4.Areas.Domain.Customer">
-    <Position X="10" Y="9" Width="1.5" />
+    <Position X="10" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAACAEAAACAAgAAIEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>EAACAEAAACAAgAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Areas\Domain\Customer.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Reservations" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

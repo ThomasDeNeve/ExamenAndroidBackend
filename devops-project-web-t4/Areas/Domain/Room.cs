@@ -16,13 +16,17 @@ namespace devops_project_web_t4.Areas.Domain
         public string Name { get; set; }
         public double PriceFullDay { get; set; }
         public double PriceHalfDay { get; set; }
+
+        [NotMapped]
+        public int NumberOfSeats => Seats.Count;
+
         public List<Seat> Seats { get; set; } = new List<Seat>();
         public Reservation Reservation { get; set; }
+
         #endregion
 
         #region Methods
-        public abstract void ReserveSeat(Seat seat);
-        public abstract void ReserveRoom();
+
         #endregion
     }
 }

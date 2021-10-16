@@ -13,6 +13,5 @@ namespace devops_project_web_t4.Areas.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         //public Reservation Reservation { get; set; }
-        //public Room Room { get; set; }
     }
 }
