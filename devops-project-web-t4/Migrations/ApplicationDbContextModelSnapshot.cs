@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devops_project_web_t4.Data;
 
-namespace devops_project_web_t4.Data.Migrations
+namespace devops_project_web_t4.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211016154126_customerReservatieRelAdjustment")]
-    partial class customerReservatieRelAdjustment
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -283,6 +281,39 @@ namespace devops_project_web_t4.Data.Migrations
                     b.ToTable("Location");
                 });
 
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingRoom", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PriceEvening")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PriceFullDay")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PriceHalfDay")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PriceTwoHours")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("MeetingRoom");
+                });
+
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Reservation", b =>
                 {
                     b.Property<int>("Id")
@@ -302,9 +333,6 @@ namespace devops_project_web_t4.Data.Migrations
                     b.Property<int>("MeetingRoomId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoomId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("SeatId")
                         .HasColumnType("int");
 
@@ -317,42 +345,9 @@ namespace devops_project_web_t4.Data.Migrations
 
                     b.HasIndex("MeetingRoomId");
 
-                    b.HasIndex("RoomId1")
-                        .IsUnique()
-                        .HasFilter("[RoomId1] IS NOT NULL");
-
                     b.HasIndex("SeatId");
 
                     b.ToTable("Reservation");
-                });
-
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Room", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("LocationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("PriceFullDay")
-                        .HasColumnType("float")
-                        .HasColumnName("PriceFullDay");
-
-                    b.Property<double>("PriceHalfDay")
-                        .HasColumnType("float")
-                        .HasColumnName("PriceHalfDay");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LocationId");
-
-                    b.ToTable("Room");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Seat", b =>
@@ -362,34 +357,37 @@ namespace devops_project_web_t4.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("MeetingRoomId")
                         .HasColumnType("int");
 
+                    b.Property<double>("PriceAfEnToe")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PriceFixedDown")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PriceFixedUp")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PriceFulltime")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PriceHalftime")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PriceYear")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
 
                     b.HasIndex("MeetingRoomId");
 
                     b.ToTable("Seat");
-                });
-
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkRoom", b =>
-                {
-                    b.HasBaseType("devops_project_web_t4.Areas.Domain.Room");
-
-                    b.ToTable("CoworkRoom");
-                });
-
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingRoom", b =>
-                {
-                    b.HasBaseType("devops_project_web_t4.Areas.Domain.Room");
-
-                    b.Property<double>("PriceEvening")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PriceTwoHours")
-                        .HasColumnType("float");
-
-                    b.ToTable("MeetingRoom");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -443,6 +441,13 @@ namespace devops_project_web_t4.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingRoom", b =>
+                {
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Location", null)
+                        .WithMany("MeetingRooms")
+                        .HasForeignKey("LocationId");
+                });
+
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Reservation", b =>
                 {
                     b.HasOne("devops_project_web_t4.Areas.Domain.Customer", "Customer")
@@ -451,15 +456,11 @@ namespace devops_project_web_t4.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("devops_project_web_t4.Areas.Domain.Room", "Room")
+                    b.HasOne("devops_project_web_t4.Areas.Domain.MeetingRoom", "MeetingRoom")
                         .WithMany()
                         .HasForeignKey("MeetingRoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("devops_project_web_t4.Areas.Domain.Room", null)
-                        .WithOne("Reservation")
-                        .HasForeignKey("devops_project_web_t4.Areas.Domain.Reservation", "RoomId1");
 
                     b.HasOne("devops_project_web_t4.Areas.Domain.Seat", "Seat")
                         .WithMany()
@@ -469,52 +470,31 @@ namespace devops_project_web_t4.Data.Migrations
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Room");
+                    b.Navigation("MeetingRoom");
 
                     b.Navigation("Seat");
                 });
 
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Room", b =>
-                {
-                    b.HasOne("devops_project_web_t4.Areas.Domain.Location", null)
-                        .WithMany("MeetingRooms")
-                        .HasForeignKey("LocationId");
-                });
-
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Seat", b =>
                 {
-                    b.HasOne("devops_project_web_t4.Areas.Domain.Room", null)
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Location", null)
+                        .WithMany("CoWorkSeats")
+                        .HasForeignKey("LocationId");
+
+                    b.HasOne("devops_project_web_t4.Areas.Domain.MeetingRoom", null)
                         .WithMany("Seats")
                         .HasForeignKey("MeetingRoomId");
                 });
 
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkRoom", b =>
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
                 {
-                    b.HasOne("devops_project_web_t4.Areas.Domain.Room", null)
-                        .WithOne()
-                        .HasForeignKey("devops_project_web_t4.Areas.Domain.CoworkRoom", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                    b.Navigation("CoWorkSeats");
+
+                    b.Navigation("MeetingRooms");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingRoom", b =>
                 {
-                    b.HasOne("devops_project_web_t4.Areas.Domain.Room", null)
-                        .WithOne()
-                        .HasForeignKey("devops_project_web_t4.Areas.Domain.MeetingRoom", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
-                {
-                    b.Navigation("MeetingRooms");
-                });
-
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Room", b =>
-                {
-                    b.Navigation("Reservation");
-
                     b.Navigation("Seats");
                 });
 #pragma warning restore 612, 618
