@@ -26,14 +26,14 @@ namespace devops_project_web_t4.Data.Repositories
         public ICollection<Location> GetAll()
         {
             return _locations
-                .Include(l => l.Rooms)
+                .Include(l => l.MeetingRooms)
                 .ToList();
         }
 
         public Location GetById(int id)
         {
             return _locations
-                .Include(l => l.Rooms)
+                .Include(l => l.MeetingRooms)
                 .SingleOrDefault(l => l.Id == id);
         }
 

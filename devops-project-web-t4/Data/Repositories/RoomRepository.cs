@@ -9,39 +9,37 @@ namespace devops_project_web_t4.Data.Repositories
 {
     public class RoomRepository : IRoomRepository
     {
-        private DbSet<Room> _rooms;
+        private DbSet<MeetingRoom> _meetingrooms;
         private ApplicationDbContext _dbContext;
 
         public RoomRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            _rooms = _dbContext.Rooms;
+            _meetingrooms = _dbContext.MeetingRooms;
         }
 
-        public void Add(Room room)
+        public void Add(MeetingRoom meetingroom)
         {
-            _rooms.Add(room);
+            _meetingrooms.Add(meetingroom);
         }
 
-        public ICollection<Room> GetAll()
+        public ICollection<MeetingRoom> GetAll()
         {
-            return _rooms
+            return _meetingrooms
                 .Include(r => r.Seats)
-                .Include(r => r.Reservation)
                 .ToList();
         }
 
-        public Room GetById(int id)
+        public MeetingRoom GetById(int id)
         {
-            return _rooms
+            return _meetingrooms
                 .Include(r => r.Seats)
-                .Include(r => r.Reservation)
                 .SingleOrDefault(r => r.Id == id);
         }
 
-        public void Remove(Room room)
+        public void Remove(MeetingRoom meetingroom)
         {
-            _rooms.Remove(room);
+            _meetingrooms.Remove(meetingroom);
         }
 
         public void SaveChanges()

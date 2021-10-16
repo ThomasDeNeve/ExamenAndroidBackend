@@ -20,7 +20,7 @@ namespace devops_project_web_t4.Data.Migrations
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Rooms_Location_LocationId",
-                table: "Rooms");
+                table: "MeetingRooms");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Seat_Rooms_RoomId",
@@ -28,10 +28,10 @@ namespace devops_project_web_t4.Data.Migrations
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_Rooms",
-                table: "Rooms");
+                table: "MeetingRooms");
 
             migrationBuilder.RenameTable(
-                name: "Rooms",
+                name: "MeetingRooms",
                 newName: "Room");
 
             migrationBuilder.RenameIndex(
@@ -79,7 +79,7 @@ namespace devops_project_web_t4.Data.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Seat_Room_RoomId",
                 table: "Seat",
-                column: "RoomId",
+                column: "MeetingRoomId",
                 principalTable: "Room",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
@@ -113,23 +113,23 @@ namespace devops_project_web_t4.Data.Migrations
 
             migrationBuilder.RenameTable(
                 name: "Room",
-                newName: "Rooms");
+                newName: "MeetingRooms");
 
             migrationBuilder.RenameIndex(
                 name: "IX_Room_LocationId",
-                table: "Rooms",
+                table: "MeetingRooms",
                 newName: "IX_Rooms_LocationId");
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_Rooms",
-                table: "Rooms",
+                table: "MeetingRooms",
                 column: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_CoworkRoom_Rooms_Id",
                 table: "CoworkRoom",
                 column: "Id",
-                principalTable: "Rooms",
+                principalTable: "MeetingRooms",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
@@ -137,7 +137,7 @@ namespace devops_project_web_t4.Data.Migrations
                 name: "FK_MeetingRoom_Rooms_Id",
                 table: "MeetingRoom",
                 column: "Id",
-                principalTable: "Rooms",
+                principalTable: "MeetingRooms",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
@@ -145,13 +145,13 @@ namespace devops_project_web_t4.Data.Migrations
                 name: "FK_Reservation_Rooms_RoomId1",
                 table: "Reservation",
                 column: "RoomId1",
-                principalTable: "Rooms",
+                principalTable: "MeetingRooms",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Rooms_Location_LocationId",
-                table: "Rooms",
+                table: "MeetingRooms",
                 column: "LocationId",
                 principalTable: "Location",
                 principalColumn: "Id",
@@ -160,8 +160,8 @@ namespace devops_project_web_t4.Data.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Seat_Rooms_RoomId",
                 table: "Seat",
-                column: "RoomId",
-                principalTable: "Rooms",
+                column: "MeetingRoomId",
+                principalTable: "MeetingRooms",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }

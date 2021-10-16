@@ -12,7 +12,7 @@ namespace devops_project_web_t4.Data
             context.Database.EnsureCreated();
 
             //Check if database has been seeded with data
-            if(context.Rooms.Any() && context.Locations.Any())
+            if(context.MeetingRooms.Any() && context.Locations.Any())
             {
                 return;
             }

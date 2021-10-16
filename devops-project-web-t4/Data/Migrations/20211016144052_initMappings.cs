@@ -42,7 +42,7 @@ namespace devops_project_web_t4.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rooms",
+                name: "MeetingRooms",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -75,7 +75,7 @@ namespace devops_project_web_t4.Data.Migrations
                     table.ForeignKey(
                         name: "FK_CoworkRoom_Rooms_Id",
                         column: x => x.Id,
-                        principalTable: "Rooms",
+                        principalTable: "MeetingRooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -94,7 +94,7 @@ namespace devops_project_web_t4.Data.Migrations
                     table.ForeignKey(
                         name: "FK_MeetingRoom_Rooms_Id",
                         column: x => x.Id,
-                        principalTable: "Rooms",
+                        principalTable: "MeetingRooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -113,7 +113,7 @@ namespace devops_project_web_t4.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Seat_Rooms_RoomId",
                         column: x => x.RoomId,
-                        principalTable: "Rooms",
+                        principalTable: "MeetingRooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -157,7 +157,7 @@ namespace devops_project_web_t4.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Reservation_Rooms_RoomId1",
                         column: x => x.RoomId1,
-                        principalTable: "Rooms",
+                        principalTable: "MeetingRooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -181,7 +181,7 @@ namespace devops_project_web_t4.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Reservation_RoomId",
                 table: "Reservation",
-                column: "RoomId");
+                column: "MeetingRoomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservation_RoomId1",
@@ -196,13 +196,13 @@ namespace devops_project_web_t4.Data.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_LocationId",
-                table: "Rooms",
+                table: "MeetingRooms",
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Seat_RoomId",
                 table: "Seat",
-                column: "RoomId");
+                column: "MeetingRoomId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -223,7 +223,7 @@ namespace devops_project_web_t4.Data.Migrations
                 name: "Seat");
 
             migrationBuilder.DropTable(
-                name: "Rooms");
+                name: "MeetingRooms");
 
             migrationBuilder.DropTable(
                 name: "Location");

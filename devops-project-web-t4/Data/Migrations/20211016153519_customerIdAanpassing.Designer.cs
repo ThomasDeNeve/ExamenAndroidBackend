@@ -302,7 +302,7 @@ namespace devops_project_web_t4.Data.Migrations
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int>("MeetingRoomId")
                         .HasColumnType("int");
 
                     b.Property<int?>("RoomId1")
@@ -320,7 +320,7 @@ namespace devops_project_web_t4.Data.Migrations
 
                     b.HasIndex("CustomerId1");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("MeetingRoomId");
 
                     b.HasIndex("RoomId1")
                         .IsUnique()
@@ -367,12 +367,12 @@ namespace devops_project_web_t4.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RoomId")
+                    b.Property<int?>("MeetingRoomId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("MeetingRoomId");
 
                     b.ToTable("Seat");
                 });
@@ -462,7 +462,7 @@ namespace devops_project_web_t4.Data.Migrations
 
                     b.HasOne("devops_project_web_t4.Areas.Domain.Room", "Room")
                         .WithMany()
-                        .HasForeignKey("RoomId")
+                        .HasForeignKey("MeetingRoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -486,7 +486,7 @@ namespace devops_project_web_t4.Data.Migrations
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Room", b =>
                 {
                     b.HasOne("devops_project_web_t4.Areas.Domain.Location", null)
-                        .WithMany("Rooms")
+                        .WithMany("MeetingRooms")
                         .HasForeignKey("LocationId");
                 });
 
@@ -494,7 +494,7 @@ namespace devops_project_web_t4.Data.Migrations
                 {
                     b.HasOne("devops_project_web_t4.Areas.Domain.Room", null)
                         .WithMany("Seats")
-                        .HasForeignKey("RoomId");
+                        .HasForeignKey("MeetingRoomId");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkRoom", b =>
@@ -522,7 +522,7 @@ namespace devops_project_web_t4.Data.Migrations
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
                 {
-                    b.Navigation("Rooms");
+                    b.Navigation("MeetingRooms");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Room", b =>

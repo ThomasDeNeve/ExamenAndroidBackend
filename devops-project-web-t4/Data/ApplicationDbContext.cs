@@ -16,8 +16,8 @@ namespace devops_project_web_t4.Data
         }
 
         public DbSet<Location> Locations { get; set; }
-        public DbSet<Room> Rooms { get; set; }
-        public DbSet<CoworkSeat> Seats { get; set; }
+        public DbSet<MeetingRoom> MeetingRooms { get; set; }
+        public DbSet<Seat> Seats { get; set; }
         public DbSet<Reservation> Reservations {get;set;}
         public DbSet<Customer> Customers { get; set; }
 
@@ -25,10 +25,8 @@ namespace devops_project_web_t4.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<Location>(MapLocation);
-            builder.Entity<Room>(MapRoom);
             builder.Entity<MeetingRoom>(MapMeetingRoom);
-            builder.Entity<CoworkRoom>(MapCoworkRoom);
-            builder.Entity<CoworkSeat>(MapSeat);
+            builder.Entity<Seat>(MapSeat);
             builder.Entity<Customer>(MapCustomer);
             builder.Entity<Reservation>(MapReservation);
         }
@@ -46,58 +44,37 @@ namespace devops_project_web_t4.Data
             location.Property(l => l.PostalCode).HasMaxLength(10).IsRequired(); //BE-8000
             location.Property(l => l.Place).HasMaxLength(40).IsRequired();
 
-            location.HasMany(l => l.Rooms).WithOne();
+            location.HasMany(l => l.MeetingRooms).WithOne();
         }
 
-        private static void MapRoom(EntityTypeBuilder<Room> room)
-        {
-            room.ToTable("Room");
-            //room.HasKey(r => r.Id);
-            room.HasOne(r => r.Reservation).WithOne();
-            room.HasMany(r => r.Seats).WithOne();
-
-            room.Property(r => r.Name).IsRequired();
-
-            room.Property(r => r.PriceFullDay).HasColumnName("PriceFullDay").IsRequired();
-            room.Property(r => r.PriceHalfDay).HasColumnName("PriceHalfDay").IsRequired();
-
-            /*room.HasDiscriminator<string>("room_type")
-                .HasValue<MeetingRoom>("meetingroom")
-                .HasValue<CoworkRoom>("coworkroom");*/
-        }
         private static void MapMeetingRoom(EntityTypeBuilder<MeetingRoom> room)
         {
             room.ToTable("MeetingRoom");
-
+            
+            room.Property(r => r.Name).IsRequired();
             room.Property(r => r.PriceEvening).IsRequired();
-            room.Property(r => r.PriceTwoHours).IsRequired(); 
+            room.Property(r => r.PriceTwoHours).IsRequired();
+            room.Property(r => r.PriceFullDay).IsRequired();
+            room.Property(r => r.PriceHalfDay).IsRequired();
+
+            room.HasMany(r => r.Seats).WithOne();
         }
 
-        private static void MapCoworkRoom(EntityTypeBuilder<CoworkRoom> room)
-        {
-            room.ToTable("CoworkRoom");
-        }
-
-        private static void MapSeat(EntityTypeBuilder<CoworkSeat> seat)
+        private static void MapSeat(EntityTypeBuilder<Seat> seat)
         {
             seat.ToTable("Seat");
-
-            //seat.HasKey(s => s.Id);
-            //seat.HasOne(s => s.Room).WithMany().IsRequired();
         }
 
         private static void MapReservation(EntityTypeBuilder<Reservation> reservation)
         {
             reservation.ToTable("Reservation");
 
-            //reservation.HasKey(r => r.Id);
-
             reservation.Property(r => r.From).IsRequired();
             reservation.Property(r => r.To).IsRequired();
             reservation.Property(r => r.IsConfirmed).IsRequired();
 
             reservation.HasOne(r => r.Customer).WithMany().HasForeignKey(r => r.CustomerId).IsRequired();
-            reservation.HasOne(r => r.Room).WithMany().HasForeignKey(r => r.RoomId).IsRequired();
+            reservation.HasOne(r => r.MeetingRoom).WithMany().HasForeignKey(r => r.MeetingRoomId).IsRequired();
             reservation.HasOne(r => r.Seat).WithMany().HasForeignKey(r => r.SeatId).IsRequired();
         }
 

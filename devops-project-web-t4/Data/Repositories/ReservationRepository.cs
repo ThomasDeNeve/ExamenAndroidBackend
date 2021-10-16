@@ -27,7 +27,7 @@ namespace devops_project_web_t4.Data.Repositories
         {
             return _reservations
                 .Include(r => r.Customer)
-                .Include(r => r.Room)
+                .Include(r => r.MeetingRoom)
                 .Include(r => r.Seat)
                 .ToList();
         }
@@ -36,7 +36,7 @@ namespace devops_project_web_t4.Data.Repositories
         {
             return _reservations
                 .Include(r => r.Customer)
-                .Include(r => r.Room)
+                .Include(r => r.MeetingRoom)
                 .Include(r => r.Seat)
                 .SingleOrDefault(r => r.Id == id);
         }

@@ -18,6 +18,6 @@ namespace devops_project_web_t4.Areas.Domain
         public string PostalCode { get; set; }
         public string Place { get; set; }
         public List<MeetingRoom> MeetingRooms { get; set; } = new List<MeetingRoom>();
-        public List<CoworkSeat> CoWorkSeats { get; set; } = new List<CoworkSeat>();
+        public List<Seat> CoWorkSeats { get; set; } = new List<Seat>();
     }
 }

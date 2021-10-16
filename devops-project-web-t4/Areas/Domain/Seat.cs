@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Domain
 {
-    public class CoworkSeat
+    public class Seat
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -23,7 +23,7 @@ namespace devops_project_web_t4.Areas.Domain
         [NotMapped]
         public int NumberOfSeats => Seats.Count;
 
-        public List<CoworkSeat> Seats { get; set; } = new List<CoworkSeat>();
+        public List<Seat> Seats { get; set; } = new List<Seat>();
 
         #endregion
 

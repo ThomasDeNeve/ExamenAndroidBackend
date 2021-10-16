@@ -12,8 +12,8 @@ namespace devops_project_web_t4.Areas.Controllers
         private Customer _currentCustomer;
         private Location _currentLocation;
 
-        private Room _currentRoom;
-        private CoworkSeat _currentSeat;
+        private MeetingRoom _currentRoom;
+        private Seat _currentSeat;
 
         IReservationRepository _reservationRepository;
         ILocationRepository _locationRepository;
@@ -32,7 +32,7 @@ namespace devops_project_web_t4.Areas.Controllers
         }
         public void SelectRoom(int roomId)
         {
-            _currentRoom = _currentLocation.Rooms.FirstOrDefault(r => r.Id == roomId);
+            _currentRoom = _currentLocation.MeetingRooms.FirstOrDefault(r => r.Id == roomId);
         }
         public void SelectSeat(int seatId)
         {
@@ -46,7 +46,7 @@ namespace devops_project_web_t4.Areas.Controllers
                 Customer = _currentCustomer,
                 From = from,
                 To = to,
-                Room = _currentRoom
+                MeetingRoom = _currentRoom
             };
 
             _reservationRepository.Add(reservation);

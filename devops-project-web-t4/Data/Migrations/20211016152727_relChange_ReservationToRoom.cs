@@ -36,7 +36,7 @@ namespace devops_project_web_t4.Data.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Reservation_Room_RoomId",
                 table: "Reservation",
-                column: "RoomId",
+                column: "MeetingRoomId",
                 principalTable: "Room",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -83,7 +83,7 @@ namespace devops_project_web_t4.Data.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Reservation_MeetingRoom_RoomId",
                 table: "Reservation",
-                column: "RoomId",
+                column: "MeetingRoomId",
                 principalTable: "MeetingRoom",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
