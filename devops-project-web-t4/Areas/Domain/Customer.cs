@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Domain
 {
-    public class Seat
+    public class Customer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        //public Reservation Reservation { get; set; }
-        //public Room Room { get; set; }
+        public string Firstname {get;set;}
+        public string Lastname { get; set; }
+        public string Email { get; set; }
+        public string BTW { get; set; }
+        public string Tel { get; set; }
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

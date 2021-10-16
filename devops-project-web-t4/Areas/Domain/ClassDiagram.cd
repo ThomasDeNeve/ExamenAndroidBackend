@@ -2,14 +2,8 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="devops_project_web_t4.Areas.Domain.Location">
     <Position X="3" Y="0.75" Width="1.5" />
-    <AssociationLine Name="Rooms" Type="devops_project_web_t4.Areas.Domain.Room" FixedFromPoint="true">
-      <Path>
-        <Point X="3.875" Y="2.623" />
-        <Point X="3.875" Y="3.25" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAIEAAAAACAAAAAAAAAEIAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAIEAAAAQCAAAAAAAAAEIAAAAAAAA=</HashCode>
       <FileName>Areas\Domain\Location.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -26,7 +20,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>gAACAAAAAAAAQAAAEgAAAAYAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <HashCode>gAACAAAAAAAAAAAAEkAAAAYAAAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Areas\Domain\Room.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -60,7 +54,7 @@
   <Class Name="devops_project_web_t4.Areas.Domain.Reservation">
     <Position X="7.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAQAAAAAAQAAAAAAAAQAEAAAAIAAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AgECQAAAAAAQAAAAAAAAQAEAAAAIAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Areas\Domain\Reservation.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -95,15 +89,25 @@
     <Position X="13" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
-      <FileName>Areas\Domain\ReservatieAlsCoworkingRoomStrategy.cs</FileName>
+      <FileName>Areas\Domain\ReservationAsCoworkingRoomStrategy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="devops_project_web_t4.Areas.Domain.ReservationAsMeetingRoomStrategy">
     <Position X="10" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
-      <FileName>Areas\Domain\ReserveerAlsMeetingRoomStrategy.cs</FileName>
+      <FileName>Areas\Domain\ReservationAsMeetingRoomStrategy.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="devops_project_web_t4.Areas.Domain.Customer">
+    <Position X="10" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAEAAACAAgAAIEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Domain\Customer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Reservations" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
