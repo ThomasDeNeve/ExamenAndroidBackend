@@ -2,7 +2,7 @@
 
 ## Used Technology
 > Fill in this information e.g. SQL Server, SQL Lite, NuGet pacetc.
-- Database:
+- Database: SQL Server
 - NuGet packages:
  - ...
  - ...
@@ -18,5 +18,5 @@ Instructions how to run the project (don't forget the DB Connection etc.)
 - Groupmember 2 : YvesVanduynslager - Vanduynslager - Yves
 - Groupmember 3 : LorenzBaeleOfficial - Baele - Lorenz
 - Groupmember 4 : MaartenGoethals - Goethals - Maarten
-- Groupmember 5 : {{GitHub Username}} - {{Lastname}} - {{Firstname}}
+- Groupmember 5 : ThomasDeNeve - De Neve - Thomas
 - Groupmember 6 : {{GitHub Username}} - {{Lastname}} - {{Firstname}}
