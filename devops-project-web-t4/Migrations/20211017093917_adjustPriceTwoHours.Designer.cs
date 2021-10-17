@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devops_project_web_t4.Data;
 
 namespace devops_project_web_t4.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211017093917_adjustPriceTwoHours")]
+    partial class adjustPriceTwoHours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -333,6 +335,9 @@ namespace devops_project_web_t4.Migrations
                     b.Property<int>("MeetingRoomId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SeatId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("To")
                         .HasColumnType("datetime2");
 
@@ -341,6 +346,8 @@ namespace devops_project_web_t4.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("MeetingRoomId");
+
+                    b.HasIndex("SeatId");
 
                     b.ToTable("Reservation");
                 });
@@ -376,16 +383,11 @@ namespace devops_project_web_t4.Migrations
                     b.Property<double>("PriceYear")
                         .HasColumnType("float");
 
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LocationId");
 
                     b.HasIndex("MeetingRoomId");
-
-                    b.HasIndex("ReservationId");
 
                     b.ToTable("Seat");
                 });
@@ -462,9 +464,17 @@ namespace devops_project_web_t4.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Seat", "Seat")
+                        .WithMany()
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Customer");
 
                     b.Navigation("MeetingRoom");
+
+                    b.Navigation("Seat");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Seat", b =>
@@ -476,10 +486,6 @@ namespace devops_project_web_t4.Migrations
                     b.HasOne("devops_project_web_t4.Areas.Domain.MeetingRoom", null)
                         .WithMany("Seats")
                         .HasForeignKey("MeetingRoomId");
-
-                    b.HasOne("devops_project_web_t4.Areas.Domain.Reservation", null)
-                        .WithMany("Seats")
-                        .HasForeignKey("ReservationId");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
@@ -490,11 +496,6 @@ namespace devops_project_web_t4.Migrations
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingRoom", b =>
-                {
-                    b.Navigation("Seats");
-                });
-
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Reservation", b =>
                 {
                     b.Navigation("Seats");
                 });

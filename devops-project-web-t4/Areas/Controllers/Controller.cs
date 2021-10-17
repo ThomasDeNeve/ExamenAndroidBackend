@@ -53,14 +53,14 @@ namespace devops_project_web_t4.Areas.Controllers
             _reservationRepository.SaveChanges();
         }
 
-        public void ReserveSeat(DateTime from, DateTime to)
+        public void ReserveSeats(List<Seat> seats, DateTime from, DateTime to)
         {
             Reservation reservation = new()
             {
                 Customer = _currentCustomer,
                 From = from,
                 To = to,
-                Seat = _currentSeat
+                Seats = seats
             };
 
             _reservationRepository.Add(reservation);

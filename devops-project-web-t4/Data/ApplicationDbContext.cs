@@ -36,7 +36,6 @@ namespace devops_project_web_t4.Data
             location.ToTable("Location");
 
             location.HasKey(l => l.Id);
-            //location.Property(l => l.Id).ValueGeneratedOnAdd();
 
             location.Property(l => l.Name).IsRequired();
             location.Property(l => l.Street).HasMaxLength(40).IsRequired();
@@ -53,7 +52,7 @@ namespace devops_project_web_t4.Data
             
             room.Property(r => r.Name).IsRequired();
             room.Property(r => r.PriceEvening).IsRequired();
-            room.Property(r => r.PriceTwoHours).IsRequired();
+            room.Property(r => r.PriceTwoHours);
             room.Property(r => r.PriceFullDay).IsRequired();
             room.Property(r => r.PriceHalfDay).IsRequired();
 
@@ -73,24 +72,21 @@ namespace devops_project_web_t4.Data
             reservation.Property(r => r.To).IsRequired();
             reservation.Property(r => r.IsConfirmed).IsRequired();
 
-            reservation.HasOne(r => r.Customer).WithMany().HasForeignKey(r => r.CustomerId).IsRequired();
-            reservation.HasOne(r => r.MeetingRoom).WithMany().HasForeignKey(r => r.MeetingRoomId).IsRequired();
-            reservation.HasOne(r => r.Seat).WithMany().HasForeignKey(r => r.SeatId).IsRequired();
+            reservation.HasOne(r => r.Customer).WithMany()/*.HasForeignKey(r => r.CustomerId)*/.IsRequired();
+            reservation.HasOne(r => r.MeetingRoom).WithMany()/*.HasForeignKey(r => r.MeetingRoomId)*/.IsRequired();
+            reservation.HasMany(r => r.Seats).WithOne();
+            //reservation.HasOne(r => r.Seat).WithMany()/*.HasForeignKey(r => r.SeatId).*/.IsRequired();
         }
 
         private static void MapCustomer(EntityTypeBuilder<Customer> customer)
         {
             customer.ToTable("Customer");
 
-            //customer.HasKey(c => c.Id);
-
             customer.Property(c => c.Firstname);
             customer.Property(c => c.Lastname);
             customer.Property(c => c.Email);
             customer.Property(c => c.Tel);
             customer.Property(c => c.BTW);
-
-            //customer.HasMany(c => c.Reservations).WithOne();
         }
     }
 }
