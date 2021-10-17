@@ -13,5 +13,6 @@ namespace devops_project_web_t4.Data.Repositories
         public void Remove(Location location);
         public void Add(Location location);
         public void SaveChanges();
-    }
+        public ICollection<Location> GetAllByName(string name);
+  }
 }
