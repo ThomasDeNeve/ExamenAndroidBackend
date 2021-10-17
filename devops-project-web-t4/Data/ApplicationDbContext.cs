@@ -44,6 +44,7 @@ namespace devops_project_web_t4.Data
             location.Property(l => l.Place).HasMaxLength(40).IsRequired();
 
             location.HasMany(l => l.MeetingRooms).WithOne();
+            location.HasMany(l => l.CoWorkSeats).WithOne();
         }
 
         private static void MapMeetingRoom(EntityTypeBuilder<MeetingRoom> room)
