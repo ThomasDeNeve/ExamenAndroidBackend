@@ -25,12 +25,16 @@ namespace devops_project_web_t4.Data.Repositories
 
         public ICollection<Seat> GetAll()
         {
-            return _seats.ToList();
+            return _seats
+                .Include(s => s.Price)
+                .ToList();
         }
 
         public Seat GetById(int id)
         {
-            return _seats.SingleOrDefault(s => s.Id == id);
+            return _seats
+                .Include(s => s.Price)
+                .SingleOrDefault(s => s.Id == id);
         }
 
         public void Remove(Seat seat)

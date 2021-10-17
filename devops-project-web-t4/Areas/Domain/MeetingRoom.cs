@@ -20,12 +20,13 @@ namespace devops_project_web_t4.Areas.Domain
         public int NumberOfSeats => Seats.Count;
 
         public List<Seat> Seats { get; set; } = new List<Seat>();
+        public Price Price { get; set; }
         #endregion
 
         #region Methods
 
         #endregion
 
-        public Price Price { get; set; }
+
     }
 }
