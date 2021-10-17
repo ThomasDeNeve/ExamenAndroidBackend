@@ -39,7 +39,7 @@ namespace devops_project_web_t4.Data
             {
                 seatsHierVanvoor[i] = new Seat();
             }
-            var meetingRoomHierVanvoor = new MeetingRoom()
+            var HierVanvoor = new MeetingRoom()
             {
                 Name = "HIER.Vanvoor",
                 PriceHalfDay = 145,
@@ -54,7 +54,7 @@ namespace devops_project_web_t4.Data
             {
                 seatsHierBoven[i] = new Seat();
             }
-            var meetingRoomHierBoven = new MeetingRoom()
+            var HierBoven = new MeetingRoom()
             {
                 Name = "HIER.Boven",
                 PriceHalfDay = 225,
@@ -68,7 +68,7 @@ namespace devops_project_web_t4.Data
             {
                 seatsHierGinder[i] = new Seat();
             }
-            var meetingRoomHierGinder = new MeetingRoom()
+            var HierGinder = new MeetingRoom()
             {
                 Name = "HIER.Ginder",
                 PriceHalfDay = 275,
@@ -77,11 +77,75 @@ namespace devops_project_web_t4.Data
                 Seats = seatsHierGinder.ToList()
             };
 
-            var meetingrooms = new MeetingRoom[]
+            var seatsExecutiveRoom = new Seat[8];
+            for (int i = 0; i < seatsExecutiveRoom.Length; i++)
             {
-                meetingRoomHierBoven,
-                meetingRoomHierGinder,
-                meetingRoomHierVanvoor
+                seatsExecutiveRoom[i] = new Seat();
+            }
+            var TheExecutiveRoom = new MeetingRoom()
+            {
+                Name = "The Executive Room",
+                PriceHalfDay = 145,
+                PriceTwoHours = 80,
+                PriceEvening = 175,
+                PriceFullDay = 250,
+                Seats = seatsExecutiveRoom.ToList()
+            };
+
+            var seatsBoardroom = new Seat[14];
+            for (int i = 0; i < seatsBoardroom.Length; i++)
+            {
+                seatsBoardroom[i] = new Seat();
+            }
+            var Boardroom = new MeetingRoom()
+            {
+                Name = "Boardroom",
+                PriceHalfDay = 225,
+                PriceEvening = 295,
+                PriceFullDay = 355,
+                Seats = seatsBoardroom.ToList()
+            };
+
+            var seatsThePractice = new Seat[50];
+            for (int i = 0; i < seatsThePractice.Length; i++)
+            {
+                seatsThePractice[i] = new Seat();
+            }
+            var ThePractice = new MeetingRoom()
+            {
+                Name = "The Practice",
+                PriceHalfDay = 325,
+                PriceEvening = 375,
+                PriceFullDay = 455,
+                Seats = seatsThePractice.ToList()
+            };
+
+            var seatsTheCourse = new Seat[120];
+            for (int i = 0; i < seatsTheCourse.Length; i++)
+            {
+                seatsTheCourse[i] = new Seat();
+            }
+            var TheCourse = new MeetingRoom()
+            {
+                Name = "The Course",
+                PriceHalfDay = 375,
+                PriceEvening = 400,
+                PriceFullDay = 550,
+                Seats = seatsTheCourse.ToList()
+            };
+
+            var meetingroomsHIER = new MeetingRoom[]
+            {
+                HierBoven,
+                HierGinder,
+                HierVanvoor
+            };
+            var meetingroomsKluizen = new MeetingRoom[]
+            {
+                TheExecutiveRoom,
+                Boardroom,
+                ThePractice,
+                TheCourse
             };
             #endregion
 
@@ -93,13 +157,27 @@ namespace devops_project_web_t4.Data
                 Number = 1,
                 PostalCode = "BE9000",
                 Place = "Gent",
-                MeetingRooms = meetingrooms.ToList(),
+                MeetingRooms = meetingroomsHIER.ToList(),
                 CoWorkSeats = coworkSeatsHIER.ToList()
+            };
+            var locationAalst = new Location()
+            {
+                Name = "Kluizen",
+                Street = "Ergens anders",
+                Number = 1,
+                PostalCode = "BE9300",
+                Place = "Aalst",
+                MeetingRooms = meetingroomsKluizen.ToList(),
+                CoWorkSeats = coworkSeatsKluizen.ToList()
             };
             #endregion
 
+            #region SaveAllTheThings!
             context.Locations.Add(locationGent);
+            context.Locations.Add(locationAalst);
+
             context.SaveChanges();
+            #endregion
         }
     }
 }
