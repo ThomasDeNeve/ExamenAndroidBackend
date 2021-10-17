@@ -19,18 +19,28 @@ namespace devops_project_web_t4.Data
             }
 
             //Initialize data here
-
             #region CoworkSeats
             var coworkSeatsHIER = new Seat[20];
-            for(int i = 0; i < coworkSeatsHIER.Length; i++)
+            Price price = new SeatPrice()
             {
-                coworkSeatsHIER[i] = new Seat() { PriceAfEnToe=70,PriceHalftime=120,PriceFulltime=225,PriceFixedDown=295,PriceFixedUp=320,PriceYear=195}; // Price als aparte entiteit? teveel duplicate data
+                Ocasionally = 70,
+                Halftime = 120,
+                Fulltime = 225,
+                FixedDown = 295,
+                FixedUp = 320,
+                Year = 195
+            };
+
+            for (int i = 0; i < coworkSeatsHIER.Length; i++)
+            {
+                coworkSeatsHIER[i] = new Seat() { Price = price }; // Price als aparte entiteit? teveel duplicate data
             }
             var coworkSeatsKluizen = new Seat[20];
             for (int i = 0; i < coworkSeatsKluizen.Length; i++)
             {
-                coworkSeatsKluizen[i] = new Seat() { PriceAfEnToe = 70, PriceHalftime = 120, PriceFulltime = 225, PriceFixedDown = 295, PriceFixedUp = 320, PriceYear = 195 }; // Price als aparte entiteit? teveel duplicate data
+                coworkSeatsKluizen[i] = new Seat() { Price = price }; // Price als aparte entiteit? teveel duplicate data
             }
+
             #endregion
 
             #region MeetingRooms
@@ -42,10 +52,13 @@ namespace devops_project_web_t4.Data
             var HierVanvoor = new MeetingRoom()
             {
                 Name = "HIER.Vanvoor",
-                PriceHalfDay = 145,
-                PriceTwoHours = 80,
-                PriceEvening = 175,
-                PriceFullDay = 250,
+                Price = new MeetingroomPrice()
+                {
+                    HalfDay = 145,
+                    TwoHours = 80,
+                    Evening = 175,
+                    FullDay = 250,
+                },
                 Seats = seatsHierVanvoor.ToList()
             };
 
@@ -57,9 +70,13 @@ namespace devops_project_web_t4.Data
             var HierBoven = new MeetingRoom()
             {
                 Name = "HIER.Boven",
-                PriceHalfDay = 225,
-                PriceEvening = 295,
-                PriceFullDay = 355,
+                Price = new MeetingroomPrice()
+                {
+                    HalfDay = 225,
+                    Evening = 295,
+                    FullDay = 355,
+                },
+
                 Seats = seatsHierBoven.ToList()
             };
 
@@ -71,9 +88,13 @@ namespace devops_project_web_t4.Data
             var HierGinder = new MeetingRoom()
             {
                 Name = "HIER.Ginder",
-                PriceHalfDay = 275,
-                PriceEvening = 325,
-                PriceFullDay = 395,
+                Price = new MeetingroomPrice()
+                {
+                    HalfDay = 275,
+                    Evening = 325,
+                    FullDay = 395,
+                },
+                
                 Seats = seatsHierGinder.ToList()
             };
 
@@ -85,10 +106,14 @@ namespace devops_project_web_t4.Data
             var TheExecutiveRoom = new MeetingRoom()
             {
                 Name = "The Executive Room",
-                PriceHalfDay = 145,
-                PriceTwoHours = 80,
-                PriceEvening = 175,
-                PriceFullDay = 250,
+                Price = new MeetingroomPrice()
+                {
+                    HalfDay = 145,
+                    TwoHours = 80,
+                    Evening = 175,
+                    FullDay = 250,
+                },
+                
                 Seats = seatsExecutiveRoom.ToList()
             };
 
@@ -100,9 +125,13 @@ namespace devops_project_web_t4.Data
             var Boardroom = new MeetingRoom()
             {
                 Name = "Boardroom",
-                PriceHalfDay = 225,
-                PriceEvening = 295,
-                PriceFullDay = 355,
+                Price = new MeetingroomPrice()
+                {
+                    HalfDay = 225,
+                    Evening = 295,
+                    FullDay = 355,
+                },
+
                 Seats = seatsBoardroom.ToList()
             };
 
@@ -114,9 +143,13 @@ namespace devops_project_web_t4.Data
             var ThePractice = new MeetingRoom()
             {
                 Name = "The Practice",
-                PriceHalfDay = 325,
-                PriceEvening = 375,
-                PriceFullDay = 455,
+                Price = new MeetingroomPrice()
+                {
+                    HalfDay = 325,
+                    Evening = 375,
+                    FullDay = 455,
+                },
+
                 Seats = seatsThePractice.ToList()
             };
 
@@ -128,9 +161,13 @@ namespace devops_project_web_t4.Data
             var TheCourse = new MeetingRoom()
             {
                 Name = "The Course",
-                PriceHalfDay = 375,
-                PriceEvening = 400,
-                PriceFullDay = 550,
+                Price = new MeetingroomPrice()
+                {
+                    HalfDay = 375,
+                    Evening = 400,
+                    FullDay = 550,
+                },
+
                 Seats = seatsTheCourse.ToList()
             };
 

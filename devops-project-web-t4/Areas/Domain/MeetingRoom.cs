@@ -9,10 +9,6 @@ namespace devops_project_web_t4.Areas.Domain
 {
     public class MeetingRoom
     {
-        public double PriceFullDay { get; set; }
-        public double PriceHalfDay { get; set; }
-        public double PriceEvening { get; set; } 
-        public double? PriceTwoHours { get; set; } //enkel van toepassing op HIER.Vanvoor en The Executive Room vergaderzalen.
 
         #region Properties
         [Key]
@@ -29,5 +25,7 @@ namespace devops_project_web_t4.Areas.Domain
         #region Methods
 
         #endregion
+
+        public Price Price { get; set; }
     }
 }

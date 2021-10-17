@@ -20,6 +20,9 @@ namespace devops_project_web_t4.Data
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Reservation> Reservations {get;set;}
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Price> Prices { get; set; }
+        public DbSet<MeetingroomPrice> MeetingroomPrices { get; set; }
+        public DbSet<SeatPrice> SeatPrices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -29,13 +32,28 @@ namespace devops_project_web_t4.Data
             builder.Entity<Seat>(MapSeat);
             builder.Entity<Customer>(MapCustomer);
             builder.Entity<Reservation>(MapReservation);
+            builder.Entity<MeetingroomPrice>(MapMeetingroomPrice);
+            builder.Entity<SeatPrice>(MapSeatPrice);
+            builder.Entity<Price>(MapPrice);
+        }
+
+        private static void MapMeetingroomPrice(EntityTypeBuilder<MeetingroomPrice> price)
+        {
+            price.ToTable("MeetingRoomPrice");
+        }
+        private static void MapSeatPrice(EntityTypeBuilder<SeatPrice> price)
+        {
+            price.ToTable("SeatPrice");
+        }
+
+        private static void MapPrice(EntityTypeBuilder<Price> price)
+        {
+            price.ToTable("Price");
         }
 
         private static void MapLocation(EntityTypeBuilder<Location> location)
         {
             location.ToTable("Location");
-
-            location.HasKey(l => l.Id);
 
             location.Property(l => l.Name).IsRequired();
             location.Property(l => l.Street).HasMaxLength(40).IsRequired();
@@ -52,11 +70,11 @@ namespace devops_project_web_t4.Data
             room.ToTable("MeetingRoom");
             
             room.Property(r => r.Name).IsRequired();
-            room.Property(r => r.PriceEvening).IsRequired();
+            /*room.Property(r => r.PriceEvening).IsRequired();
             room.Property(r => r.PriceTwoHours);
             room.Property(r => r.PriceFullDay).IsRequired();
-            room.Property(r => r.PriceHalfDay).IsRequired();
-
+            room.Property(r => r.PriceHalfDay).IsRequired();*/
+            room.HasOne(r => r.Price).WithMany();
             room.HasMany(r => r.Seats).WithOne();
         }
 
