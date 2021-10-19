@@ -30,7 +30,15 @@ namespace devops_project_web_t4.Data.Repositories
                 .ToList();
         }
 
-        public Location GetById(int id)
+        public ICollection<Location> GetAllByName(string name)
+        {
+            return _locations
+                .Where(l => l.Name.Contains(name))
+                .Include(l => l.MeetingRooms)
+                .ToList();
+        }
+
+    public Location GetById(int id)
         {
             return _locations
                 .Include(l => l.MeetingRooms)

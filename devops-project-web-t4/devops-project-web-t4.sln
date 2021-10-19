@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devops-project-web-t4", "de
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devops-project-web-t4-TEST", "..\devops-project-web-t4-TEST\devops-project-web-t4-TEST.csproj", "{A7307CB2-9D08-4E67-8BE4-3BF04133599B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devops-project-web-t4-API", "..\devops-project-web-t4-API\devops-project-web-t4-API.csproj", "{688B1F56-6493-4038-8F64-989D80D70B9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A7307CB2-9D08-4E67-8BE4-3BF04133599B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7307CB2-9D08-4E67-8BE4-3BF04133599B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7307CB2-9D08-4E67-8BE4-3BF04133599B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{688B1F56-6493-4038-8F64-989D80D70B9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{688B1F56-6493-4038-8F64-989D80D70B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{688B1F56-6493-4038-8F64-989D80D70B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{688B1F56-6493-4038-8F64-989D80D70B9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

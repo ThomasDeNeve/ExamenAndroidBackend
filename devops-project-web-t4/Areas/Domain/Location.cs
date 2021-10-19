@@ -19,5 +19,8 @@ namespace devops_project_web_t4.Areas.Domain
         public string Place { get; set; }
         public List<MeetingRoom> MeetingRooms { get; set; } = new List<MeetingRoom>();
         public List<Seat> CoWorkSeats { get; set; } = new List<Seat>();
+
+        public void AddMeetingRoom(MeetingRoom meetingRoom) => this.MeetingRooms.Add(meetingRoom);
+        public void AddCoWorkSeat(Seat coWorkSeat) => this.CoWorkSeats.Add(coWorkSeat);
     }
 }
