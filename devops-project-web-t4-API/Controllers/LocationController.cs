@@ -55,54 +55,68 @@ namespace devops_project_web_t4_API.Controllers
       return location == null ? NotFound() : location;
     }
 
-    /// <summary>
-    /// Create a location
-    /// </summary>
-    /// <param name="location"></param>
-    /// <returns></returns>
-    [HttpPost]
-    public ActionResult<Location> Create(Location location)
-    {
-      // Should we use DTO's?
-      Location locationToCreate = new Location() { Name = location.Name, Place = location.Place,
-        PostalCode = location.PostalCode, Street = location.Street, Number = location.Number
-      };
-      // ToDo: Make seperate calls for adding objects, and check if they exist before creating a new one.
-      if (location.MeetingRooms?.Count > 0)
-      {
-        foreach (var room in location.MeetingRooms)
+        /// <summary>
+        /// Create a location
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<Location> Create(Location location)
         {
-          locationToCreate.AddMeetingRoom(new MeetingRoom()
-          {
-            Name = room.Name,
-            PriceEvening = room.PriceEvening,
-            PriceFullDay = room.PriceFullDay,
-            PriceHalfDay = room.PriceHalfDay,
-            PriceTwoHours = room.PriceTwoHours
-          });
-        }
-      }
-      if (location.CoWorkSeats?.Count > 0)
-      {
-        foreach (var seat in location.CoWorkSeats)
-        {
-          locationToCreate.AddCoWorkSeat(new Seat()
-          {
-            PriceAfEnToe = seat.PriceAfEnToe,
-            PriceFixedDown = seat.PriceFixedDown,
-            PriceFixedUp = seat.PriceFixedUp,
-            PriceFulltime = seat.PriceFulltime,
-            PriceHalftime = seat.PriceHalftime,
-            PriceYear = seat.PriceYear,
-          });
-        }
-      }
+            // Should we use DTO's?
+            Location locationToCreate = new Location()
+            {
+                Name = location.Name,
+                Place = location.Place,
+                PostalCode = location.PostalCode,
+                Street = location.Street,
+                Number = location.Number
+            };
+            // ToDo: Make seperate calls for adding objects, and check if they exist before creating a new one.
+            if (location.MeetingRooms?.Count > 0)
+            {
+                foreach (var room in location.MeetingRooms)
+                {
+                    Price price = new MeetingroomPrice()
+                    {
+                        Evening = room.Price.Evening,
+                        FullDay = room.Price.FullDay,
+                        HalfDay = room.Price.HalfDay,
+                        TwoHours = room.Price.TwoHours
+                    };
+                    locationToCreate.AddMeetingRoom(new MeetingRoom()
+                    {
+                        Name = room.Name,
+                        Price = price
+                    });
+                }
+                if (location.CoWorkSeats?.Count > 0)
+                {
+                    foreach (var seat in location.CoWorkSeats)
+                    {
+                        Price price = new SeatPrice()
+                        {
+                            Ocasionally = seat.Price.Ocasionally,
+                            FixedDown = seat.Price.FixedDown,
+                            FixedUp = seat.Price.FixedUp,
+                            Fulltime = seat.Price.Fulltime,
+                            Halftime = seat.Price.Halftime,
+                            Year = seat.Price.Year
+                        };
+                        locationToCreate.AddCoWorkSeat(new Seat()
+                        {
+                            Price = price
+                        });
+                    }
+                }
 
-      _locationRepository.Add(locationToCreate);
-      _locationRepository.SaveChanges();
+                
+            }
+            _locationRepository.Add(locationToCreate);
+            _locationRepository.SaveChanges();
 
-      return Ok(location);
-    }
+            return Ok(location);
+        }
 
     /// <summary>
     /// Delete a location
@@ -112,16 +126,16 @@ namespace devops_project_web_t4_API.Controllers
     [HttpDelete("{id}")]
     public ActionResult Delete(int id)
     {
-      Location location = _locationRepository.GetById(id);
+          Location location = _locationRepository.GetById(id);
 
-      if (location == null)
-      {
-        return NotFound();
-      }
-      _locationRepository.Remove(location);
-      _locationRepository.SaveChanges();
+          if (location == null)
+          {
+            return NotFound();
+          }
+          _locationRepository.Remove(location);
+          _locationRepository.SaveChanges();
 
-      return NoContent();
+          return NoContent();
     }
   }
 }
