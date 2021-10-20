@@ -1,0 +1,22 @@
+﻿
+<select id="@Id"
+        class="custom-select" 
+        name="@Id">
+
+    @foreach (var Option in Options)
+            {
+                <option class="dropdown-item" value="option">@Option</option>
+            }
+
+</select>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+
+    [Parameter]
+    public List<string> Options { get; set; }
+
+
+}
