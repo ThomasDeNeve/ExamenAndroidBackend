@@ -1,0 +1,29 @@
+﻿
+<button class="hierButton @getButtonClass()">@Title</button>
+
+
+@code {
+
+    private string PrimaryButtonClass = "primaryHierButton";
+    private string SecondaryButtonClass = "secondaryHierButton";
+    private string DefaultButtonClass = "defaultHierButton";
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Type { get; set; }
+
+    private string getButtonClass()
+    {
+        switch(this.Type)
+        {
+            case "Primary":
+                return this.PrimaryButtonClass;
+            case "Secondary":
+                return this.SecondaryButtonClass;
+            default:
+                return this.DefaultButtonClass;
+        }
+    }
+}

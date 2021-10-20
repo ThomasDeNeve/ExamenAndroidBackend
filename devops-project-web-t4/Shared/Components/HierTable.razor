@@ -1,0 +1,33 @@
+﻿<table class="table">
+    <thead>
+        <tr>
+            @foreach (var Header in Headers)
+            {
+                <th scope="col">@Header</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Row in TableData)
+        {
+            <tr>
+                @foreach (var Cell in Row)
+                {
+                    <td>@Cell</td>
+                }
+            </tr>
+        }
+
+    </tbody>
+</table>
+@code {
+
+    [Parameter]
+    public List<string> Headers { get; set; }
+
+    [Parameter]
+    public List<List<string>> TableData { get; set; }
+
+
+
+}

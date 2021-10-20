@@ -1,0 +1,66 @@
+﻿@page "/stylingDemo"
+@using devops_project_web_t4.Shared.Components
+
+<h3>House Style</h3>
+<br/>
+<br/>
+
+<h4>Button</h4>
+<HierButton Title="Primary" Type="Primary"/>
+<HierButton Title="Secondary" Type="Secondary"/>
+<HierButton Title="Default" Type="Default"/>
+<br/>
+<br/>
+<br/>
+
+<h4>Dropdown</h4>
+<HierDropdown Id="Weekdays" Options="@DropdownOptions"/>
+<br/>
+<br/>
+<br/>
+
+<h4>Text input</h4>
+<HierTextInput Label="Email" Id="email" Type="email"/>
+<HierTextInput Label="Password" Id="password" Type="password"/>
+<br/>
+
+<h4>Datepicker</h4>
+<HierDatepicker Id="demoDatepicker"/>
+<br/>
+<br/>
+<br/>
+
+<h4>Table</h4>
+<HierTable Headers="@TableHeaders" TableData="@TableData"/>
+
+
+@code {
+
+            private List<string> DropdownOptions = new List<string>()
+    {
+        "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
+    };
+
+            private List<string> TableHeaders = new List<string>()
+    {
+        "First name", "Last name", "Email"
+    };
+
+            private List<List<string>> TableData = new List<List<string>>()
+    {
+        new List<string>()
+        {
+            "Jan", "Janssen","JanJanssen@janssen.jn"
+        }, new List<string>()
+        {
+            "Frank","Frankerson","FransFrankerson@frank.fr"
+        }, new List<string>()
+        {
+            "Tim","Timmerman","TimTimmerman@timmerwerken.tm"
+        }, new List<string>()
+        {
+            "Bill","Billbao","BillBilbao@bill.bl"
+        },
+    };
+
+}
