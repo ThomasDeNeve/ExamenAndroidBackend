@@ -1,0 +1,47 @@
+﻿<div class="container">
+    <h1 class="text-center locationSelectorElement">Onze <span class="pinkUnderline">@TitlePinkUnderline</span> in Aalst</h1>
+    <div class="row">
+        <p class="text-center locationSelectorElement">
+            @Message
+        </p>
+    </div>
+
+    <h3 class="text-center locationSelectorElement locationSelectorTitle">Onze 2 locaties</h3>
+    <div class="row">
+        <div class="col-md-2 text-right fadeLeft">
+            <p class="locationSelectorArrowLeftLabel">Klik H<span style="color: #EC3381">I</span>ER.</p>
+            <img src="/Images/arrow1.svg" alt="arrow" class="locationSelectorArrowLeft" />
+        </div>
+        <div class="col-md-4 text-center">
+            <div onclick="@Navigate">
+                <span class="oi oi-map-marker locationSelectorIcon " aria-hidden="true"></span>
+                <p>Albert Lienartstraat 24/1</p>
+                <p>9300 Aalst</p>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div onclick="@Navigate">
+                <span class="oi oi-map-marker locationSelectorIcon " aria-hidden="true"></span>
+                <p>Zandberg 6</p>
+                <p>9300 Aalst</p>
+            </div>
+        </div>
+        <div class="col-md-2 text-left fadeRight">
+            <img src="/Images/arrow2.svg" alt="arrow" class="locationSelectorArrowRight" />
+            <p class="locationSelectorArrowRightLabel">Of H<span style="color: #EC3381">I</span>ER.</p>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string TitlePinkUnderline { get; set; }
+
+    [Parameter]
+    public string Message { get; set; }
+
+    [Parameter]
+    public EventCallback Navigate { get; set; }
+
+}
