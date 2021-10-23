@@ -33,7 +33,7 @@ namespace devops_project_web_t4.Data.Repositories
         public Seat GetById(int id)
         {
             return _seats
-                .Include(s => s.Price)
+                //.Include(s => s.Price)
                 .SingleOrDefault(s => s.Id == id);
         }
 

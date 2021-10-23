@@ -1,0 +1,12 @@
+﻿.box {
+    background-color: #ff3399;
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    border: 2px solid black;
+    margin: 5px;
+}
+
+#details {
+    float: right;
+}

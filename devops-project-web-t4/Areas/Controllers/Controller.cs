@@ -19,9 +19,9 @@ namespace devops_project_web_t4.Areas.Controllers
         ILocationRepository _locationRepository;
         IRoomRepository _roomRepository;
 
-        public Controller(IReservationRepository reservationRepostitory, ILocationRepository locationRepository, IRoomRepository roomRepository)
+        public Controller(IReservationRepository reservationRepository, ILocationRepository locationRepository, IRoomRepository roomRepository)
         {
-            _reservationRepository = reservationRepostitory;
+            _reservationRepository = reservationRepository;
             _locationRepository = locationRepository;
             _roomRepository = roomRepository;
         }
