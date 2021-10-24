@@ -1,0 +1,43 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="285px"
+     height="205px" viewBox="-0.5 -0.5 285 205"
+     content="&lt;mxfile host=&quot;Electron&quot; modified=&quot;2021-10-22T10:24:10.734Z&quot; agent=&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/15.4.0 Chrome/91.0.4472.164 Electron/13.5.0 Safari/537.36&quot; etag=&quot;NlIA2gaRajMQxtpfQJks&quot; version=&quot;15.4.0&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;mtOWUolAV0M5fPBjStqG&quot; name=&quot;Pagina-1&quot;&gt;7ZbNbtswEISfRscCMmk78jFRYvdSBKgL9EyJG1MxpRUo2pL79CUtUj+xgiRAiwRITiZnd8jFfIShgMZ5s1GsFD+QgwxIyJuA3gaEzMJoaX6scmqVFXXCTmXcNfXCNvsD3unUQ8ahGjVqRKmzciymWBSQ6pHGlMJ63PaAcnxryXZwIWxTJi/V3xnXwqkrEvaF75DthL+ahK6SM9/thEowjvVAoncBjRWibld5E4O06flgWt/6mWo3mYJCTxgwebSBkFCyxEA5N7SW5KDAKwkUwKEwqjvPH3/cY7oR11dp+FPEzS27/nWP32bd2N04lT75rBQeCg7WHwb0phaZhm3JUlutzeswmtC5vXdmlg+ZlDFKVGcvXa8pXa2MXmmF+y5rahWfm7W1Qx5BaWiezWE45gYwB61OpsUZOkLuSVK/r3vAJHKaGLL1jcw9ql13dh+7Wbhs/NaBmKY4GbPjdGTyAENwg6xNKKVdslTbCF9Ke5wqucyfLyDi86dpV3vQqXBA2zMGnogkdLn8N1BoNIYyn4Ayn2CyeDuS1zGgXwy6cN+LwfzzMSDLD8Zg8cXgP/4XmW3/AXCuDb6j6N1f&lt;/diagram&gt;&lt;/mxfile&gt;">
+    <defs />
+    <g>
+        <rect x="1" y="51" width="280" height="100" fill="#ff3399" stroke="#000000" stroke-width="3"
+              pointer-events="all" />
+
+        <path id="1" @onclick="@(e => NavigateTo(1))" onmouseover="showMessage(this.id)" onmouseout="hideMessage()" d=" M 61 51 C 61 31 61 21 81 21 C 67.67 21 67.67 1 81 1 C 94.33 1 94.33 21 81 21 C 101 21 101 31 101 51
+                Z" fill="#d5e8d4" stroke="#82b366" stroke-width="2" stroke-miterlimit="10" pointer-events="all"></path>
+
+        <path id="2" @onclick="@(e => NavigateTo(2))" onmouseover="showMessage(this.id)" onmouseout="hideMessage()" d=" M 181 51 C 181 31 181 21 201 21 C 187.67 21 187.67 1 201 1 C 214.33 1 214.33 21 201 21 C 221 21 221
+                31 221 51 Z" fill="#d5e8d4" stroke="#82b366" stroke-width="2" stroke-miterlimit="10"
+              pointer-events="all"></path>
+
+        <path id="3" @onclick="@(e => NavigateTo(3))" onmouseover="showMessage(this.id)" onmouseout="hideMessage()" d=" M 61 201 C 61 181 61 171 81 171 C 67.67 171 67.67 151 81 151 C 94.33 151 94.33 171 81 171 C 101 171
+                101 181 101 201 Z" fill="#d5e8d4" stroke="#82b366" stroke-width="2" stroke-miterlimit="10"
+              pointer-events="all"></path>
+
+        <path id="4" @onclick="@(e => NavigateTo(4))" onmouseover="showMessage(this.id)" onmouseout="hideMessage()"
+              d="M 181 201 C 181 181 181 171 201 171 C 187.67 171 187.67 151 201 151 C 214.33 151 214.33 171 201 171 C 221 171 221 181 221 201 Z"
+              fill="#d5e8d4" stroke="#82b366" stroke-width="2" stroke-miterlimit="10" pointer-events="all"></path>
+    </g>
+</svg>
+
+<div id="details"></div>
+
+
+@code {
+    [Inject]
+    private NavigationManager UriHelper { get; set; }
+
+    /*public void Navigate()
+    {
+        UriHelper.NavigateTo("/coworking/reserveer/reservationform", false);
+    }*/
+
+    public void NavigateTo(int id)
+    {
+        UriHelper.NavigateTo("/coworking/reserveer/reservationform/" + id, false);
+    }
+    //@onclick="Navigate"
+}

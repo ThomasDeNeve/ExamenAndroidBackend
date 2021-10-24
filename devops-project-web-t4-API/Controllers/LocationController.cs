@@ -77,13 +77,6 @@ namespace devops_project_web_t4_API.Controllers
             {
                 foreach (var room in location.MeetingRooms)
                 {
-                    Price price = new MeetingroomPrice()
-                    {
-                        Evening = room.Price.Evening,
-                        FullDay = room.Price.FullDay,
-                        HalfDay = room.Price.HalfDay,
-                        TwoHours = room.Price.TwoHours
-                    };
                     locationToCreate.AddMeetingRoom(new MeetingRoom()
                     {
                         Name = room.Name,
@@ -94,7 +87,7 @@ namespace devops_project_web_t4_API.Controllers
                 {
                     foreach (var seat in location.CoWorkSeats)
                     {
-                        Price price = new SeatPrice()
+                        SeatPrice price = new SeatPrice()
                         {
                             Ocasionally = seat.Price.Ocasionally,
                             FixedDown = seat.Price.FixedDown,
