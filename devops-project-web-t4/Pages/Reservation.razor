@@ -7,9 +7,14 @@
 
 <HierDatepicker/>
 
-<button @onclick="Confirm" class="primaryHierButton">Confirm</button>
+<p> Volledige dag </p>
+<p>Voormiddag</p>
+<p>Namiddag</p>
+<p> Twee uur</p>
 
-<!--<HierButton Title="ConfirmDoNotUse" Type="Primary"></HierButton>-->
+<!--<button @onclick="Confirm" class="primaryHierButton">Confirm</button>-->
+
+<HierButton Title="Confirm" Type="Primary" Action="Confirm"></HierButton>
 
 @code {
     [Parameter]
@@ -21,6 +26,6 @@
     //Nog input halen uit datepicker etc
     public void Confirm()
     {
-        Controller.ConfirmReservation(new DateTime(2021,06,03), new DateTime(2021,06,06), 1, 1);
+        Controller.ConfirmReservation(new DateTime(2021,06,03), new DateTime(2021,06,06), Id, 1);
     }
 }
