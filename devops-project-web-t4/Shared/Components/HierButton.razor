@@ -1,4 +1,4 @@
-﻿<button @onclick="@NavigateToReserveSeat" class="hierButton @GetButtonClass()" >@Title</button>
+﻿<button @onclick="@NavigateTo" class="hierButton @GetButtonClass()" >@Title</button>
 
 
 @code {
@@ -29,12 +29,19 @@
         }
     }
 
+    public void NavigateTo()
+    {
+        _navigationManager.NavigateTo(Action);
+        
+    }
+
+
     [Inject]
     private NavigationManager _navigationManager { get; set; }
 
-    public void NavigateToReserveSeat()
+    /*public void NavigateToReserveSeat()
     {
         _navigationManager.NavigateTo("/coworking/reserveer", false);
-    }
+    }**/
 
 }

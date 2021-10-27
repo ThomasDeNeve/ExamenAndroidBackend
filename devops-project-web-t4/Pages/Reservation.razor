@@ -12,9 +12,9 @@
 <p>Namiddag</p>
 <p> Twee uur</p>
 
-<!--<button @onclick="Confirm" class="primaryHierButton">Confirm</button>-->
+<button @onclick="Confirm" class="hierButton primaryHierButton">Confirm</button>
 
-<HierButton Title="Confirm" Type="Primary" Action="Confirm"></HierButton>
+<!--<HierButton Title="Confirm" Type="Primary" Action="/coworking/reserveer"></HierButton>-->
 
 @code {
     [Parameter]
@@ -22,10 +22,14 @@
 
     [Inject]
     public IReservationController Controller { get; set; }
+    [Inject]
+    private NavigationManager _navigationManager { get; set; }
 
     //Nog input halen uit datepicker etc
     public void Confirm()
     {
         Controller.ConfirmReservation(new DateTime(2021,06,03), new DateTime(2021,06,06), Id, 1);
+        _navigationManager.NavigateTo("/coworking/reserveer");
+
     }
 }
