@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Data.Repositories
 {
-    public class RoomRepository : IRoomRepository
+    public class MeetingRoomRepository : IRoomRepository
     {
         private DbSet<MeetingRoom> _meetingrooms;
         private ApplicationDbContext _dbContext;
 
-        public RoomRepository(ApplicationDbContext dbContext)
+        public MeetingRoomRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
             _meetingrooms = _dbContext.MeetingRooms;
@@ -26,7 +26,6 @@ namespace devops_project_web_t4.Data.Repositories
         public ICollection<MeetingRoom> GetAll()
         {
             return _meetingrooms
-                .Include(r => r.Price)
                 .Include(r => r.Seats)
                 .ToList();
         }
@@ -34,7 +33,6 @@ namespace devops_project_web_t4.Data.Repositories
         public MeetingRoom GetById(int id)
         {
             return _meetingrooms
-                .Include(r => r.Price)
                 .Include(r => r.Seats)
                 .SingleOrDefault(r => r.Id == id);
         }

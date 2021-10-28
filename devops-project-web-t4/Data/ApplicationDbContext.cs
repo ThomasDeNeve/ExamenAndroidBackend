@@ -20,45 +20,20 @@ namespace devops_project_web_t4.Data
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Reservation> Reservations {get;set;}
         public DbSet<Customer> Customers { get; set; }
-        //public DbSet<Price> Prices { get; set; }
-        //public DbSet<MeetingroomPrice> MeetingroomPrices { get; set; }
-        //public DbSet<SeatPrice> SeatPrices { get; set; }
+        public DbSet<CoworkRoom> CoworkRooms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.Entity<Location>(MapLocation);
+
             builder.Entity<MeetingRoom>(MapMeetingRoom);
+            builder.Entity<CoworkRoom>(MapCoworkRoom);
+
             builder.Entity<Seat>(MapSeat);
+
             builder.Entity<Customer>(MapCustomer);
             builder.Entity<Reservation>(MapReservation);
-            builder.Entity<MeetingroomPrice>(MapMeetingroomPrice);
-            builder.Entity<SeatPrice>(MapSeatPrice);
-            builder.Entity<Price>(MapPrice);
-        }
-
-        private static void MapMeetingroomPrice(EntityTypeBuilder<MeetingroomPrice> price)
-        {
-            price.ToTable("MeetingRoomPrice");
-            price.Property(r => r.Evening).IsRequired();
-            price.Property(r => r.TwoHours);
-            price.Property(r => r.FullDay).IsRequired();
-            price.Property(r => r.HalfDay).IsRequired();
-        }
-        private static void MapSeatPrice(EntityTypeBuilder<SeatPrice> price)
-        {
-            price.ToTable("SeatPrice");
-            price.Property(p => p.Ocasionally).IsRequired();
-            price.Property(p => p.FixedDown).IsRequired();
-            price.Property(p => p.FixedUp).IsRequired();
-            price.Property(p => p.Fulltime).IsRequired();
-            price.Property(p => p.Halftime).IsRequired();
-            price.Property(p => p.Year).IsRequired();
-        }
-
-        private static void MapPrice(EntityTypeBuilder<Price> price)
-        {
-            price.ToTable("Price");
         }
 
         private static void MapLocation(EntityTypeBuilder<Location> location)
@@ -72,7 +47,7 @@ namespace devops_project_web_t4.Data
             location.Property(l => l.Place).HasMaxLength(40).IsRequired();
 
             location.HasMany(l => l.MeetingRooms).WithOne();
-            location.HasMany(l => l.CoWorkSeats).WithOne();
+            location.HasMany(l => l.CoWorkRooms).WithOne();
         }
 
         private static void MapMeetingRoom(EntityTypeBuilder<MeetingRoom> room)
@@ -80,13 +55,32 @@ namespace devops_project_web_t4.Data
             room.ToTable("MeetingRoom");
             
             room.Property(r => r.Name).IsRequired();
-            room.HasOne(r => r.Price).WithMany();
+            room.Property(r => r.PriceEvening).IsRequired();
+            room.Property(r => r.PriceTwoHours);
+            room.Property(r => r.PriceFullDay).IsRequired();
+            room.Property(r => r.PriceHalfDay).IsRequired();
             room.HasMany(r => r.Seats).WithOne();
+
+        }
+
+        private static void MapCoworkRoom(EntityTypeBuilder<CoworkRoom> room)
+        {
+            room.ToTable("CoworkRoom");
+
+            room.Property(r => r.Name).IsRequired();
+            room.HasMany(r => r.Seats).WithOne();
+
         }
 
         private static void MapSeat(EntityTypeBuilder<Seat> seat)
         {
             seat.ToTable("Seat");
+            seat.Property(p => p.PriceOcasionally).IsRequired();
+            seat.Property(p => p.PriceFixedDown).IsRequired();
+            seat.Property(p => p.PriceFixedUp).IsRequired();
+            seat.Property(p => p.PriceFulltime).IsRequired();
+            seat.Property(p => p.PriceHalftime).IsRequired();
+            seat.Property(p => p.PriceYear).IsRequired();
         }
 
         private static void MapReservation(EntityTypeBuilder<Reservation> reservation)
@@ -99,7 +93,7 @@ namespace devops_project_web_t4.Data
 
             reservation.HasOne(r => r.Customer).WithMany()/*.HasForeignKey(r => r.CustomerId)*/.IsRequired();
             reservation.HasOne(r => r.MeetingRoom).WithMany()/*.HasForeignKey(r => r.MeetingRoomId)*/;
-            reservation.HasMany(r => r.Seats).WithOne();
+            reservation.HasOne(r => r.Seat).WithMany();
             //reservation.HasOne(r => r.Seat).WithMany()/*.HasForeignKey(r => r.SeatId).*/.IsRequired();
         }
 
