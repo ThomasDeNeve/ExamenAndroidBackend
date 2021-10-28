@@ -1,0 +1,49 @@
+﻿@using devops_project_web_t4.Shared.Components
+@using devops_project_web_t4.Data.Repositories
+@using devops_project_web_t4.Areas.Controllers
+@page "/coworking/reserveer/seatReservationForm/{Id:int}"
+
+<h3>Reservation voor stoel @Id</h3>
+
+<p>U kunt kiezen uit onderstaande oplossingen:</p>
+<input type="radio" id="ocasionally" name="options" /> <label for="ocasionally">HIER. af en toe - €70 - 5d per maand</label>
+<br />
+<input type="radio" id="halftime" name="options" /> <label for="halftime">HIER. halftijds - €120 - 10d per maand</label>
+<br />
+<input type="radio" id="fulltime" name="options" /> <label for="fulltime">HIER. voltijds* - €225 - 24/7 per maand</label>
+<br />
+<input type="radio" id="fixedDown" name="options" /> <label for="fixedDown">HIER. mijn vaste plek beneden - €295 - per maand</label>
+<br />
+<input type="radio" id="fxedUp" name="options" /> <label for="fixedUp">HIER. mijn vaste plek boven - €320 - per maand</label>
+<br />
+<input type="radio" id="year" name="options" /> <label for="year">HIER. voor een jaar - €195 - 10d per jaar (?)</label>
+<br />
+
+
+<button @onclick="Confirm" class="hierButton primaryHierButton">Bevestigen</button>
+<button @onclick="Cancel" class="hierButton secondaryHierButton">Annuleren</button>
+
+<!--<HierButton Title="Confirm" Type="Primary" Action="/coworking/reserveer"></HierButton>-->
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    [Inject]
+    public IReservationController Controller { get; set; }
+    [Inject]
+    private NavigationManager _navigationManager { get; set; }
+
+    //Nog input halen uit datepicker etc
+    public void Confirm()
+    {
+        Controller.ConfirmReservation(new DateTime(2021, 06, 03), new DateTime(2021, 06, 06), Id, 1);
+        _navigationManager.NavigateTo("/coworking/reserveer");
+
+    }
+
+    public void Cancel()
+    {
+        _navigationManager.NavigateTo("/coworking/reserveer");
+    }
+}

@@ -53,6 +53,14 @@ namespace devops_project_web_t4.Areas.Controllers
             _reservationRepository.SaveChanges();
         }
 
+        public String getRoomNameForSeat(int id)
+        {
+            /*
+             * via coworkrepository de room id ophalen voor seat id. Deze dan gebruiken in frontend SeatReservationForm
+             */
+            return "";
+        }
+
         public void ReserveSeats(Seat seat, DateTime from, DateTime to)
         {
             Reservation reservation = new()
