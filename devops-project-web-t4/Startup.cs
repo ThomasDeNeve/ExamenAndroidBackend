@@ -45,7 +45,7 @@ namespace devops_project_web_t4
             services.AddSingleton<WeatherForecastService>();
 
             services.AddScoped<ILocationRepository, LocationRepository>();
-            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IRoomRepository, MeetingRoomRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<ISeatRepository, SeatRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();

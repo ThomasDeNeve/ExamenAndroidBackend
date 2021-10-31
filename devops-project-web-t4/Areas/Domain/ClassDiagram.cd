@@ -1,48 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="devops_project_web_t4.Areas.Domain.Location">
-    <Position X="5.5" Y="0.75" Width="1.5" />
-    <AssociationLine Name="MeetingRooms" Type="devops_project_web_t4.Areas.Domain.MeetingRoom" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="6.039" Y="2.815" />
-        <Point X="6.039" Y="3.19" />
-        <Point X="3.375" Y="3.19" />
-        <Point X="3.375" Y="3.5" />
-      </Path>
+    <Position X="0.5" Y="2" Width="1.5" />
+    <AssociationLine Name="MeetingRooms" Type="devops_project_web_t4.Areas.Domain.MeetingRoom">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.838" Y="0.404" />
+        <Position X="0.404" Y="-0.838" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="CoWorkSeats" Type="devops_project_web_t4.Areas.Domain.Seat" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="6.641" Y="2.815" />
-        <Point X="6.641" Y="3.19" />
-        <Point X="9.938" Y="3.19" />
-        <Point X="9.938" Y="3.5" />
-      </Path>
+    <AssociationLine Name="CoWorkRooms" Type="devops_project_web_t4.Areas.Domain.CoworkRoom">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.18" Y="0.412" />
+        <Position X="0.412" Y="-0.18" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACQAAQAAAAAAAAIEAAAAQAAAAAAAAAAEIAAAAAAAA=</HashCode>
+      <HashCode>AAACQAAAAAAAAAAAIEAAAAQEAAAAAAAAAEIAAAAAAAA=</HashCode>
       <FileName>Areas\Domain\Location.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="MeetingRooms" />
-      <Property Name="CoWorkSeats" />
+      <Property Name="CoWorkRooms" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="devops_project_web_t4.Areas.Domain.MeetingRoom">
-    <Position X="2.75" Y="3.5" Width="1.5" />
+    <Position X="3.75" Y="0.5" Width="1.5" />
     <AssociationLine Name="Seats" Type="devops_project_web_t4.Areas.Domain.Seat" FixedFromPoint="true">
       <Path>
-        <Point X="4.25" Y="3.918" />
-        <Point X="9.25" Y="3.918" />
+        <Point X="5.25" Y="1.114" />
+        <Point X="7.25" Y="1.114" />
+        <Point X="7.25" Y="4" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AABCAAAAAQAAAAAAAgAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABCAEAAAAAgAAAAAkAAAAQAAAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Areas\Domain\MeetingRoom.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -50,75 +39,61 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="devops_project_web_t4.Areas.Domain.Seat">
-    <Position X="9.25" Y="3.5" Width="1.5" />
+    <Position X="6.5" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAIgAAQAAAEAAAAAAAAAEAAAAAAEAA=</HashCode>
       <FileName>Areas\Domain\Seat.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Price" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="devops_project_web_t4.Areas.Domain.Reservation">
-    <Position X="6" Y="5.25" Width="1.5" />
-    <AssociationLine Name="MeetingRoom" Type="devops_project_web_t4.Areas.Domain.MeetingRoom" ManuallyRouted="true" FixedFromPoint="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <AssociationLine Name="MeetingRoom" Type="devops_project_web_t4.Areas.Domain.MeetingRoom" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="6" Y="5.5" />
-        <Point X="3.5" Y="5.5" />
-        <Point X="3.5" Y="5.18" />
+        <Point X="9.312" Y="1.75" />
+        <Point X="9.312" Y="0.125" />
+        <Point X="4.5" Y="0.125" />
+        <Point X="4.5" Y="0.5" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="Customer" Type="devops_project_web_t4.Areas.Domain.Customer">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.07" Y="0.079" />
+        <Position X="0.079" Y="0.07" />
       </MemberNameLabel>
     </AssociationLine>
+    <AssociationLine Name="Seat" Type="devops_project_web_t4.Areas.Domain.Seat" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.25" Y="3.43" />
+        <Point X="9.25" Y="6.632" />
+        <Point X="7.312" Y="6.632" />
+        <Point X="7.312" Y="6.257" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AgECQAAAAAAAAAAAAgAAAAAAAAAIAAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AgECQAAAAAAAAAAAAAAAQAAAAAAIAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Areas\Domain\Reservation.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MeetingRoom" />
       <Property Name="Customer" />
+      <Property Name="Seat" />
     </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="Seats" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="devops_project_web_t4.Areas.Controllers.Controller">
-    <Position X="0.5" Y="0.75" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAIAAAEAAAQAAAAAAAIBAJAAEAAABAAACAAAAIA=</HashCode>
-      <FileName>Areas\Controllers\Controller.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="devops_project_web_t4.Areas.Domain.Customer">
-    <Position X="6" Y="8" Width="1.5" />
+    <Position X="11" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAACAEAAACAAgAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Areas\Domain\Customer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="devops_project_web_t4.Areas.Domain.MeetingroomPrice" Collapsed="true">
-    <Position X="10.75" Y="5.75" Width="1.5" />
+  <Class Name="devops_project_web_t4.Areas.Domain.CoworkRoom">
+    <Position X="3.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAAAAACAAAAAAAACAAAAEAAAAAAAAA=</HashCode>
-      <FileName>Areas\Domain\MeetingroomPrice.cs</FileName>
+      <HashCode>AAACAAAAAAAAAAAAAgAAAAQQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Domain\CoworkRoom.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="devops_project_web_t4.Areas.Domain.Price" Collapsed="true">
-    <Position X="12" Y="4.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Areas\Domain\Price.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="devops_project_web_t4.Areas.Domain.SeatPrice" Collapsed="true">
-    <Position X="13" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>gAAAAAAABAAAAAZAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
-      <FileName>Areas\Domain\SeatPrice.cs</FileName>
-    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Seats" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

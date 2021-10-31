@@ -60,7 +60,7 @@ namespace devops_project_web_t4_API.Controllers
         /// </summary>
         /// <param name="location"></param>
         /// <returns></returns>
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult<Location> Create(Location location)
         {
             // Should we use DTO's?
@@ -80,7 +80,7 @@ namespace devops_project_web_t4_API.Controllers
                     locationToCreate.AddMeetingRoom(new MeetingRoom()
                     {
                         Name = room.Name,
-                        Price = price
+                        //Price = price
                     });
                 }
                 if (location.CoWorkSeats?.Count > 0)
@@ -109,7 +109,7 @@ namespace devops_project_web_t4_API.Controllers
             _locationRepository.SaveChanges();
 
             return Ok(location);
-        }
+        }*/
 
     /// <summary>
     /// Delete a location

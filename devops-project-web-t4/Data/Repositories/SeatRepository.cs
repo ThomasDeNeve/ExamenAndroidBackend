@@ -26,7 +26,6 @@ namespace devops_project_web_t4.Data.Repositories
         public ICollection<Seat> GetAll()
         {
             return _seats
-                .Include(s => s.Price)
                 .ToList();
         }
 

@@ -32,7 +32,7 @@ namespace devops_project_web_t4.Areas.Controllers
                 Customer = new Customer(){Email="Yves.Vanduynslager@voestalpine.com",Firstname="Yves",Lastname = "Vanduynslager", Tel="666"}
             };
 
-            reservation.Seats.Add(_seatRepository.GetById(seatId));
+            reservation.Seat = _seatRepository.GetById(seatId);
 
             _reservationRepository.Add(reservation);
             _reservationRepository.SaveChanges();
