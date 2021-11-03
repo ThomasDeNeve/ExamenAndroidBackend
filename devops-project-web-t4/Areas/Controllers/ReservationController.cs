@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Data.Repositories;
-using devops_project_web_t4.Migrations;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
