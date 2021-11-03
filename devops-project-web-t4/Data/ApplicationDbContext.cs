@@ -8,6 +8,8 @@ using System.Text;
 
 namespace devops_project_web_t4.Data
 {
+    //Mysql update-database issue with Identity: https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/issues/865
+    //Mysql Workbench: https://dev.mysql.com/downloads/mysql/
     public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
