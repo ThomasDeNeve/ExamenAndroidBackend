@@ -1,9 +1,37 @@
-﻿<input type="date"
-       id="@Id"/>
+﻿@using devops_project_web_t4.Pages.Seat
+<input type="date" id="@Id" @bind="SelectedDate"/>
 
-@code {
+<!--bind maakt hier gebruik van onchange method, dus bij wijziging van de datum wordt die automatisch gesaved in SelectedDate-->
+
+@code
+{
+    private DateTime _currentValue;
 
     [Parameter]
     public string Id { get; set; }
+
+    //Reference the Parent component to send back the selected date
+    //Change this to work with a switch for selecting the parent component. Hardcoded ReserveSeat comp nok atm
+    [Parameter]
+    public ReserveSeat Parent { get; set; }
+
+    //Zie @bind
+    public DateTime SelectedDate
+    {
+        set
+        {
+            //Set gekozen datum
+            _currentValue = value;
+            //pass gekozen datum to parent component
+            Parent.SelectedDate = _currentValue;
+        }
+        get => _currentValue;
+    }
+
+    public HierDatepicker()
+    {
+        //Dit zorgt ervoor dat de huidige datum als standaard wordt weergegeven in de datepicker
+        _currentValue = DateTime.Now;
+    }
 
 }

@@ -7,6 +7,18 @@ html, body {
 a, .btn-link {
     color: #0366d6;
 }
+.seattaken {
+    fill: #ff0000;
+    stroke: darkred;
+}
+.seatavailable {
+    fill: #d5e8d4;
+    stroke: #82b366;
+}
+.seattemplock {
+    fill: orange;
+    stroke: darkorange;
+}
 
 .btn-primary {
     color: #fff;

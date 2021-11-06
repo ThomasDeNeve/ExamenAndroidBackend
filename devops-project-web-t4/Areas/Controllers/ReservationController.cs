@@ -36,5 +36,13 @@ namespace devops_project_web_t4.Areas.Controllers
             _reservationRepository.Add(reservation);
             _reservationRepository.SaveChanges();
         }
+
+        public List<int> GetSeatIdsReservedForDate(DateTime date)
+        {
+            ICollection<Reservation> reservations = _reservationRepository.GetAll();
+            List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
+
+            return seatsReserved;
+        }
     }
 }
