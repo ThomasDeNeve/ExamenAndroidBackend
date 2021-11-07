@@ -6,8 +6,7 @@
 <h3>Reserve a coworking seat</h3>
 
 <HierDatepicker Id="dateSelector" Parent="@this"/> <br/>
-<HierPlattegrond SeatsReserved="_seatsReserved"/>
-
+<HierPlattegrond SeatsReserved="_seatsReserved" SelectedDate="SelectedDate"/>
 
 @code {
 
@@ -33,7 +32,6 @@
     public void AdjustPlattegrond()
     {
         _seatsReserved = Controller.GetSeatIdsReservedForDate(_selectedDate);
-
         //redraw
         StateHasChanged();
     }

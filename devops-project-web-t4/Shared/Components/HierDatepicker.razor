@@ -1,11 +1,10 @@
 ﻿@using devops_project_web_t4.Pages.Seat
-<input type="date" id="@Id" @bind="SelectedDate"/>
-
+<input type="date" class="form-control-sm" id="date@Id" @bind="SelectedDate"/>
 <!--bind maakt hier gebruik van onchange method, dus bij wijziging van de datum wordt die automatisch gesaved in SelectedDate-->
 
 @code
 {
-    private DateTime _currentValue;
+    private DateTime _selectedDate;
 
     [Parameter]
     public string Id { get; set; }
@@ -21,17 +20,16 @@
         set
         {
             //Set gekozen datum
-            _currentValue = value;
+            _selectedDate = value;
             //pass gekozen datum to parent component
-            Parent.SelectedDate = _currentValue;
+            Parent.SelectedDate = _selectedDate;
         }
-        get => _currentValue;
+        get => _selectedDate;
     }
 
     public HierDatepicker()
     {
-        //Dit zorgt ervoor dat de huidige datum als standaard wordt weergegeven in de datepicker
-        _currentValue = DateTime.Now;
+    //Dit zorgt ervoor dat de huidige datum als standaard wordt weergegeven in de datepicker
+        _selectedDate = DateTime.Now;
     }
-
 }

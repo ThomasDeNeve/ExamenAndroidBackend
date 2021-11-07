@@ -509,6 +509,9 @@
 
     private List<int> _seatsReserved;
 
+    [Parameter]
+    public DateTime SelectedDate { get; set; }
+
     private bool IsTaken { get; set; }
 
     [Parameter]
@@ -530,9 +533,9 @@
         }
     }
 
-
     public void NavigateTo(int id)
     {
+        Controller.SelectedDate = SelectedDate;
         UriHelper.NavigateTo("/coworking/reserveer/seatReservationForm/" + id, false);
     }
 }

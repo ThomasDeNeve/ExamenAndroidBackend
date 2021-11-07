@@ -3,7 +3,7 @@
 @using devops_project_web_t4.Areas.Controllers
 @page "/coworking/reserveer/seatReservationForm/{Id:int}"
 
-<h3>Reservation voor stoel @Id</h3>
+<h3>Reservation voor stoel @Id </h3>
 
 <p>U kunt kiezen uit onderstaande oplossingen:</p>
 <input type="radio" id="ocasionally" name="options" /> <label for="ocasionally">HIER. af en toe - €70 - 5d per maand</label>
@@ -38,7 +38,7 @@
     //Nog input halen uit datepicker etc
     public void Confirm()
     {
-        Controller.ConfirmReservation(new DateTime(2021,11,6), new DateTime(2021, 06, 06), Id, 1);
+        Controller.ConfirmReservation( Id, 1);
         _navigationManager.NavigateTo("/coworking/reserveer");
 
     }
