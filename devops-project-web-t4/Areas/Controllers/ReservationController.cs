@@ -20,13 +20,15 @@ namespace devops_project_web_t4.Areas.Controllers
             _seatRepository = seatRepository;
         }
 
-        public void ConfirmReservation(DateTime from, DateTime to, int seatId, int customerId)
+        public DateTime SelectedDate { get; set; }
+
+        public void ConfirmReservation(int seatId, int customerId)
         {
             
             Reservation reservation = new()
             {
-                From = from,
-                To = to,
+                From = SelectedDate,
+                To = SelectedDate,
                 //Customer = _customerRepository.GetById(customerId)
                 Customer = new Customer(){Email="Yves.Vanduynslager@voestalpine.com",Firstname="Yves",Lastname = "Vanduynslager", Tel="666"}
             };
@@ -35,6 +37,14 @@ namespace devops_project_web_t4.Areas.Controllers
 
             _reservationRepository.Add(reservation);
             _reservationRepository.SaveChanges();
+        }
+
+        public List<int> GetSeatIdsReservedForDate(DateTime date)
+        {
+            ICollection<Reservation> reservations = _reservationRepository.GetAll();
+            List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
+
+            return seatsReserved;
         }
     }
 }
