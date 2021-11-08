@@ -73,10 +73,10 @@ namespace devops_project_web_t4_API
       });
 
       // Allow access from other domains.
-      services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()
+      /*services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader()
-      ));
+      ));*/
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,7 +87,7 @@ namespace devops_project_web_t4_API
         app.UseDeveloperExceptionPage();
       }
 
-      app.UseHttpsRedirection();
+      //app.UseHttpsRedirection();
 
       app.UseOpenApi(); //Serves the registered OpenAPI/Swagger documents by default on `/swagger/{documentName}/swagger.json`
       app.UseSwaggerUi3(); //Serves the Swagger UI 3 web uito view the OpenAPI/Swagger documents by default on `/swagger`
@@ -97,7 +97,7 @@ namespace devops_project_web_t4_API
       app.UseAuthentication();
       app.UseAuthorization();
 
-      app.UseCors("AllowAllOrigins");
+      //app.UseCors("AllowAllOrigins");
 
       app.UseEndpoints(endpoints =>
       {
