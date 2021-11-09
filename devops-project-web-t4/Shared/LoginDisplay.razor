@@ -1,12 +1,23 @@
-﻿<AuthorizeView>
+﻿@inject AuthenticationStateProvider AuthState
+
+<AuthorizeView>
     <Authorized>
-        <a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a>
-        <form method="post" action="Identity/Account/LogOut">
-            <button type="submit" class="nav-link btn btn-link">Log out</button>
-        </form>
+        Welkom @Username. <a href="logout">Log out</a>
     </Authorized>
     <NotAuthorized>
-        <a href="Identity/Account/Register">Register</a>
-        <a href="Identity/Account/Login">Log in</a>
+        <a href="login?redirectUri=/">Log in</a>
     </NotAuthorized>
 </AuthorizeView>
+
+@code {
+    private string Username;
+    private string Picture = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await AuthState.GetAuthenticationStateAsync();
+        Username = state.User.Identity.Name;
+
+        await base.OnInitializedAsync();
+    }
+}
