@@ -1,6 +1,10 @@
-﻿@using System.Reflection.Metadata
+﻿@implements IDisposable
+@inject StateContainer StateContainer 
+
+@using System.Reflection.Metadata
 @using System.Data
 @using devops_project_web_t4.Areas.Controllers
+@using devops_project_web_t4.Areas.State
 @using devops_project_web_t4.Pages.Seat
 @using Microsoft.VisualBasic
 @using Controller = Microsoft.AspNetCore.Mvc.Controller
@@ -508,34 +512,46 @@
     private IReservationController Controller { get; set; }
 
     private List<int> _seatsReserved;
+    private DateTime _selectedDate;
 
     [Parameter]
-    public DateTime SelectedDate { get; set; }
-
-    private bool IsTaken { get; set; }
-
-    [Parameter]
-    public List<int> SeatsReserved
+    public DateTime SelectedDate
     {
-        get { return _seatsReserved; }
+        get => _selectedDate;
         set
         {
-            if (value == null)
-            {
-                _seatsReserved = Controller.GetSeatIdsReservedForDate(DateTime.Now);
-            }
-            else
-            {
-                _seatsReserved = value;
-            }
+            _selectedDate = value;
+            _seatsReserved = Controller.GetSeatIdsReservedForDate(_selectedDate);
 
             StateHasChanged();
         }
     }
 
+    private bool IsTaken { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _seatsReserved = Controller.GetSeatIdsReservedForDate(StateContainer.SelectedDate);
+        
+        if (_seatsReserved != null)
+        {
+            foreach (int i in _seatsReserved)
+            {
+                Console.WriteLine("plattegrond seat" + i + " reserved");
+            }
+        }
+
+        StateContainer.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        StateContainer.OnChange -= StateHasChanged;
+    }
+
+
     public void NavigateTo(int id)
     {
-        Controller.SelectedDate = SelectedDate;
         UriHelper.NavigateTo("/coworking/reserveer/seatReservationForm/" + id, false);
     }
 }

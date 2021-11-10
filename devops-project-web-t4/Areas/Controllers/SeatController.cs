@@ -7,7 +7,7 @@ using System.Text;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
-    public class Controller
+    public class SeatController
     {
         private Customer _currentCustomer;
         private Location _currentLocation;
@@ -19,7 +19,7 @@ namespace devops_project_web_t4.Areas.Controllers
         ILocationRepository _locationRepository;
         IRoomRepository _roomRepository;
 
-        public Controller(IReservationRepository reservationRepository, ILocationRepository locationRepository, IRoomRepository roomRepository)
+        public SeatController(IReservationRepository reservationRepository, ILocationRepository locationRepository, IRoomRepository roomRepository)
         {
             _reservationRepository = reservationRepository;
             _locationRepository = locationRepository;
@@ -73,6 +73,14 @@ namespace devops_project_web_t4.Areas.Controllers
 
             _reservationRepository.Add(reservation);
             _reservationRepository.SaveChanges();
+        }
+
+        public List<int> GetSeatIdsReservedForDate(DateTime date)
+        {
+            ICollection<Reservation> reservations = _reservationRepository.GetAll();
+            List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
+
+            return seatsReserved;
         }
     }
 }

@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Controllers;
+using devops_project_web_t4.Areas.State;
 
 namespace devops_project_web_t4
 {
@@ -53,6 +54,8 @@ namespace devops_project_web_t4
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddScoped<IReservationController, ReservationController>();
+            services.AddScoped<SeatController>();
+            services.AddScoped<StateContainer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
