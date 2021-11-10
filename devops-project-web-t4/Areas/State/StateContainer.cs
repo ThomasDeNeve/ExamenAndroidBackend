@@ -10,19 +10,25 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace devops_project_web_t4.Areas.State
 {
+    /// <summary>
+    /// StateContainer. Holds an observable SelectedDate property so we can use the property wherever it's needed.
+    /// </summary>
     public class StateContainer
     {
-        private readonly SeatController _seatController;
+        private readonly ISeatController _seatController;
 
         private DateTime _dateSelected = DateTime.Now;
         private List<int> _seatsReserved = new List<int>();
 
-        public StateContainer(SeatController r)
+        public StateContainer(ISeatController r)
         {
             _seatController = r;
             SelectedDate = DateTime.Now;
         }
 
+        /// <summary>
+        /// Passed on by HierDatepicker
+        /// </summary>
         public DateTime SelectedDate
         {
             get => _dateSelected;
@@ -44,17 +50,10 @@ namespace devops_project_web_t4.Areas.State
         public List<int> SeatsReserved
         {
             get => _seatsReserved;
-            set
-            {
-                _seatsReserved = value;
-                
-
-                //NotifyStateChanged();
-
-            }
+            set => _seatsReserved = value;
         }
 
-        public event Action OnChange;
+        public Action OnChange; //Func<Task>
 
         private void NotifyStateChanged() => OnChange?.Invoke();
     }

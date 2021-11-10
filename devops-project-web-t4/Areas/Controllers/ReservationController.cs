@@ -15,9 +15,6 @@ namespace devops_project_web_t4.Areas.Controllers
         private readonly ICustomerRepository _customerRepository;
         private readonly ISeatRepository _seatRepository;
         private readonly StateContainer _stateContainer;
-        
-        /*[Inject]
-        private StateContainer StateContainer { get; set; }*/
 
         public ReservationController(StateContainer sc, IReservationRepository reservationRepository, ICustomerRepository customerRepository, ISeatRepository seatRepository)
         {
@@ -36,7 +33,6 @@ namespace devops_project_web_t4.Areas.Controllers
             {
                 From = _stateContainer.SelectedDate,
                 To = _stateContainer.SelectedDate,
-                //To = SelectedDate,
                 //Customer = _customerRepository.GetById(customerId)
                 Customer = new Customer(){Email="Yves.Vanduynslager@voestalpine.com",Firstname="Yves",Lastname = "Vanduynslager", Tel="666"}
             };

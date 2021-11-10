@@ -11,60 +11,10 @@
 
 <h3>Reserve a coworking seat</h3>
 
-<!--<HierDatepicker Id="dateSelector" Parent="this"/> <br/>-->
-<!--<HierPlattegrond SeatsReserved="_seatsReserved" SelectedDate="SelectedDate"/>-->
 <HierDatepicker Id="dateSelector"></HierDatepicker><br/>
 <HierPlattegrond SelectedDate="@StateContainer.SelectedDate"></HierPlattegrond>
 
-@code {
+@code
+{
 
-    //[Inject]
-    //public IReservationController Controller { get; set; }
-
-    //private DateTime _selectedDate;
-    //private List<int> _seatsReserved;
-
-    /*public DateTime SelectedDate
-    {
-        get => _selectedDate;
-        set
-        {
-            _selectedDate = value;
-            AdjustPlattegrond();
-            
-            //redraw
-            StateHasChanged();
-        }
-    }*/
-
-    /*public void AdjustPlattegrond()
-    {
-        //_seatsReserved = Controller.GetSeatIdsReservedForDate(_selectedDate);
-        //redraw
-        StateHasChanged();
-    }*/
-
-    /*public ReserveSeat()
-    {
-
-    }
-    public ReserveSeat(IReservationController controller) :this()
-    {
-        //_seatsReserved = controller.GetSeatIdsReservedForDate(DateTime.Now);
-
-        //redraw
-        StateHasChanged();
-    }*/
-    protected override void OnInitialized()
-    {
-    //_seatsReserved = Controller.GetSeatIdsReservedForDate(StateContainer.SelectedDate);
-
-
-        StateContainer.OnChange += StateHasChanged;
-    }
-
-    public void Dispose()
-    {
-        StateContainer.OnChange -= StateHasChanged;
-    }
 }

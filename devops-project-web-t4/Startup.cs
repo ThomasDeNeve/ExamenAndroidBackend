@@ -54,7 +54,8 @@ namespace devops_project_web_t4
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddScoped<IReservationController, ReservationController>();
-            services.AddScoped<SeatController>();
+            services.AddScoped<ISeatController, SeatController>();
+
             services.AddScoped<StateContainer>();
         }
 

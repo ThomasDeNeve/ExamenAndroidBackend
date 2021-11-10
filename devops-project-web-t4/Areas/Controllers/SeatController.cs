@@ -7,7 +7,7 @@ using System.Text;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
-    public class SeatController
+    public class SeatController : ISeatController
     {
         private Customer _currentCustomer;
         private Location _currentLocation;
@@ -24,55 +24,6 @@ namespace devops_project_web_t4.Areas.Controllers
             _reservationRepository = reservationRepository;
             _locationRepository = locationRepository;
             _roomRepository = roomRepository;
-        }
-
-        public void SelectLocation(int locationId)
-        {
-            _currentLocation = _locationRepository.GetById(locationId);
-        }
-        public void SelectRoom(int roomId)
-        {
-            _currentRoom = _currentLocation.MeetingRooms.FirstOrDefault(r => r.Id == roomId);
-        }
-        public void SelectSeat(int seatId)
-        {
-            _currentSeat = _currentRoom.Seats.FirstOrDefault(s => s.Id == seatId);
-        }
-
-        public void ReserveMeetingRoom(DateTime from, DateTime to)
-        {
-            Reservation reservation = new()
-            {
-                Customer = _currentCustomer,
-                From = from,
-                To = to,
-                MeetingRoom = _currentRoom
-            };
-
-            _reservationRepository.Add(reservation);
-            _reservationRepository.SaveChanges();
-        }
-
-        public String getRoomNameForSeat(int id)
-        {
-            /*
-             * via coworkrepository de room id ophalen voor seat id. Deze dan gebruiken in frontend SeatReservationForm
-             */
-            return "";
-        }
-
-        public void ReserveSeats(Seat seat, DateTime from, DateTime to)
-        {
-            Reservation reservation = new()
-            {
-                Customer = _currentCustomer,
-                From = from,
-                To = to,
-                Seat = seat
-            };
-
-            _reservationRepository.Add(reservation);
-            _reservationRepository.SaveChanges();
         }
 
         public List<int> GetSeatIdsReservedForDate(DateTime date)

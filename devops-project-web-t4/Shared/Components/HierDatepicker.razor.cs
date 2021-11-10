@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 
-namespace devops_project_web_t4.Pages.Seat
+namespace devops_project_web_t4.Shared.Components
 {
-    public partial class ReserveSeat
+    public partial class HierDatepicker
     {
+        [Parameter]
+        public string Id { get; set; }
+
         protected override void OnInitialized()
         {
             StateContainer.OnChange += StateHasChanged;

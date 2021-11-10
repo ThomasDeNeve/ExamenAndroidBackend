@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
-    public interface IReservationController
+    public interface ISeatController
     {
-        public void ConfirmReservation(int seatId, int customerId);
-
         public List<int> GetSeatIdsReservedForDate(DateTime date);
     }
 }

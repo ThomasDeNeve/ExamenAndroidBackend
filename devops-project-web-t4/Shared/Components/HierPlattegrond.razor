@@ -506,52 +506,5 @@
 
 @code
 {
-    [Inject]
-    private NavigationManager UriHelper { get; set; }
-    [Inject]
-    private IReservationController Controller { get; set; }
-
-    private List<int> _seatsReserved;
-    private DateTime _selectedDate;
-
-    [Parameter]
-    public DateTime SelectedDate
-    {
-        get => _selectedDate;
-        set
-        {
-            _selectedDate = value;
-            _seatsReserved = Controller.GetSeatIdsReservedForDate(_selectedDate);
-
-            StateHasChanged();
-        }
-    }
-
-    private bool IsTaken { get; set; }
-
-    protected override void OnInitialized()
-    {
-        _seatsReserved = Controller.GetSeatIdsReservedForDate(StateContainer.SelectedDate);
-        
-        if (_seatsReserved != null)
-        {
-            foreach (int i in _seatsReserved)
-            {
-                Console.WriteLine("plattegrond seat" + i + " reserved");
-            }
-        }
-
-        StateContainer.OnChange += StateHasChanged;
-    }
-
-    public void Dispose()
-    {
-        StateContainer.OnChange -= StateHasChanged;
-    }
-
-
-    public void NavigateTo(int id)
-    {
-        UriHelper.NavigateTo("/coworking/reserveer/seatReservationForm/" + id, false);
-    }
+    
 }
