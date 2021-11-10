@@ -2,7 +2,7 @@
 
 ## Used Technology
 > Fill in this information e.g. SQL Server, SQL Lite, NuGet pacetc.
-- Database: SQL Server
+- Database: MySQL
 - NuGet packages:
  - ...
  - ...
