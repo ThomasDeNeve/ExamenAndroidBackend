@@ -3,10 +3,14 @@
 
 <LocationSelector TitlePinkUnderline="coworking"
                   Message="@Message"
-                  Navigate="@NavigateToReserveSeat" />
+                  Navigate="@NavigateToCoworkingOverzicht" />
 
 
 @code {
 
 
+    public void NavigateToCoworkingOverzicht()
+    {
+        _navigationManager.NavigateTo("/coworking/overzicht", false);
+    }
 }

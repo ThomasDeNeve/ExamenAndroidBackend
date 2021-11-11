@@ -35,12 +35,8 @@ namespace devops_project_web_t4
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-                options.UseMySql(Configuration.GetConnectionString("Mysql"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql")))); //https://dev.mysql.com/downloads/mysql/
-
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
+                //options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocal")));
+                options.UseMySql(Configuration.GetConnectionString("Mysqllocal"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysqllocal")))); //https://dev.mysql.com/downloads/mysql/
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
@@ -48,10 +44,11 @@ namespace devops_project_web_t4
             services.AddSingleton<WeatherForecastService>();
 
             services.AddScoped<ILocationRepository, LocationRepository>();
-            services.AddScoped<IRoomRepository, MeetingRoomRepository>();
+            services.AddScoped<IMeetingRoomRepository, MeetingRoomRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<ISeatRepository, SeatRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICoworkRoomRepository, CoworkRoomRepository>();
 
             services.AddScoped<IReservationController, ReservationController>();
             services.AddScoped<ISeatController, SeatController>();

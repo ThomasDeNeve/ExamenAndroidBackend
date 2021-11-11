@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Data.Repositories
 {
-    public class MeetingRoomRepository : IRoomRepository
+    public class MeetingRoomRepository : IMeetingRoomRepository
     {
         private DbSet<MeetingRoom> _meetingrooms;
         private ApplicationDbContext _dbContext;
