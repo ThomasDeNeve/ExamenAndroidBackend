@@ -28,6 +28,16 @@ a, .btn-link {
     border: 1px solid #EC3381;
 }
 
+#bureelgelijkvloers1 {
+    display: none;
+}
+#bureelgelijkvloers2 {
+    display: none;
+}
+#coworkgelijkvloers1 {
+    display: none;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #EC3381;

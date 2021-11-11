@@ -21,7 +21,7 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         public void Confirm()
         {
             Controller.ConfirmReservation(Id, 1);
-            _navigationManager.NavigateTo("/coworking/reserveer");
+            _navigationManager.NavigateTo("/coworking/overzicht");
 
         }
 

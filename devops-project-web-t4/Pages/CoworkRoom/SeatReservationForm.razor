@@ -3,6 +3,8 @@
 @using devops_project_web_t4.Areas.Controllers
 @page "/coworking/reserveer/seatReservationForm/{Id:int}"
 
+<div id="reservationform">
+
 <h3>Reservation voor stoel @Id </h3>
 
 <p>U kunt kiezen uit onderstaande oplossingen:</p>
@@ -22,6 +24,8 @@
 
 <button @onclick="Confirm" class="hierButton primaryHierButton">Bevestigen</button>
 <button @onclick="Cancel" class="hierButton secondaryHierButton">Annuleren</button>
+
+</div>
 
 @code
 {
