@@ -1,5 +1,4 @@
 ﻿using devops_project_web_t4.Areas.Domain;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -10,7 +9,7 @@ namespace devops_project_web_t4.Data
 {
     //Mysql update-database issue with Identity: https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/issues/865
     //Mysql Workbench: https://dev.mysql.com/downloads/mysql/
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

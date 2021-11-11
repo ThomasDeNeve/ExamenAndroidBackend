@@ -1,4 +1,3 @@
-using devops_project_web_t4.Areas.Identity;
 using devops_project_web_t4.Data;
 using devops_project_web_t4.Data.Repositories;
 using Microsoft.AspNetCore.Authentication;
@@ -7,15 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Web;
-using Microsoft.IdentityModel.Tokens;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using System;
@@ -38,13 +34,11 @@ namespace devops_project_web_t4_API
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-        Configuration.GetConnectionString("DefaultConnection")));
-      services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-          .AddEntityFrameworkStores<ApplicationDbContext>();
+      services.AddDbContext<ApplicationDbContext>(options =>
+        //options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocal")));
+        options.UseMySql(Configuration.GetConnectionString("Mysql"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql"))));
       services.AddRazorPages();
       services.AddServerSideBlazor();
-      services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
       services.AddDatabaseDeveloperPageExceptionFilter();
       services.AddSingleton<WeatherForecastService>();
 
@@ -71,12 +65,6 @@ namespace devops_project_web_t4_API
 
         c.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT")); // Adds the token when a request is send.
       });
-
-      // Allow access from other domains.
-      services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-      ));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,8 +84,6 @@ namespace devops_project_web_t4_API
 
       app.UseAuthentication();
       app.UseAuthorization();
-
-      app.UseCors("AllowAllOrigins");
 
       app.UseEndpoints(endpoints =>
       {
