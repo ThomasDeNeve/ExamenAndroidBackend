@@ -23,9 +23,9 @@ WORKDIR /source/devops-project-web-t4/
 RUN ls -al
 RUN dotnet publish devops-project-web-t4.csproj -c release -o /app --no-restore
 
-# WORKDIR /source/devops-project-web-t4-API/
+WORKDIR /source/devops-project-web-t4-API/
 # RUN ls -al
-# RUN dotnet publish devops-project-web-t4-API.csproj -c release -o /app --no-restore
+RUN dotnet publish devops-project-web-t4-API.csproj -c release -o /app --no-restore
 
 WORKDIR /source/devops-project-web-t4-TEST/
 RUN ls -al
