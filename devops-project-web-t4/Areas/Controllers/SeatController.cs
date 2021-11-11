@@ -17,9 +17,9 @@ namespace devops_project_web_t4.Areas.Controllers
 
         IReservationRepository _reservationRepository;
         ILocationRepository _locationRepository;
-        IRoomRepository _roomRepository;
+        ICoworkRoomRepository _roomRepository;
 
-        public SeatController(IReservationRepository reservationRepository, ILocationRepository locationRepository, IRoomRepository roomRepository)
+        public SeatController(IReservationRepository reservationRepository, ILocationRepository locationRepository, ICoworkRoomRepository roomRepository)
         {
             _reservationRepository = reservationRepository;
             _locationRepository = locationRepository;

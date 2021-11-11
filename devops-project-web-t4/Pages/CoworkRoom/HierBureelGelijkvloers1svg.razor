@@ -1,0 +1,24 @@
+﻿@using devops_project_web_t4.Areas.State
+@using devops_project_web_t4.Areas.Controllers
+
+@implements IDisposable
+@inject StateContainer StateContainer
+
+<p>Selected date: @StateContainer.SelectedDate</p>
+
+<br />
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="283px" height="202px" viewBox="-0.5 -0.5 283 202" content="&lt;mxfile host=&quot;Electron&quot; modified=&quot;2021-11-09T08:23:50.141Z&quot; agent=&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/15.4.0 Chrome/91.0.4472.164 Electron/13.5.0 Safari/537.36&quot; etag=&quot;uxSqpp7htmMNUdaSl7NR&quot; version=&quot;15.4.0&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;lmAy1ctms8woXscuyDJn&quot; name=&quot;Pagina-1&quot;&gt;7ZZNb5wwEIZ/DceVwAbKHhuSTSo1p63UXg2eAInByGsK9NfX7I4XCNluEzWJIlXiYL/M+ON9BmyHxmV3rVid30oOwiEu7xx66RDi+YQ4w+Py/qAEAQqZKjgGjcK2+AUouqg2BYfdLFBLKXRRz8VUVhWkeqYxpWQ7D7uTYj5rzTJYCNuUiaX6veA6t6tzR/0GiizHmQPUS2ZDUdjljMt2ItErh8ZKSn1olV0MYrDOunLI25x4e1yWgkr/TcL9t69V8znov8h1EH/a/Vh1/u0KR/nJRIPbxcXq3u4/U7KpMQyUhu4p11liw93lurzjbk2RgCxBq96EdHPOWB6+HaEdzSYRavnEaGIJMAScHYceXTANNOIZppDzphiY9dBkqZbKoRdtXmjY1iwdxNZ8CEbLdWmmvfRMc6eVfDiWjzHj4q4QIpZiSDbjUR5AxP0h0laJO3QeQKe57ezHmOREJKFhaN4oqZkuZGXklRcNsSdxTbGcLojTrKI5LC9YwvKfYBW8Fir6wVC9Opj3AuH/B7FPCd+ZQ/DBOLzdvyt8s1+XTO6HiwhxBUtATCkkjQKrJFABh8qouL8/cg0ne8M6mCA1R3TFgaPbZ4A+wrfZULpeL0DTx0D/OZd+bvC58957wXlvugjDdsf71j50cmelV78B&lt;/diagram&gt;&lt;/mxfile&gt;">
+    <defs />
+    <g>
+        <path id="1" class="seat@(_seatsReserved.Contains(1) ? "taken":"available")" @onclick="@(e => NavigateTo(1))" onmouseover="showMessage(this.id)" onmouseout="hideMessage()" d="M 181 201 C 181 181 181 171 201 171 C 187.67 171 187.67 151 201 151 C 214.33 151 214.33 171 201 171 C 221 171 221 181 221 201 Z" fill="#d5e8d4" stroke="#82b366" stroke-width="2" stroke-miterlimit="10" transform="rotate(-180,201,176)" pointer-events="all" />
+        <path id="169" class="seat@(_seatsReserved.Contains(169) ? "taken":"available")" @onclick="@(e => NavigateTo(169))" onmouseover="showMessage(this.id)" onmouseout="hideMessage()" d="M 181 51 C 181 31 181 21 201 21 C 187.67 21 187.67 1 201 1 C 214.33 1 214.33 21 201 21 C 221 21 221 31 221 51 Z" fill="#d5e8d4" stroke="#82b366" stroke-width="2" stroke-miterlimit="10" pointer-events="all" />
+        <path id="170" class="seat@(_seatsReserved.Contains(170) ? "taken":"available")" @onclick="@(e => NavigateTo(170))" onmouseover="showMessage(this.id)" onmouseout="hideMessage()" d="M 61 51 C 61 31 61 21 81 21 C 67.67 21 67.67 1 81 1 C 94.33 1 94.33 21 81 21 C 101 21 101 31 101 51 Z" fill="#d5e8d4" stroke="#82b366" stroke-width="2" stroke-miterlimit="10" pointer-events="all" />
+        <path id="171" class="seat@(_seatsReserved.Contains(171) ? "taken":"available")" @onclick="@(e => NavigateTo(171))" onmouseover="showMessage(this.id)" onmouseout="hideMessage()" d="M 61 201 C 61 181 61 171 81 171 C 67.67 171 67.67 151 81 151 C 94.33 151 94.33 171 81 171 C 101 171 101 181 101 201 Z" fill="#d5e8d4" stroke="#82b366" stroke-width="2" stroke-miterlimit="10" transform="rotate(-180,81,176)" pointer-events="all" />
+        <rect x="1" y="51" width="280" height="100" fill="#ff3399" stroke="#000000" stroke-width="3" pointer-events="none" />
+    </g>
+</svg>
+
+@code {
+    
+}

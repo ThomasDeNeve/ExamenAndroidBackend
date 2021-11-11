@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
-namespace devops_project_web_t4.Pages.Seat
+namespace devops_project_web_t4.Pages.CoworkRoom
 {
     public partial class SeatLocationSelector
     {

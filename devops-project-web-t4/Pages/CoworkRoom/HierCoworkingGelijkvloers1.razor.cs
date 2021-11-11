@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace devops_project_web_t4.Pages.Seat
+namespace devops_project_web_t4.Pages.CoworkRoom
 {
-    public partial class ReserveSeat
+    public partial class HierCoworkingGelijkvloers1
     {
         protected override void OnInitialized()
         {

@@ -20,6 +20,14 @@ a, .btn-link {
     stroke: darkorange;
 }
 
+.coworkroom {
+    display: inline-block;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #EC3381;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #EC3381;

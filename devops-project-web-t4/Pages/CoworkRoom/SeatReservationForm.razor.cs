@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Controllers;
 using Microsoft.AspNetCore.Components;
 
-namespace devops_project_web_t4.Pages.Seat
+namespace devops_project_web_t4.Pages.CoworkRoom
 {
     public partial class SeatReservationForm
     {
