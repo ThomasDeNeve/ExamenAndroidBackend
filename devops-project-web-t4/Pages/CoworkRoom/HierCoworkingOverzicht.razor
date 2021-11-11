@@ -7,7 +7,7 @@
 @using System.Collections.ObjectModel
 
 <h3>Overzicht coworking</h3>
-<div id="rooms">
+<div id="rooms" class="shadow-lg roomPanel">
     @foreach (var item in _coworkRooms)
     {
         <!--@onclick="@(e => ShowDetail(item.Id))"--> 
@@ -18,15 +18,17 @@
     </div>
 }
 </div>
-
-<div id="bureelgelijkvloers1">
-    <HierBureelGelijkvloers1svg></HierBureelGelijkvloers1svg>
-</div>
-<div id="bureelgelijkvloers2">
-    <HierBureelGelijkvloers2svg></HierBureelGelijkvloers2svg>
-</div>
-<div id="coworkgelijkvloers1">
-    <HierCoworkingGelijkvloers1svg></HierCoworkingGelijkvloers1svg>
+<br/>
+<div id="roomDetails" class="roomPanel">
+    <div id="bureelgelijkvloers1">
+        <HierBureelGelijkvloers1></HierBureelGelijkvloers1>
+    </div>
+    <div id="bureelgelijkvloers2">
+        <HierBureelGelijkvloers2></HierBureelGelijkvloers2>
+    </div>
+    <div id="coworkgelijkvloers1">
+        <HierCoworkingGelijkvloers1></HierCoworkingGelijkvloers1>
+    </div>
 </div>
 
 @code
