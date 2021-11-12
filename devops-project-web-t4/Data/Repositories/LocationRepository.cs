@@ -38,7 +38,7 @@ namespace devops_project_web_t4.Data.Repositories
                 .ToList();
         }
 
-    public Location GetById(int id)
+        public Location GetById(int id)
         {
             return _locations
                 .Include(l => l.MeetingRooms)
