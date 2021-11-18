@@ -27,7 +27,7 @@ namespace devops_project_web_t4.Pages.CoworkRoom
 
         public void Cancel()
         {
-            _navigationManager.NavigateTo("/coworking/reserveer");
+            _navigationManager.NavigateTo("/coworking/overzicht");
         }
     }
 }
