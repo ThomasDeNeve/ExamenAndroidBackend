@@ -72,11 +72,6 @@ namespace devops_project_web_t4_API
         c.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT")); // Adds the token when a request is send.
       });
 
-      // Allow access from other domains.
-      /*services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-      ));*/
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,8 +91,6 @@ namespace devops_project_web_t4_API
 
       app.UseAuthentication();
       app.UseAuthorization();
-
-      //app.UseCors("AllowAllOrigins");
 
       app.UseEndpoints(endpoints =>
       {
