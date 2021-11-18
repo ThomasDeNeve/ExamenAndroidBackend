@@ -17,13 +17,14 @@ namespace devops_project_web_t4.Areas.State
     {
         private readonly ISeatController _seatController;
 
-        private DateTime _dateSelected = DateTime.Now;
+        private static DateTime _now = DateTime.Now;
+        private DateTime _dateSelected = new DateTime(_now.Year, _now.Month, _now.Day, 0, 0,0);//DateTime.Now;
         private List<int> _seatsReserved = new List<int>();
 
         public StateContainer(ISeatController r)
         {
             _seatController = r;
-            SelectedDate = DateTime.Now;
+            SelectedDate = new DateTime(_now.Year, _now.Month, _now.Day, 0, 0, 0);//DateTime.Now;
         }
 
         /// <summary>
