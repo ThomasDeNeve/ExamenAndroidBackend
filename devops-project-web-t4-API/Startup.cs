@@ -43,7 +43,7 @@ namespace devops_project_web_t4_API
       services.AddSingleton<WeatherForecastService>();
 
       services.AddScoped<ILocationRepository, LocationRepository>();
-      services.AddScoped<IRoomRepository, MeetingRoomRepository>();
+      services.AddScoped<IMeetingRoomRepository, MeetingRoomRepository>();
       services.AddScoped<IReservationRepository, ReservationRepository>();
       services.AddScoped<ISeatRepository, SeatRepository>();
       services.AddScoped<ICustomerRepository, CustomerRepository>();
@@ -75,7 +75,7 @@ namespace devops_project_web_t4_API
         app.UseDeveloperExceptionPage();
       }
 
-      app.UseHttpsRedirection();
+      //app.UseHttpsRedirection();
 
       app.UseOpenApi(); //Serves the registered OpenAPI/Swagger documents by default on `/swagger/{documentName}/swagger.json`
       app.UseSwaggerUi3(); //Serves the Swagger UI 3 web uito view the OpenAPI/Swagger documents by default on `/swagger`

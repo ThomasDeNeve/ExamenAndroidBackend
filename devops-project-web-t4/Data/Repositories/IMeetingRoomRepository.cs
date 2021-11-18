@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Data.Repositories
 {
-    public interface IRoomRepository
+    public interface IMeetingRoomRepository
     {
         public ICollection<MeetingRoom> GetAll();
         public MeetingRoom GetById(int id);

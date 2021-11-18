@@ -14,10 +14,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Controllers;
+using devops_project_web_t4.Areas.State;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Tokens;
+
 
 namespace devops_project_web_t4
 {
@@ -36,6 +38,7 @@ namespace devops_project_web_t4
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 //options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocal")));
+
                 options.UseMySql(Configuration.GetConnectionString("Mysql"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql")))); //https://dev.mysql.com/downloads/mysql/
             services.AddRazorPages();
             services.AddServerSideBlazor();
@@ -118,12 +121,16 @@ namespace devops_project_web_t4
             services.AddSingleton<WeatherForecastService>();
 
             services.AddScoped<ILocationRepository, LocationRepository>();
-            services.AddScoped<IRoomRepository, MeetingRoomRepository>();
+            services.AddScoped<IMeetingRoomRepository, MeetingRoomRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<ISeatRepository, SeatRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICoworkRoomRepository, CoworkRoomRepository>();
 
             services.AddScoped<IReservationController, ReservationController>();
+            services.AddScoped<ISeatController, SeatController>();
+
+            services.AddScoped<StateContainer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

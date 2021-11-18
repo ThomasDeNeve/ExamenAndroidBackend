@@ -20,6 +20,34 @@ a, .btn-link {
     stroke: darkorange;
 }
 
+.coworkroom {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #EC3381;
+}
+
+.roomPanel {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* initial hide of details for room */
+#bureelgelijkvloers1 {
+    display: none;
+}
+/* initial hide initial hide of details for room */
+#bureelgelijkvloers2 {
+    display: none;
+}
+/* initial initial hide of details for room */
+#coworkgelijkvloers1 {
+    display: none;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #EC3381;

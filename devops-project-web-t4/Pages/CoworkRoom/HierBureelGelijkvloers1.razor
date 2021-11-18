@@ -1,0 +1,24 @@
+﻿@page "/coworking/overzicht/1"
+
+@implements IDisposable
+@inject StateContainer StateContainer
+
+@using devops_project_web_t4.Shared.Components
+@using System.Reflection.Metadata
+@using System.Data
+@using devops_project_web_t4.Areas.State
+@using devops_project_web_t4.Pages.CoworkRoom
+
+@using Microsoft.AspNetCore.Http.Extensions
+
+<h3>Bureel 1 Gelijkvloers</h3>
+
+<HierDatepicker Id="dateSelector"></HierDatepicker>
+<HierBureelGelijkvloers1svg SelectedDate="@StateContainer.SelectedDate"></HierBureelGelijkvloers1svg>
+
+@code {
+
+
+
+
+}

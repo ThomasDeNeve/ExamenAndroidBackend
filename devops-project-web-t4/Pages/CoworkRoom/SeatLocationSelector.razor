@@ -1,0 +1,16 @@
+﻿@using devops_project_web_t4.Pages.Location
+@page "/coworking/locatie"
+
+<LocationSelector TitlePinkUnderline="coworking"
+                  Message="@Message"
+                  Navigate="@NavigateToCoworkingOverzicht" />
+
+
+@code {
+
+
+    public void NavigateToCoworkingOverzicht()
+    {
+        _navigationManager.NavigateTo("/coworking/overzicht", false);
+    }
+}

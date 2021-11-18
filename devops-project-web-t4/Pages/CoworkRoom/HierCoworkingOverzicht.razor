@@ -1,0 +1,52 @@
+﻿@page "/coworking/overzicht"
+@using devops_project_web_t4.Shared.Components
+@using Pomelo.EntityFrameworkCore.MySql.Query.Internal
+@using devops_project_web_t4.Areas.Controllers
+@using devops_project_web_t4.Areas.Domain
+@using devops_project_web_t4.Data.Repositories
+@using System.Collections.ObjectModel
+
+<h3>Overzicht coworking</h3>
+<div id="rooms" class="shadow-lg roomPanel">
+    @foreach (var item in _coworkRooms)
+    {
+        <!--@onclick="@(e => ShowDetail(item.Id))"--> 
+        <div class="shadow coworkroom" onclick="showDetail(@item.Id)">
+        <p>@item.Name</p>
+        <div><img src="Images/room.jpg" width="200" height="200"/></div> <br/>
+        <!--<button @onclick="@(e => ShowDetail(item.Id))" class="hierButton primaryHierButton">Detail</button>-->
+    </div>
+}
+</div>
+<br/>
+<div id="roomDetails" class="roomPanel">
+    <div id="bureelgelijkvloers1">
+        <HierBureelGelijkvloers1></HierBureelGelijkvloers1>
+    </div>
+    <div id="bureelgelijkvloers2">
+        <HierBureelGelijkvloers2></HierBureelGelijkvloers2>
+    </div>
+    <div id="coworkgelijkvloers1">
+        <HierCoworkingGelijkvloers1></HierCoworkingGelijkvloers1>
+    </div>
+</div>
+
+@code
+{
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+    [Inject]
+    private ICoworkRoomRepository CoworkRoomRepository { get; set; }
+    private ICollection<CoworkRoom> _coworkRooms;
+
+    public void ShowDetail(int roomId)
+    {
+        NavigationManager.NavigateTo("/coworking/overzicht/" + roomId);
+    }
+
+
+    protected override void OnInitialized()
+    {
+        _coworkRooms = CoworkRoomRepository.GetAll();
+    }
+}

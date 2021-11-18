@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Domain;
+using devops_project_web_t4.Areas.State;
 using devops_project_web_t4.Data.Repositories;
+using Microsoft.AspNetCore.Components;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
@@ -12,23 +14,25 @@ namespace devops_project_web_t4.Areas.Controllers
         private readonly IReservationRepository _reservationRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly ISeatRepository _seatRepository;
+        private readonly StateContainer _stateContainer;
 
-        public ReservationController(IReservationRepository reservationRepository, ICustomerRepository customerRepository, ISeatRepository seatRepository)
+        public ReservationController(StateContainer sc, IReservationRepository reservationRepository, ICustomerRepository customerRepository, ISeatRepository seatRepository)
         {
             _reservationRepository = reservationRepository;
             _customerRepository = customerRepository;
             _seatRepository = seatRepository;
+            _stateContainer = sc;
         }
 
-        public DateTime SelectedDate { get; set; }
+        //public DateTime SelectedDate { get; set; }
 
         public void ConfirmReservation(int seatId, int customerId)
         {
             
             Reservation reservation = new()
             {
-                From = SelectedDate,
-                To = SelectedDate,
+                From = _stateContainer.SelectedDate,
+                To = _stateContainer.SelectedDate,
                 //Customer = _customerRepository.GetById(customerId)
                 Customer = new Customer(){Email="Yves.Vanduynslager@voestalpine.com",Firstname="Yves",Lastname = "Vanduynslager", Tel="666"}
             };

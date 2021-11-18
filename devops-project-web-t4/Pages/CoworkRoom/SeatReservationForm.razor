@@ -3,6 +3,8 @@
 @using devops_project_web_t4.Areas.Controllers
 @page "/coworking/reserveer/seatReservationForm/{Id:int}"
 
+<div id="reservationform">
+
 <h3>Reservation voor stoel @Id </h3>
 
 <p>U kunt kiezen uit onderstaande oplossingen:</p>
@@ -23,28 +25,9 @@
 <button @onclick="Confirm" class="hierButton primaryHierButton">Bevestigen</button>
 <button @onclick="Cancel" class="hierButton secondaryHierButton">Annuleren</button>
 
-<!--<HierButton Title="Confirm" Type="Primary" Action="/coworking/reserveer"></HierButton>-->
+</div>
 
 @code
 {
-    [Parameter]
-    public int Id { get; set; }
-
-    [Inject]
-    public IReservationController Controller { get; set; }
-    [Inject]
-    private NavigationManager _navigationManager { get; set; }
-
-    //Nog input halen uit datepicker etc
-    public void Confirm()
-    {
-        Controller.ConfirmReservation( Id, 1);
-        _navigationManager.NavigateTo("/coworking/reserveer");
-
-    }
-
-    public void Cancel()
-    {
-        _navigationManager.NavigateTo("/coworking/reserveer");
-    }
+    
 }
