@@ -1,10 +1,10 @@
 # delete existing myapp 
-if docker ps | grep -q myapp
+if docker ps | grep -q HIER_website
 then 
-    docker stop myapp
-    docker rm myapp
+    docker stop HIER_website
+    docker rm HIER_website
 else    
-    if docker ps -a | grep -q myapp
-    	then docker rm myapp
+    if docker ps -a | grep -q HIER_website
+    	then docker rm HIER_website
     fi       	
 fi
