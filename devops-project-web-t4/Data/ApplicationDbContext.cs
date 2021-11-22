@@ -105,6 +105,7 @@ namespace devops_project_web_t4.Data
 
             customer.Property(c => c.Firstname);
             customer.Property(c => c.Lastname);
+            customer.Property(c => c.Username);
             customer.Property(c => c.Email);
             customer.Property(c => c.Tel);
             customer.Property(c => c.BTW);

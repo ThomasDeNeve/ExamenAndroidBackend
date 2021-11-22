@@ -34,6 +34,11 @@ namespace devops_project_web_t4.Data.Repositories
                 .SingleOrDefault(c => c.Id == id);
         }
 
+        public Customer GetByName(string username)
+        {
+            return _customers.SingleOrDefault(c => c.Username == username);
+        }
+
         public void Remove(Customer customer)
         {
             _customers.Remove(customer);
