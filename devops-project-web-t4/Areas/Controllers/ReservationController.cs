@@ -6,6 +6,7 @@ using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Areas.State;
 using devops_project_web_t4.Data.Repositories;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
@@ -39,8 +40,8 @@ namespace devops_project_web_t4.Areas.Controllers
 
             reservation.Seat = _seatRepository.GetById(seatId);
 
-            _reservationRepository.Add(reservation);
-            _reservationRepository.SaveChanges();
+                _reservationRepository.Add(reservation);
+                _reservationRepository.SaveChanges();
         }
 
         public List<int> GetSeatIdsReservedForDate(DateTime date)

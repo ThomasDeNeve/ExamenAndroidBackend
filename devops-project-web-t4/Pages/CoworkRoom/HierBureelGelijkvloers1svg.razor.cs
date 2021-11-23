@@ -18,7 +18,6 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         private List<int> _seatsReserved;
         private DateTime _selectedDate;
 
-
         [Parameter]
         public DateTime SelectedDate
         {
@@ -31,8 +30,6 @@ namespace devops_project_web_t4.Pages.CoworkRoom
                 StateHasChanged();
             }
         }
-
-        private bool IsTaken { get; set; }
 
         protected override void OnInitialized()
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Controllers;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 
 namespace devops_project_web_t4.Pages.CoworkRoom
 {
@@ -17,12 +18,16 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         [Inject]
         private NavigationManager _navigationManager { get; set; }
 
-        //Nog input halen uit datepicker etc
         public void Confirm()
         {
-            Controller.ConfirmReservation(Id, 1);
-            _navigationManager.NavigateTo("/coworking/overzicht");
-
+            
+                Controller.ConfirmReservation(Id, 1);
+                _navigationManager.NavigateTo("/coworking/overzicht");
+            
+            /*catch (DbUpdateException e)
+            {
+                Console.WriteLine("Error while updating database!");
+            }*/
         }
 
         public void Cancel()

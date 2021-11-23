@@ -94,8 +94,9 @@ namespace devops_project_web_t4.Data
 
             reservation.HasOne(r => r.Customer).WithMany()/*.HasForeignKey(r => r.CustomerId)*/.IsRequired();
             reservation.HasOne(r => r.MeetingRoom).WithMany()/*.HasForeignKey(r => r.MeetingRoomId)*/;
-            reservation.HasOne(r => r.Seat).WithMany();
-            //reservation.HasOne(r => r.Seat).WithMany()/*.HasForeignKey(r => r.SeatId).*/.IsRequired();
+            reservation.HasOne(r => r.Seat).WithMany().HasForeignKey(r => r.SeatId);
+
+            reservation.HasIndex(r => new { r.SeatId, r.From }).IsUnique();
         }
 
         private static void MapCustomer(EntityTypeBuilder<Customer> customer)
