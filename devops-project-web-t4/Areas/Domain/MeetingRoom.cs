@@ -18,11 +18,11 @@ namespace devops_project_web_t4.Areas.Domain
 
         public int NumberOfSeats { get; set; }
 
-        public double PriceEvening { get; set; }
+        public int LocationId { get; set; }
 
+        public double PriceEvening { get; set; }
         public double PriceFullDay { get; set; }
         public double PriceHalfDay { get; set; }
-
         public double PriceTwoHours { get; set; }
         #endregion
 
