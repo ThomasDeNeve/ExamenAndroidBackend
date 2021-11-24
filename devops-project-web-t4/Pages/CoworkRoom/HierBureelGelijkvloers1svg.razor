@@ -23,36 +23,36 @@
               pointer-events="@(_seatsReserved.Contains(1) ? "none":"all")" />
         <!--pointer-events: none is not clickable, all is clickable. If seatsreserved contains this seat, set pointer-events to none, so there's no possibility to double book this seat. This is also catched in the backend-->
 
-        <path id="169"
-              class="seat@(_seatsReserved.Contains(169) ? "taken":"available")"
-              @onclick="@(e => NavigateTo(169))"
+        <path id="2"
+              class="seat@(_seatsReserved.Contains(2) ? "taken":"available")"
+              @onclick="@(e => NavigateTo(2))"
               d="M 181 51 C 181 31 181 21 201 21 C 187.67 21 187.67 1 201 1 C 214.33 1 214.33 21 201 21 C 221 21 221 31 221 51 Z"
               fill="#d5e8d4"
               stroke="#82b366"
               stroke-width="2"
               stroke-miterlimit="10"
-              pointer-events="@(_seatsReserved.Contains(169) ? "none":"all")" />
+              pointer-events="@(_seatsReserved.Contains(2) ? "none":"all")" />
 
-        <path id="170"
-              class="seat@(_seatsReserved.Contains(170) ? "taken":"available")"
-              @onclick="@(e => NavigateTo(170))"
+        <path id="3"
+              class="seat@(_seatsReserved.Contains(3) ? "taken":"available")"
+              @onclick="@(e => NavigateTo(3))"
               d="M 61 51 C 61 31 61 21 81 21 C 67.67 21 67.67 1 81 1 C 94.33 1 94.33 21 81 21 C 101 21 101 31 101 51 Z"
               fill="#d5e8d4"
               stroke="#82b366"
               stroke-width="2"
               stroke-miterlimit="10"
-              pointer-events="@(_seatsReserved.Contains(170) ? "none":"all")" />
+              pointer-events="@(_seatsReserved.Contains(3) ? "none":"all")" />
 
-        <path id="171"
-              class="seat@(_seatsReserved.Contains(171) ? "taken":"available")"
-              @onclick="@(e => NavigateTo(171))"
+        <path id="4"
+              class="seat@(_seatsReserved.Contains(4) ? "taken":"available")"
+              @onclick="@(e => NavigateTo(4))"
               d="M 61 201 C 61 181 61 171 81 171 C 67.67 171 67.67 151 81 151 C 94.33 151 94.33 171 81 171 C 101 171 101 181 101 201 Z"
               fill="#d5e8d4"
               stroke="#82b366"
               stroke-width="2"
               stroke-miterlimit="10"
               transform="rotate(-180,81,176)"
-              pointer-events="@(_seatsReserved.Contains(171) ? "none":"all")" />
+              pointer-events="@(_seatsReserved.Contains(4) ? "none":"all")" />
 
         <rect x="1" y="51" width="280" height="100" fill="#ff3399" stroke="#000000" stroke-width="3" pointer-events="none" />
     </g>

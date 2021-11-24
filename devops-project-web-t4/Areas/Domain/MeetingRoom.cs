@@ -16,10 +16,8 @@ namespace devops_project_web_t4.Areas.Domain
         public int Id { get; set; }
         public string Name { get; set; }
 
-        [NotMapped]
-        public int NumberOfSeats => Seats.Count;
+        public int NumberOfSeats { get; set; }
 
-        public List<Seat> Seats { get; set; } = new List<Seat>();
         public double PriceEvening { get; set; }
 
         public double PriceFullDay { get; set; }

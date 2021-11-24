@@ -56,12 +56,11 @@ namespace devops_project_web_t4.Data
             room.ToTable("MeetingRoom");
             
             room.Property(r => r.Name).IsRequired();
+            room.Property(r => r.NumberOfSeats).IsRequired();
             room.Property(r => r.PriceEvening).IsRequired();
             room.Property(r => r.PriceTwoHours);
             room.Property(r => r.PriceFullDay).IsRequired();
             room.Property(r => r.PriceHalfDay).IsRequired();
-            room.HasMany(r => r.Seats).WithOne();
-
         }
 
         private static void MapCoworkRoom(EntityTypeBuilder<CoworkRoom> room)
