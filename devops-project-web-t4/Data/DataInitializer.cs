@@ -233,6 +233,29 @@ namespace devops_project_web_t4.Data
             };
             #endregion
 
+            #region Subscriptions
+            /*HIER.af en toe € 70 5d per mnd
+            HIER.haltijds € 120 10d per mnd
+            HIER.voltijds * € 225 24 / 7 per mnd
+            HIER.mijn vaste plek beneden* € 295 per mnd
+            HIER.mijn vaste plek boven* € 320 per mnd
+            HIER.voor een jaar € 195 10d per jaar*/
+            Subscription AfEnToe = new Subscription() {Price = 70, Name="HIER.af en toe"};
+            context.Subscriptions.Add(AfEnToe);
+            Subscription Halftijds = new Subscription() {Price = 120, Name="HIER.halftijds"};
+            context.Subscriptions.Add(Halftijds);
+            Subscription Voltijds = new Subscription() {Price = 225, Name="HIER.voltijds"};
+            context.Subscriptions.Add(Voltijds);
+            Subscription VastBeneden = new Subscription() {Price = 295, Name="HIER.mijn vaste plek beneden"};
+            context.Subscriptions.Add(VastBeneden);
+            Subscription VastBoven = new Subscription() {Price = 320, Name="HIER.mijn vaste plek boven"};
+            context.Subscriptions.Add(VastBoven);
+            Subscription Jaar = new Subscription() {Price = 195, Name="HIER.voor een jaar"};
+            context.Subscriptions.Add(Jaar);
+
+            context.SaveChanges();
+            #endregion
+
             #region SaveAllTheThings!
             context.Locations.Add(locationGent);
             context.Locations.Add(locationAalst);

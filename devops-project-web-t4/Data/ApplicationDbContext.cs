@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.IdentityModel.Protocols;
 
 namespace devops_project_web_t4.Data
 {
@@ -22,6 +23,7 @@ namespace devops_project_web_t4.Data
         public DbSet<Reservation> Reservations {get;set;}
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CoworkRoom> CoworkRooms { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -32,6 +34,8 @@ namespace devops_project_web_t4.Data
             builder.Entity<CoworkRoom>(MapCoworkRoom);
 
             builder.Entity<Seat>(MapSeat);
+
+            builder.Entity<Subscription>(MapSubscription);
 
             builder.Entity<Customer>(MapCustomer);
             builder.Entity<Reservation>(MapReservation);
@@ -98,6 +102,16 @@ namespace devops_project_web_t4.Data
             reservation.HasIndex(r => new { r.SeatId, r.From }).IsUnique();
         }
 
+        private static void MapSubscription(EntityTypeBuilder<Subscription> subscription)
+        {
+            subscription.ToTable("Subscription");
+
+            subscription.Property(s => s.Name).IsRequired();
+            subscription.Property(s => s.Price).IsRequired();
+
+            subscription.HasMany(s => s.Customers);
+        }
+
         private static void MapCustomer(EntityTypeBuilder<Customer> customer)
         {
             customer.ToTable("Customer");
@@ -108,6 +122,7 @@ namespace devops_project_web_t4.Data
             customer.Property(c => c.Email);
             customer.Property(c => c.Tel);
             customer.Property(c => c.BTW);
+            customer.HasMany(c => c.Subscriptions);
         }
     }
 }

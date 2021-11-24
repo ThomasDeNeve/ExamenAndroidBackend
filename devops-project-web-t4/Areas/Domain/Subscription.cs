@@ -7,17 +7,13 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Domain
 {
-    public class Customer
+    public class Subscription
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Firstname {get;set;}
-        public string Lastname { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string BTW { get; set; }
-        public string Tel { get; set; }
-        public List<Subscription> Subscriptions { get; set; } = new List<Subscription>();
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public List<Customer> Customers { get; set; } = new List<Customer>();
     }
 }
