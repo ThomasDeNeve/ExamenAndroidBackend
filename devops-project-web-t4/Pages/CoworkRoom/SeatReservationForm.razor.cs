@@ -44,14 +44,6 @@ namespace devops_project_web_t4.Pages.CoworkRoom
                     _navigationManager.NavigateTo("/coworking/overzicht");
                 }
             }
-            //gebruiker kan enkel reserveren als die is ingelogd
-                /*if (state.User.Identity.IsAuthenticated && SubscriptionController.HasSub(_userName))
-                {
-                    //SubscriptionController.ConfirmSubscription(SubName, _userName);
-
-                    ReservationController.ConfirmReservation(Id, _userName);
-                    _navigationManager.NavigateTo("/coworking/overzicht");
-                }*/
         }
 
         public void Cancel()
