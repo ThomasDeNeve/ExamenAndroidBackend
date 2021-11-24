@@ -39,9 +39,6 @@ namespace devops_project_web_t4.Data
             builder.Entity<Seat>(MapSeat);
 
             builder.Entity<Subscription>(MapSubscription);
-
-            //builder.Entity<CustomerSubscription>(MapCustomerSubscription);
-
             builder.Entity<Customer>(MapCustomer);
             builder.Entity<Reservation>(MapReservation);
         }
@@ -113,20 +110,7 @@ namespace devops_project_web_t4.Data
 
             subscription.Property(s => s.Name).IsRequired();
             subscription.Property(s => s.Price).IsRequired();
-
-            //subscription.HasMany(s => s.Customers);
         }
-
-        /*private static void MapCustomerSubscription(EntityTypeBuilder<CustomerSubscription> customersubscription)
-        {
-            //customersubscription.ToTable("CustomerSubscription");
-
-            customersubscription.HasKey(cs => new {cs.CustomerId, cs.SubscriptionId});
-
-            customersubscription.Property(cs => cs.Saldo);
-            customersubscription.Property(cs => cs.SubFrom).IsRequired();
-            customersubscription.Property(cs => cs.SubTo).IsRequired();
-        }*/
 
         private static void MapCustomer(EntityTypeBuilder<Customer> customer)
         {

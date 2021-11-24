@@ -29,15 +29,6 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             Customer user = _customerRepository.GetByName(userName);
 
-            //map de auth0 username naar Customer als die Customer nog niet bestaat
-            if (user == null)
-            {
-                user = new Customer()
-                {
-                    Username = userName
-                };
-            }
-
             Reservation reservation = new()
             {
                 From = _stateContainer.SelectedDate,
@@ -46,6 +37,13 @@ namespace devops_project_web_t4.Areas.Controllers
             };
 
             reservation.Seat = _seatRepository.GetById(seatId);
+
+            user.DaysLeft -= 1;
+
+            if (user.DaysLeft == 0)
+            {
+                user.Subscription = null;
+            }
 
             _reservationRepository.Add(reservation);
             _reservationRepository.SaveChanges();

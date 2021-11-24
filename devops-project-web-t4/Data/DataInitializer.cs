@@ -268,23 +268,16 @@ namespace devops_project_web_t4.Data
             //context.SaveChanges();
             #endregion
 
-            #region customerSubscription
-            /*CustomerSubscription cs = new CustomerSubscription()
-            {
-                Customer = new Customer() {CustomerId = 12, Username = "test@test.com"},
-                Subscription = AfEnToe
-            };
+            #region customerSubscriptionTest
 
-            
-            context.CustomerSubscriptions.Add(cs);*/
+            Customer c = new Customer() {CustomerId = 12, Username = "test@test.com", Subscription = AfEnToe};
+            context.Customers.Add(c);
 
-                Customer c = new Customer() {CustomerId = 12, Username = "test@test.com", Subscription = AfEnToe};
-
-                context.Customers.Add(c);
             #endregion
 
 
             #region SaveAll
+
             context.Locations.Add(locationGent);
             context.Locations.Add(locationAalst);
 

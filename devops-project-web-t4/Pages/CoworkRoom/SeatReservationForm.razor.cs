@@ -14,8 +14,13 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         [Parameter]
         public int Id { get; set; }
 
+        public string SubName = "HIER.af en toe";
+
         [Inject]
-        public IReservationController Controller { get; set; }
+        public IReservationController ReservationController { get; set; }
+        [Inject]
+        public ISubscriptionController SubscriptionController { get; set; }
+
         [Inject]
         private NavigationManager _navigationManager { get; set; }
 
@@ -24,12 +29,29 @@ namespace devops_project_web_t4.Pages.CoworkRoom
 
         public void Confirm()
         {
-            //gebruiker kan enkel reserveren als die is ingelogd
-                if (state.User.Identity.IsAuthenticated)
+            if (state.User.Identity.IsAuthenticated)
+            {
+                if (HasSub())
                 {
-                    Controller.ConfirmReservation(Id, _userName);
+                    ReservationController.ConfirmReservation(Id, _userName);
                     _navigationManager.NavigateTo("/coworking/overzicht");
                 }
+                else
+                {
+                    SubscriptionController.ConfirmSubscription(SubName, _userName);
+
+                    ReservationController.ConfirmReservation(Id, _userName);
+                    _navigationManager.NavigateTo("/coworking/overzicht");
+                }
+            }
+            //gebruiker kan enkel reserveren als die is ingelogd
+                /*if (state.User.Identity.IsAuthenticated && SubscriptionController.HasSub(_userName))
+                {
+                    //SubscriptionController.ConfirmSubscription(SubName, _userName);
+
+                    ReservationController.ConfirmReservation(Id, _userName);
+                    _navigationManager.NavigateTo("/coworking/overzicht");
+                }*/
         }
 
         public void Cancel()
@@ -43,6 +65,16 @@ namespace devops_project_web_t4.Pages.CoworkRoom
             _userName = state.User.Identity.Name;
 
             await base.OnInitializedAsync();
+        }
+
+        public void RadioSelection(ChangeEventArgs args)
+        {
+            SubName = args.Value.ToString();
+        }
+
+        public bool HasSub()
+        {
+            return SubscriptionController.HasSub(_userName);
         }
     }
 }

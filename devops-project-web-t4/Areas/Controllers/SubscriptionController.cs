@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Data.Repositories;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Internal.Account;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
@@ -11,13 +12,11 @@ namespace devops_project_web_t4.Areas.Controllers
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly ISubscriptionRepository _subscriptionRepository;
-        //private readonly ICustomerSubscriptionRepository _customerSubscriptionRepository;
 
-        public SubscriptionController(ICustomerRepository customerRepository, ISubscriptionRepository subscriptionRepository/*, ICustomerSubscriptionRepository customerSubscriptionRepository*/)
+        public SubscriptionController(ICustomerRepository customerRepository, ISubscriptionRepository subscriptionRepository)
         {
             _customerRepository = customerRepository;
             _subscriptionRepository = subscriptionRepository;
-            //_customerSubscriptionRepository = customerSubscriptionRepository;
         }
 
         public void ConfirmSubscription(string subName, string userName)
@@ -25,26 +24,23 @@ namespace devops_project_web_t4.Areas.Controllers
             Subscription sub = _subscriptionRepository.GetByName(subName);
             Customer customer = _customerRepository.GetByName(userName);
 
-            /*CustomerSubscription cs = new CustomerSubscription()
-            {
-                Customer = customer,
-                Subscription = sub,
-            };*/
-
-            //_customerSubscriptionRepository.Add(cs);
+            customer.Subscription = sub;
+            _customerRepository.SaveChanges();
         }
 
-        /*public int TotalSaldoForUser(string userName)
+        public bool HasSub(string userName)
         {
-            int saldo = 0;
-            Customer c = _customerRepository.GetByName(userName);
+            Customer customer = _customerRepository.GetByName(userName);
 
-            foreach (CustomerSubscription cs in c.SubscriptionsLink)
+            if (customer.Subscription != null)
             {
-                saldo += cs.Saldo;
+                return true;
+            }
+            else
+            {
+                return false;
             }
 
-            return saldo;
-        }*/
+        }
     }
 }

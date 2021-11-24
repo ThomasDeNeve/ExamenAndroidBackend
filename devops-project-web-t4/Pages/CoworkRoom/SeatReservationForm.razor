@@ -7,21 +7,33 @@
 <div id="reservationform">
 
     <h3>Reservation voor stoel @Id </h3>
-
-    <p>U kunt kiezen uit onderstaande oplossingen:</p>
-    <input type="radio" id="ocasionally" name="options" /> <label for="ocasionally">HIER. af en toe - €70 - 5d per maand</label>
-    <br />
-    <input type="radio" id="halftime" name="options" /> <label for="halftime">HIER. halftijds - €120 - 10d per maand</label>
-    <br />
-    <input type="radio" id="fulltime" name="options" /> <label for="fulltime">HIER. voltijds* - €225 - 24/7 per maand</label>
-    <br />
-    <input type="radio" id="fixedDown" name="options" /> <label for="fixedDown">HIER. mijn vaste plek beneden - €295 - per maand</label>
-    <br />
-    <input type="radio" id="fxedUp" name="options" /> <label for="fixedUp">HIER. mijn vaste plek boven - €320 - per maand</label>
-    <br />
-    <input type="radio" id="year" name="options" /> <label for="year">HIER. voor een jaar - €195 - 10d per jaar (?)</label>
-    <br />
-
+    
+    @if (HasSub())
+    {
+        <p>Gelieve de reservatie te bevestigen aub.</p>
+    }
+    else
+    {
+        <p>U kunt kiezen uit onderstaande abonnementen:</p>
+        <input type="radio" id="HIER.af en toe" name="options" value="HIER.af en toe" @onchange="RadioSelection" checked=@(SubName.Equals("HIER.af en toe", StringComparison.OrdinalIgnoreCase))/>
+        <label for="HIER.af en toe">HIER. af en toe - €70 - 5d per maand</label>
+        <br/>
+        <input type="radio" id="HIER.halftijds" name="options" value="HIER.halftijds"/>
+        <label for="HIER.halftijds">HIER. halftijds - €120 - 10d per maand</label>
+        <br/>
+        <input type="radio" id="HIER.voltijds" name="options" value="HIER.voltijds"/>
+        <label for="HIER.voltijds">HIER. voltijds* - €225 - 24/7 per maand</label>
+        <br/>
+        <input type="radio" id="HIER.mijn vaste plek beneden" name="options" value="HIER.mijn vaste plek beneden"/>
+        <label for="HIER.mijn vaste plek beneden">HIER. mijn vaste plek beneden - €295 - per maand</label>
+        <br/>
+        <input type="radio" id="HIER.mijn vaste plek boven" name="options" value="HIER.mijn vaste plek boven"/>
+        <label for="HIER.mijn vaste plek boven">HIER. mijn vaste plek boven - €320 - per maand</label>
+        <br/>
+        <input type="radio" id="HIER.voor een jaar" name="options" value="HIER.voor een jaar"/>
+        <label for="HIER.voor een jaar">HIER. voor een jaar - €195 - 10d per jaar</label>
+        <br/>
+    }
 
     <button @onclick="Confirm" class="hierButton primaryHierButton">Bevestigen</button>
     <button @onclick="Cancel" class="hierButton secondaryHierButton">Annuleren</button>

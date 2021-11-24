@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
-    public interface ISubscriptionController
+    public interface ICustomerController
     {
-        public void ConfirmSubscription(string subName, string userName);
-        public bool HasSub(string userName);
+        public void MapAuth0User(string username);
     }
 }
