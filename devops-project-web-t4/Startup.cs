@@ -126,9 +126,12 @@ namespace devops_project_web_t4
             services.AddScoped<ISeatRepository, SeatRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICoworkRoomRepository, CoworkRoomRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<ICustomerSubscriptionRepository, CustomerSubscriptionRepository>();
 
             services.AddScoped<IReservationController, ReservationController>();
             services.AddScoped<ISeatController, SeatController>();
+            services.AddScoped<ISubscriptionController, SubscriptionController>();
 
             services.AddScoped<StateContainer>();
         }

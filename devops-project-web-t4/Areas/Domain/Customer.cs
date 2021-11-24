@@ -11,13 +11,14 @@ namespace devops_project_web_t4.Areas.Domain
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int CustomerId { get; set; }
         public string Firstname {get;set;}
         public string Lastname { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string BTW { get; set; }
         public string Tel { get; set; }
-        public List<Subscription> Subscriptions { get; set; } = new List<Subscription>();
+
+        public List<CustomerSubscription> SubscriptionsLink { get; set; } = new List<CustomerSubscription>();
     }
 }

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devops_project_web_t4.Data;
 
 namespace devops_project_web_t4.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211124095534_CustomMappingCustomerSubscription4")]
+    partial class CustomMappingCustomerSubscription4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,13 +259,13 @@ namespace devops_project_web_t4.Migrations
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CustomerSubscription", b =>
                 {
                     b.HasOne("devops_project_web_t4.Areas.Domain.Customer", "Customer")
-                        .WithMany("SubscriptionsLink")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("devops_project_web_t4.Areas.Domain.Subscription", "Subscription")
-                        .WithMany("CustomersLink")
+                        .WithMany()
                         .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -317,21 +319,11 @@ namespace devops_project_web_t4.Migrations
                     b.Navigation("Seats");
                 });
 
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Customer", b =>
-                {
-                    b.Navigation("SubscriptionsLink");
-                });
-
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
                 {
                     b.Navigation("CoWorkRooms");
 
                     b.Navigation("MeetingRooms");
-                });
-
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Subscription", b =>
-                {
-                    b.Navigation("CustomersLink");
                 });
 #pragma warning restore 612, 618
         }

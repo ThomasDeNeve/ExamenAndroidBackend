@@ -31,7 +31,7 @@ namespace devops_project_web_t4.Data.Repositories
         public Customer GetById(int id)
         {
             return _customers
-                .SingleOrDefault(c => c.Id == id);
+                .SingleOrDefault(c => c.CustomerId == id);
         }
 
         public Customer GetByName(string username)
