@@ -72,6 +72,18 @@ namespace devops_project_web_t4.Pages.CoworkRoom
             SubName = args.Value.ToString();
         }
 
+        public bool LoggedIn()
+        {
+            if (!(_userName == null))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool HasSub()
         {
             return SubscriptionController.HasSub(_userName);
