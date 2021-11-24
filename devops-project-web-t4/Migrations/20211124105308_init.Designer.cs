@@ -9,8 +9,8 @@ using devops_project_web_t4.Data;
 namespace devops_project_web_t4.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211124072906_RemoveSeatsFromRooms")]
-    partial class RemoveSeatsFromRooms
+    [Migration("20211124105308_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,7 +41,7 @@ namespace devops_project_web_t4.Migrations
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -63,9 +63,33 @@ namespace devops_project_web_t4.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.HasKey("CustomerId");
 
                     b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CustomerSubscription", b =>
+                {
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Saldo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SubFrom")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("SubTo")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("CustomerId", "SubscriptionId");
+
+                    b.HasIndex("SubscriptionId");
+
+                    b.ToTable("CustomerSubscriptions");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
@@ -207,11 +231,48 @@ namespace devops_project_web_t4.Migrations
                     b.ToTable("Seat");
                 });
 
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Subscription", b =>
+                {
+                    b.Property<int>("SubscriptionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double");
+
+                    b.HasKey("SubscriptionId");
+
+                    b.ToTable("Subscription");
+                });
+
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkRoom", b =>
                 {
                     b.HasOne("devops_project_web_t4.Areas.Domain.Location", null)
                         .WithMany("CoWorkRooms")
                         .HasForeignKey("LocationId");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CustomerSubscription", b =>
+                {
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Customer", "Customer")
+                        .WithMany("SubscriptionsLink")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Subscription", "Subscription")
+                        .WithMany("CustomersLink")
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Subscription");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingRoom", b =>
@@ -258,11 +319,21 @@ namespace devops_project_web_t4.Migrations
                     b.Navigation("Seats");
                 });
 
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Customer", b =>
+                {
+                    b.Navigation("SubscriptionsLink");
+                });
+
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
                 {
                     b.Navigation("CoWorkRooms");
 
                     b.Navigation("MeetingRooms");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Subscription", b =>
+                {
+                    b.Navigation("CustomersLink");
                 });
 #pragma warning restore 612, 618
         }
