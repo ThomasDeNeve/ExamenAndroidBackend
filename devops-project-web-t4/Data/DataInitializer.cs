@@ -242,40 +242,45 @@ namespace devops_project_web_t4.Data
             HIER.voor een jaar € 195 10d per jaar*/
 
             //5 beurten of 1 maand
-            Subscription AfEnToe = new Subscription() {Price = 70, Name="HIER.af en toe"};
+            Subscription AfEnToe = new Subscription() {Price = 70, Name="HIER.af en toe", Days = 5};
             context.Subscriptions.Add(AfEnToe);
 
             //10 beurten of 1 maand
-            Subscription Halftijds = new Subscription() {Price = 120, Name="HIER.halftijds"};
+            Subscription Halftijds = new Subscription() {Price = 120, Name="HIER.halftijds", Days = 10};
             context.Subscriptions.Add(Halftijds);
 
             //n beurten of 1 maand
-            Subscription Voltijds = new Subscription() {Price = 225, Name="HIER.voltijds"};
+            Subscription Voltijds = new Subscription() {Price = 225, Name="HIER.voltijds", Days = 31};
             context.Subscriptions.Add(Voltijds);
 
             //1 maand, vaste stoel beneden
-            Subscription VastBeneden = new Subscription() {Price = 295, Name="HIER.mijn vaste plek beneden"};
+            Subscription VastBeneden = new Subscription() {Price = 295, Name="HIER.mijn vaste plek beneden", Days=31};
             context.Subscriptions.Add(VastBeneden);
 
             //1 maand, vaste stoel boven
-            Subscription VastBoven = new Subscription() {Price = 320, Name="HIER.mijn vaste plek boven"};
+            Subscription VastBoven = new Subscription() {Price = 320, Name="HIER.mijn vaste plek boven", Days=31};
             context.Subscriptions.Add(VastBoven);
 
             //10 beurten of 1 jaar
-            Subscription Jaar = new Subscription() {Price = 195, Name="HIER.voor een jaar"};
+            Subscription Jaar = new Subscription() {Price = 195, Name="HIER.voor een jaar", Days = 10};
             context.Subscriptions.Add(Jaar);
 
             //context.SaveChanges();
             #endregion
 
             #region customerSubscription
-            CustomerSubscription cs = new CustomerSubscription()
+            /*CustomerSubscription cs = new CustomerSubscription()
             {
                 Customer = new Customer() {CustomerId = 12, Username = "test@test.com"},
                 Subscription = AfEnToe
             };
 
-            context.CustomerSubscriptions.Add(cs);
+            
+            context.CustomerSubscriptions.Add(cs);*/
+
+                Customer c = new Customer() {CustomerId = 12, Username = "test@test.com", Subscription = AfEnToe};
+
+                context.Customers.Add(c);
             #endregion
 
 

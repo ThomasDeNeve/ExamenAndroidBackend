@@ -25,8 +25,6 @@ namespace devops_project_web_t4.Areas.Controllers
             _stateContainer = sc;
         }
 
-        //public DateTime SelectedDate { get; set; }
-
         public void ConfirmReservation(int seatId, string userName)
         {
             Customer user = _customerRepository.GetByName(userName);

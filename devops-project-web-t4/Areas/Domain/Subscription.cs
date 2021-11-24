@@ -14,6 +14,7 @@ namespace devops_project_web_t4.Areas.Domain
         public int SubscriptionId { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public List<CustomerSubscription> CustomersLink { get; set; } = new List<CustomerSubscription>();
+        public int Days { get; set; }
+        //public List<CustomerSubscription> CustomersLink { get; set; } = new List<CustomerSubscription>();
     }
 }

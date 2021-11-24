@@ -15,7 +15,7 @@ namespace devops_project_web_t4.Data.Repositories
         public CustomerSubscriptionRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            _customerSubscriptions = _dbContext.CustomerSubscriptions;
+            //_customerSubscriptions = _dbContext.CustomerSubscriptions;
         }
 
         public void Add(CustomerSubscription cs)

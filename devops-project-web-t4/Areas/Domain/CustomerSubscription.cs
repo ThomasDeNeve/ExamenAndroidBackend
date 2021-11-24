@@ -16,7 +16,5 @@ namespace devops_project_web_t4.Areas.Domain
 
         public DateTime SubFrom { get; set; }
         public DateTime SubTo { get; set; }
-
-        public int? Saldo { get; set; }
     }
 }

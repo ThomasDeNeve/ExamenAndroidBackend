@@ -26,7 +26,7 @@ namespace devops_project_web_t4.Data
         public DbSet<Subscription> Subscriptions { get; set; }
 
         //many to many link
-        public DbSet<CustomerSubscription> CustomerSubscriptions { get; set; }
+        //public DbSet<CustomerSubscription> CustomerSubscriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -40,7 +40,7 @@ namespace devops_project_web_t4.Data
 
             builder.Entity<Subscription>(MapSubscription);
 
-            builder.Entity<CustomerSubscription>(MapCustomerSubscription);
+            //builder.Entity<CustomerSubscription>(MapCustomerSubscription);
 
             builder.Entity<Customer>(MapCustomer);
             builder.Entity<Reservation>(MapReservation);
@@ -117,7 +117,7 @@ namespace devops_project_web_t4.Data
             //subscription.HasMany(s => s.Customers);
         }
 
-        private static void MapCustomerSubscription(EntityTypeBuilder<CustomerSubscription> customersubscription)
+        /*private static void MapCustomerSubscription(EntityTypeBuilder<CustomerSubscription> customersubscription)
         {
             //customersubscription.ToTable("CustomerSubscription");
 
@@ -126,7 +126,7 @@ namespace devops_project_web_t4.Data
             customersubscription.Property(cs => cs.Saldo);
             customersubscription.Property(cs => cs.SubFrom).IsRequired();
             customersubscription.Property(cs => cs.SubTo).IsRequired();
-        }
+        }*/
 
         private static void MapCustomer(EntityTypeBuilder<Customer> customer)
         {
@@ -139,7 +139,7 @@ namespace devops_project_web_t4.Data
             customer.Property(c => c.Tel);
             customer.Property(c => c.BTW);
 
-            //customer.HasMany(c => c.Subscriptions);
+            customer.HasOne(c => c.Subscription);
         }
     }
 }

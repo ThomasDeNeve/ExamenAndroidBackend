@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devops_project_web_t4.Data;
 
 namespace devops_project_web_t4.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211124112903_CustSubOneToMany")]
+    partial class CustSubOneToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,9 +57,6 @@ namespace devops_project_web_t4.Migrations
                     b.Property<string>("Lastname")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("SubscriptionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Tel")
                         .HasColumnType("longtext");
 
@@ -65,8 +64,6 @@ namespace devops_project_web_t4.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("CustomerId");
-
-                    b.HasIndex("SubscriptionId");
 
                     b.ToTable("Customer");
                 });
@@ -216,6 +213,9 @@ namespace devops_project_web_t4.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Days")
                         .HasColumnType("int");
 
@@ -228,6 +228,8 @@ namespace devops_project_web_t4.Migrations
 
                     b.HasKey("SubscriptionId");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("Subscription");
                 });
 
@@ -236,15 +238,6 @@ namespace devops_project_web_t4.Migrations
                     b.HasOne("devops_project_web_t4.Areas.Domain.Location", null)
                         .WithMany("CoWorkRooms")
                         .HasForeignKey("LocationId");
-                });
-
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Customer", b =>
-                {
-                    b.HasOne("devops_project_web_t4.Areas.Domain.Subscription", "Subscription")
-                        .WithMany()
-                        .HasForeignKey("SubscriptionId");
-
-                    b.Navigation("Subscription");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingRoom", b =>
@@ -286,9 +279,21 @@ namespace devops_project_web_t4.Migrations
                         .HasForeignKey("CoworkRoomId");
                 });
 
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Subscription", b =>
+                {
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Customer", null)
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("CustomerId");
+                });
+
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkRoom", b =>
                 {
                     b.Navigation("Seats");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Customer", b =>
+                {
+                    b.Navigation("Subscriptions");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
