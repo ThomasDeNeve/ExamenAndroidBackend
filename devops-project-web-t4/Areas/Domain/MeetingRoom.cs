@@ -19,6 +19,8 @@ namespace devops_project_web_t4.Areas.Domain
         [NotMapped]
         public int NumberOfSeats => Seats.Count;
 
+        public int LocationId { get; set; }
+
         public List<Seat> Seats { get; set; } = new List<Seat>();
         public double PriceEvening { get; set; }
 
