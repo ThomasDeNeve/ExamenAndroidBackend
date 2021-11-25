@@ -31,14 +31,19 @@ namespace devops_project_web_t4.Data.Repositories
         public Customer GetById(int id)
         {
             return _customers
-                .Include(c => c.Subscription)
+                .Include(c => c.CustomerSubscriptions).ThenInclude(cs => cs.Subscription)
                 .SingleOrDefault(c => c.CustomerId == id);
+
+            /*return _customers
+                .Include(c => c.Subscription)
+                .SingleOrDefault(c => c.CustomerId == id);*/
         }
 
         public Customer GetByName(string username)
         {
             return _customers
-                .Include(c => c.Subscription)
+                .Include(c => c.CustomerSubscriptions).ThenInclude(cs => cs.Subscription)
+                //.Include(c => c.Subscription)
                 .SingleOrDefault(c => c.Username == username);
         }
 

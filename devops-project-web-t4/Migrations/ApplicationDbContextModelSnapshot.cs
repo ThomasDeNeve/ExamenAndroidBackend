@@ -46,9 +46,6 @@ namespace devops_project_web_t4.Migrations
                     b.Property<string>("BTW")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("DaysLeft")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
@@ -58,9 +55,6 @@ namespace devops_project_web_t4.Migrations
                     b.Property<string>("Lastname")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("SubscriptionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Tel")
                         .HasColumnType("longtext");
 
@@ -69,9 +63,43 @@ namespace devops_project_web_t4.Migrations
 
                     b.HasKey("CustomerId");
 
+                    b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CustomerSubscription", b =>
+                {
+                    b.Property<int>("LinkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("DaysLeft")
+                        .HasColumnType("double");
+
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ReservationsLeft")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("To")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("LinkId");
+
+                    b.HasIndex("CustomerId");
+
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("Customer");
+                    b.ToTable("CustomerSubscription");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
@@ -219,7 +247,7 @@ namespace devops_project_web_t4.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Days")
+                    b.Property<int>("MaxNumberOfReservations")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -241,11 +269,21 @@ namespace devops_project_web_t4.Migrations
                         .HasForeignKey("LocationId");
                 });
 
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Customer", b =>
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CustomerSubscription", b =>
                 {
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Customer", "Customer")
+                        .WithMany("CustomerSubscriptions")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("devops_project_web_t4.Areas.Domain.Subscription", "Subscription")
-                        .WithMany()
-                        .HasForeignKey("SubscriptionId");
+                        .WithMany("CustomersSubscription")
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Subscription");
                 });
@@ -294,11 +332,21 @@ namespace devops_project_web_t4.Migrations
                     b.Navigation("Seats");
                 });
 
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Customer", b =>
+                {
+                    b.Navigation("CustomerSubscriptions");
+                });
+
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
                 {
                     b.Navigation("CoWorkRooms");
 
                     b.Navigation("MeetingRooms");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Subscription", b =>
+                {
+                    b.Navigation("CustomersSubscription");
                 });
 #pragma warning restore 612, 618
         }

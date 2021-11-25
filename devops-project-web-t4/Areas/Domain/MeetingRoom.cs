@@ -29,7 +29,5 @@ namespace devops_project_web_t4.Areas.Domain
         #region Methods
 
         #endregion
-
-
     }
 }

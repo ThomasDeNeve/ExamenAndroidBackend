@@ -78,7 +78,7 @@ namespace devops_project_web_t4.Pages.CoworkRoom
 
         public bool HasSub()
         {
-            return SubscriptionController.HasSub(_userName);
+            return SubscriptionController.HasActiveSub(_userName);
         }
     }
 }

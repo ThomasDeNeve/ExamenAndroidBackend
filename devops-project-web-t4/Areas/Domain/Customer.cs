@@ -9,8 +9,6 @@ namespace devops_project_web_t4.Areas.Domain
 {
     public class Customer
     {
-        private Subscription _subscription;
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerId { get; set; }
@@ -21,26 +19,23 @@ namespace devops_project_web_t4.Areas.Domain
         public string BTW { get; set; }
         public string Tel { get; set; }
 
-        public Subscription Subscription
+
+        public List<CustomerSubscription> CustomerSubscriptions { get; set; }
+
+        public void AddSubscription(CustomerSubscription cs)
         {
-            set
-            {
-                if (value != null)
-                {
-                    _subscription = value;
-                    DaysLeft = _subscription.Days;
-                }
-                else
-                {
-                    _subscription = value;
-                }
-            }
-            get
-            {
-                return _subscription;
-            }
+            CustomerSubscriptions.Add(cs);
         }
 
-        public int DaysLeft { get; set; }
+
+        public bool HasActiveSubscription()
+        {
+            if (CustomerSubscriptions.FirstOrDefault(cs => cs.Active) != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

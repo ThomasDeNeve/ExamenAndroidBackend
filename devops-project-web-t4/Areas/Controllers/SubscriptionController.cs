@@ -23,24 +23,27 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             Subscription sub = _subscriptionRepository.GetByName(subName);
             Customer customer = _customerRepository.GetByName(userName);
+            //customer.AddSubscription(cs);
 
-            customer.Subscription = sub;
+            customer.CustomerSubscriptions.Add(
+                new CustomerSubscription()
+                {
+                    Subscription = sub,
+                    Customer = customer
+                });
+
             _customerRepository.SaveChanges();
         }
 
-        public bool HasSub(string userName)
+        public bool HasActiveSub(string userName)
         {
             Customer customer = _customerRepository.GetByName(userName);
-
-            if (customer.Subscription != null)
+            
+            if (customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active) != null)
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
-
+            return false;
         }
     }
 }

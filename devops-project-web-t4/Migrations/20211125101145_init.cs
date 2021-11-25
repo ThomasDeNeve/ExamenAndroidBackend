@@ -66,7 +66,8 @@ namespace devops_project_web_t4.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Price = table.Column<double>(type: "double", nullable: false)
+                    Price = table.Column<double>(type: "double", nullable: false),
+                    MaxNumberOfReservations = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,26 +125,30 @@ namespace devops_project_web_t4.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "CustomerSubscriptions",
+                name: "CustomerSubscription",
                 columns: table => new
                 {
+                    LinkId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     SubscriptionId = table.Column<int>(type: "int", nullable: false),
-                    SubFrom = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    SubTo = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Saldo = table.Column<int>(type: "int", nullable: true)
+                    Active = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    From = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    To = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DaysLeft = table.Column<double>(type: "double", nullable: false),
+                    ReservationsLeft = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomerSubscriptions", x => new { x.CustomerId, x.SubscriptionId });
+                    table.PrimaryKey("PK_CustomerSubscription", x => x.LinkId);
                     table.ForeignKey(
-                        name: "FK_CustomerSubscriptions_Customer_CustomerId",
+                        name: "FK_CustomerSubscription_Customer_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customer",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerSubscriptions_Subscription_SubscriptionId",
+                        name: "FK_CustomerSubscription_Subscription_SubscriptionId",
                         column: x => x.SubscriptionId,
                         principalTable: "Subscription",
                         principalColumn: "SubscriptionId",
@@ -220,8 +225,13 @@ namespace devops_project_web_t4.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerSubscriptions_SubscriptionId",
-                table: "CustomerSubscriptions",
+                name: "IX_CustomerSubscription_CustomerId",
+                table: "CustomerSubscription",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerSubscription_SubscriptionId",
+                table: "CustomerSubscription",
                 column: "SubscriptionId");
 
             migrationBuilder.CreateIndex(
@@ -254,7 +264,7 @@ namespace devops_project_web_t4.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CustomerSubscriptions");
+                name: "CustomerSubscription");
 
             migrationBuilder.DropTable(
                 name: "Reservation");

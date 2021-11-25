@@ -242,27 +242,27 @@ namespace devops_project_web_t4.Data
             HIER.voor een jaar € 195 10d per jaar*/
 
             //5 beurten of 1 maand
-            Subscription AfEnToe = new Subscription() {Price = 70, Name="HIER.af en toe", Days = 5};
+            Subscription AfEnToe = new Subscription() {Price = 70, Name="HIER.af en toe", MaxNumberOfReservations = 5};
             context.Subscriptions.Add(AfEnToe);
 
             //10 beurten of 1 maand
-            Subscription Halftijds = new Subscription() {Price = 120, Name="HIER.halftijds", Days = 10};
+            Subscription Halftijds = new Subscription() {Price = 120, Name="HIER.halftijds", MaxNumberOfReservations = 10};
             context.Subscriptions.Add(Halftijds);
 
             //n beurten of 1 maand
-            Subscription Voltijds = new Subscription() {Price = 225, Name="HIER.voltijds", Days = 31};
+            Subscription Voltijds = new Subscription() {Price = 225, Name="HIER.voltijds"};
             context.Subscriptions.Add(Voltijds);
 
             //1 maand, vaste stoel beneden
-            Subscription VastBeneden = new Subscription() {Price = 295, Name="HIER.mijn vaste plek beneden", Days=31};
+            Subscription VastBeneden = new Subscription() {Price = 295, Name="HIER.mijn vaste plek beneden"};
             context.Subscriptions.Add(VastBeneden);
 
             //1 maand, vaste stoel boven
-            Subscription VastBoven = new Subscription() {Price = 320, Name="HIER.mijn vaste plek boven", Days=31};
+            Subscription VastBoven = new Subscription() {Price = 320, Name="HIER.mijn vaste plek boven"};
             context.Subscriptions.Add(VastBoven);
 
             //10 beurten of 1 jaar
-            Subscription Jaar = new Subscription() {Price = 195, Name="HIER.voor een jaar", Days = 10};
+            Subscription Jaar = new Subscription() {Price = 195, Name="HIER.voor een jaar", MaxNumberOfReservations = 10};
             context.Subscriptions.Add(Jaar);
 
             //context.SaveChanges();
@@ -270,8 +270,9 @@ namespace devops_project_web_t4.Data
 
             #region customerSubscriptionTest
 
-            Customer c = new Customer() {CustomerId = 12, Username = "test@test.com", Subscription = AfEnToe};
-            context.Customers.Add(c);
+            //Customer c = new Customer() {CustomerId = 12, Username = "test@test.com", Subscription = AfEnToe};
+            //c.AddSubscription(AfEnToe);
+            //context.Customers.Add(c);
 
             #endregion
 

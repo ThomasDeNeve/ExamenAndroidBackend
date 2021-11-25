@@ -8,6 +8,6 @@ namespace devops_project_web_t4.Areas.Controllers
     public interface ISubscriptionController
     {
         public void ConfirmSubscription(string subName, string userName);
-        public bool HasSub(string userName);
+        public bool HasActiveSub(string userName);
     }
 }

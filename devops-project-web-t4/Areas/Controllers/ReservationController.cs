@@ -27,23 +27,27 @@ namespace devops_project_web_t4.Areas.Controllers
 
         public void ConfirmReservation(int seatId, string userName)
         {
-            Customer user = _customerRepository.GetByName(userName);
+            Customer customer = _customerRepository.GetByName(userName);
 
             Reservation reservation = new()
             {
                 From = _stateContainer.SelectedDate,
                 To = _stateContainer.SelectedDate,
-                Customer = user
+                Customer = customer
             };
 
             reservation.Seat = _seatRepository.GetById(seatId);
 
-            user.DaysLeft -= 1;
+            customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active).ReservationsLeft -= 1;
+            //customer.GetActiveSubscription().DaysLeft -= 1;
+            
+            
+            //customer.DaysLeft -= 1;
 
-            if (user.DaysLeft == 0)
+            /*if (customer.DaysLeft == 0)
             {
                 user.Subscription = null;
-            }
+            }*/
 
             _reservationRepository.Add(reservation);
             _reservationRepository.SaveChanges();
