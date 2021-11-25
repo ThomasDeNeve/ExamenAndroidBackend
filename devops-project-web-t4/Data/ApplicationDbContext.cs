@@ -75,6 +75,9 @@ namespace devops_project_web_t4.Data
             room.Property(r => r.PriceTwoHours);
             room.Property(r => r.PriceFullDay).IsRequired();
             room.Property(r => r.PriceHalfDay).IsRequired();
+
+            room.Property(r => r.LocationId).IsRequired();
+
         }
 
         private static void MapCoworkRoom(EntityTypeBuilder<CoworkRoom> room)
