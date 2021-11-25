@@ -51,5 +51,10 @@ namespace devops_project_web_t4.Areas.Controllers
 
             return seatsReserved;
         }
+
+        public List<Reservation> GetReservations()
+        {
+            return _reservationRepository.GetAll().ToList();
+        }
     }
 }
