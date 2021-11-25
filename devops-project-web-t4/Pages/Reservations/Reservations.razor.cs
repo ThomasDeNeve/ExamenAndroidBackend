@@ -1,11 +1,16 @@
 ﻿using devops_project_web_t4.Areas.Domain;
 using System.Collections.Generic;
 using System;
+using devops_project_web_t4.Areas.Controllers;
+using Microsoft.AspNetCore.Components;
 
 namespace devops_project_web_t4.Pages.Reservations
 {
     public partial class Reservations
     {
+        [Inject]
+        public IReservationController ReservationController { get; set; }
+        
 
         private List<string> TableHeaders = new List<string>()
         {
@@ -17,9 +22,14 @@ namespace devops_project_web_t4.Pages.Reservations
         public Reservations()
         {
             /*TODO remove initData() and uncomment next line*/
-            /*ReservationsList = ReservationController.GetReservations();*/
+            //ReservationsList = ReservationController.GetReservations();
 
-            initData();
+            //initData();
+        }
+
+        protected override void OnInitialized()
+        {
+            ReservationsList = ReservationController.GetReservations();
         }
 
         public List<List<string>> GetTableData()
