@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Domain
 {
-    public class CoworkRoom
+    public class Subscription
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int SubscriptionId { get; set; }
         public string Name { get; set; }
-        public List<Seat> Seats { get; set; } = new List<Seat>();
+        public double Price { get; set; }
+        public int MaxNumberOfReservations { get; set; }
 
-        //public void AddCoWorkSeat(Seat coWorkSeat) => this.Seats.Add(coWorkSeat);
+        public List<CustomerSubscription> CustomersSubscription { get; set; }
     }
 }

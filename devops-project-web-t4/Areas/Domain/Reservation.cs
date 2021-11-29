@@ -19,7 +19,7 @@ namespace devops_project_web_t4.Areas.Domain
         //Needed to add index in db.
         public int SeatId { get; set; }
         public MeetingRoom MeetingRoom { get; set;}
-        public Customer Customer { get; set; }        
+        public Customer Customer { get; set; }
         public bool IsConfirmed { get; set; }
     }
 }
