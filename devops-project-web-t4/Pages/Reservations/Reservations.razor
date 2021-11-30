@@ -1,0 +1,11 @@
+﻿@page "/reservaties"
+
+@using devops_project_web_t4.Shared.Components
+@using devops_project_web_t4.Areas.Controllers 
+
+
+
+<h1 class="text-center locationSelectorElement">Uw <span class="pinkUnderline">reservaties</span></h1>
+
+<HierTable Headers="@TableHeaders" TableData="GetTableData()"></HierTable>
+
