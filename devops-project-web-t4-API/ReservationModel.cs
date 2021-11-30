@@ -9,5 +9,6 @@ namespace devops_project_web_t4_API
     {
         public int CustomerId { get; set; }
         public int SeatId { get; set; }
+        public int RoomId { get; set; }
     }
 }
