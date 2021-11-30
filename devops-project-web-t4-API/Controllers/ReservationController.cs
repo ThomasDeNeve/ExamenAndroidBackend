@@ -47,15 +47,30 @@ namespace devops_project_web_t4_API.Controllers
             return reservation == null ? NotFound() : reservation;
         }
 
-        // POST: api/reservation
-        [HttpPost]
+        // POST: api/reservation/cowork
+        [HttpPost("seat")]
         public ActionResult<Reservation> AddCoworkReservation(ReservationModel model)
         {
             Reservation reservation = new Reservation()
             {
                 Customer = _customerRepository.GetById(model.CustomerId),
                 Seat = _seatRepository.GetById(model.SeatId),
-                MeetingRoom = _meetingRoomRepository.GetById(model.RoomId)
+            };
+
+            _reservationRepository.Add(reservation);
+            _reservationRepository.SaveChanges();
+
+            return Ok(reservation);
+        }
+
+        // POST: api/reservation/cowork
+        [HttpPost("meetingroom")]
+        public ActionResult<Reservation> AddMeetingroomReservation(ReservationModel model)
+        {
+            Reservation reservation = new Reservation()
+            {
+                Customer = _customerRepository.GetById(model.CustomerId),
+                MeetingRoom = _meetingRoomRepository.GetById(model.RoomId),
             };
 
             _reservationRepository.Add(reservation);
