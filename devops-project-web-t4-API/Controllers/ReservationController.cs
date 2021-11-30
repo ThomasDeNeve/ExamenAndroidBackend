@@ -47,7 +47,7 @@ namespace devops_project_web_t4_API.Controllers
             return reservation == null ? NotFound() : reservation;
         }
 
-        // GET: api/reservation
+        // POST: api/reservation
         [HttpPost]
         public ActionResult<Reservation> AddCoworkReservation(ReservationModel model)
         {
