@@ -47,7 +47,7 @@ namespace devops_project_web_t4_API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Reservation> AddCoworkReservation(ReservationModel model)
+        public ActionResult<Reservation> AddCoworkReservation(DataModels.ReservationModel model)
         {
             Reservation reservation = new Reservation()
             {
@@ -62,7 +62,7 @@ namespace devops_project_web_t4_API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Reservation> AddMeetingRoomReservation(ReservationModel model)
+        public ActionResult<Reservation> AddMeetingRoomReservation(DataModels.ReservationModel model)
         {
             Reservation reservation = new Reservation()
             {
