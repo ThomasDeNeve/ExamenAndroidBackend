@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Data.Repositories;
+using devops_project_web_t4_API.DataModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace devops_project_web_t4_API.Controllers
@@ -46,27 +47,14 @@ namespace devops_project_web_t4_API.Controllers
             return reservation == null ? NotFound() : reservation;
         }
 
+        // GET: api/reservation
         [HttpPost]
-        public ActionResult<Reservation> AddCoworkReservation(DataModels.ReservationModel model)
+        public ActionResult<Reservation> AddCoworkReservation(ReservationModel model)
         {
             Reservation reservation = new Reservation()
             {
                 Customer = _customerRepository.GetById(model.CustomerId),
-                Seat = _seatRepository.GetById(model.SeatId)
-            };
-
-            _reservationRepository.Add(reservation);
-            _reservationRepository.SaveChanges();
-
-            return Ok(reservation);
-        }
-
-        [HttpPost]
-        public ActionResult<Reservation> AddMeetingRoomReservation(DataModels.ReservationModel model)
-        {
-            Reservation reservation = new Reservation()
-            {
-                Customer = _customerRepository.GetById(model.CustomerId),
+                Seat = _seatRepository.GetById(model.SeatId),
                 MeetingRoom = _meetingRoomRepository.GetById(model.RoomId)
             };
 
