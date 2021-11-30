@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.IdentityModel.Protocols;
 
 namespace devops_project_web_t4.Data
 {
@@ -14,6 +15,12 @@ namespace devops_project_web_t4.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
         }
 
         public DbSet<Location> Locations { get; set; }
@@ -22,6 +29,11 @@ namespace devops_project_web_t4.Data
         public DbSet<Reservation> Reservations {get;set;}
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CoworkRoom> CoworkRooms { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<CustomerSubscription> CustomerSubscriptions { get; set; }
+
+        //many to many link
+        //public DbSet<CustomerSubscription> CustomerSubscriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,6 +45,8 @@ namespace devops_project_web_t4.Data
 
             builder.Entity<Seat>(MapSeat);
 
+            builder.Entity<CustomerSubscription>(MapCustomerSubscription);
+            builder.Entity<Subscription>(MapSubscription);
             builder.Entity<Customer>(MapCustomer);
             builder.Entity<Reservation>(MapReservation);
         }
@@ -56,12 +70,13 @@ namespace devops_project_web_t4.Data
             room.ToTable("MeetingRoom");
             
             room.Property(r => r.Name).IsRequired();
+            room.Property(r => r.NumberOfSeats).IsRequired();
             room.Property(r => r.PriceEvening).IsRequired();
             room.Property(r => r.PriceTwoHours);
             room.Property(r => r.PriceFullDay).IsRequired();
             room.Property(r => r.PriceHalfDay).IsRequired();
+
             room.Property(r => r.LocationId).IsRequired();
-            room.HasMany(r => r.Seats).WithOne();
 
         }
 
@@ -100,15 +115,49 @@ namespace devops_project_web_t4.Data
             reservation.HasIndex(r => new { r.SeatId, r.From }).IsUnique();
         }
 
+        private static void MapSubscription(EntityTypeBuilder<Subscription> subscription)
+        {
+            subscription.ToTable("Subscription");
+
+            subscription.Property(s => s.Name).IsRequired();
+            subscription.Property(s => s.Price).IsRequired();
+        }
+
+        private static void MapCustomerSubscription(EntityTypeBuilder<CustomerSubscription> cs)
+        {
+            cs.ToTable("CustomerSubscription");
+            //cs.HasKey(cs => new { cs.SubscriptionId, cs.CustomerId });
+
+            cs.HasOne(cs => cs.Subscription).WithMany(cs => cs.CustomersSubscription)
+                .HasForeignKey(s => s.SubscriptionId);
+            cs.HasOne(cs => cs.Customer).WithMany(c => c.CustomerSubscriptions).HasForeignKey(cs => cs.CustomerId);
+
+            cs.Property(cs => cs.Active);
+        }
+
         private static void MapCustomer(EntityTypeBuilder<Customer> customer)
         {
             customer.ToTable("Customer");
 
             customer.Property(c => c.Firstname);
             customer.Property(c => c.Lastname);
+            customer.Property(c => c.Username);
             customer.Property(c => c.Email);
             customer.Property(c => c.Tel);
             customer.Property(c => c.BTW);
+
+            //customer.HasMany(c => c.CustomerSubscriptions);
+            //customer.HasOne(c => c.Subscription);
         }
+
+        /*modelBuilder.Entity<BookAuthor>() 
+        .HasOne(pt => pt.Book)
+            .WithMany(p => p.AuthorsLink)
+            .HasForeignKey(pt => pt.BookId);
+
+        modelBuilder.Entity<BookAuthor>() 
+        .HasOne(pt => pt.Author)
+            .WithMany(t => t.BooksLink)
+            .HasForeignKey(pt => pt.AuthorId);*/
     }
 }

@@ -118,17 +118,18 @@ namespace devops_project_web_t4
 
             services.AddHttpContextAccessor();
 
-            services.AddSingleton<WeatherForecastService>();
-
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<IMeetingRoomRepository, MeetingRoomRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<ISeatRepository, SeatRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICoworkRoomRepository, CoworkRoomRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
             services.AddScoped<IReservationController, ReservationController>();
             services.AddScoped<ISeatController, SeatController>();
+            services.AddScoped<ISubscriptionController, SubscriptionController>();
+            services.AddScoped<ICustomerController, CustomerController>();
 
             services.AddScoped<StateContainer>();
         }

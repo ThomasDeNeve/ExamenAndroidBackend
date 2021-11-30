@@ -1,22 +1,12 @@
-﻿@inject AuthenticationStateProvider AuthState
+﻿@using devops_project_web_t4.Areas.Domain
+@using devops_project_web_t4.Areas.Controllers
+@inject AuthenticationStateProvider AuthState
 
 <AuthorizeView>
     <Authorized>
-        Welkom @Username. <a href="logout">Log out</a>
+        Welkom @_username <a href="logout">Log out</a>
     </Authorized>
     <NotAuthorized>
         <a href="login?redirectUri=/">Log in</a>
     </NotAuthorized>
 </AuthorizeView>
-
-@code {
-    private string Username;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var state = await AuthState.GetAuthenticationStateAsync();
-        Username = state.User.Identity.Name;
-
-        await base.OnInitializedAsync();
-    }
-}

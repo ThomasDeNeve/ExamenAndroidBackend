@@ -25,23 +25,32 @@ namespace devops_project_web_t4.Areas.Controllers
             _stateContainer = sc;
         }
 
-        //public DateTime SelectedDate { get; set; }
-
-        public void ConfirmReservation(int seatId, int customerId)
+        public void ConfirmReservation(int seatId, string userName)
         {
-            
+            Customer customer = _customerRepository.GetByName(userName);
+
             Reservation reservation = new()
             {
                 From = _stateContainer.SelectedDate,
                 To = _stateContainer.SelectedDate,
-                //Customer = _customerRepository.GetById(customerId)
-                Customer = new Customer(){Email="Yves.Vanduynslager@voestalpine.com",Firstname="Yves",Lastname = "Vanduynslager", Tel="666"}
+                Customer = customer
             };
 
             reservation.Seat = _seatRepository.GetById(seatId);
 
-                _reservationRepository.Add(reservation);
-                _reservationRepository.SaveChanges();
+            customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active).ReservationsLeft -= 1;
+            //customer.GetActiveSubscription().DaysLeft -= 1;
+            
+            
+            //customer.DaysLeft -= 1;
+
+            /*if (customer.DaysLeft == 0)
+            {
+                user.Subscription = null;
+            }*/
+
+            _reservationRepository.Add(reservation);
+            _reservationRepository.SaveChanges();
         }
 
         public List<int> GetSeatIdsReservedForDate(DateTime date)
