@@ -12,12 +12,12 @@ namespace devops_project_web_t4.Areas.Controllers
 {
     public class ReservationController : IReservationController
     {
-        private readonly IReservationRepository _reservationRepository;
+        private readonly ICoworkReservationRepository _reservationRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly ISeatRepository _seatRepository;
         private readonly StateContainer _stateContainer;
 
-        public ReservationController(StateContainer sc, IReservationRepository reservationRepository, ICustomerRepository customerRepository, ISeatRepository seatRepository)
+        public ReservationController(StateContainer sc, ICoworkReservationRepository reservationRepository, ICustomerRepository customerRepository, ISeatRepository seatRepository)
         {
             _reservationRepository = reservationRepository;
             _customerRepository = customerRepository;
@@ -29,10 +29,10 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             Customer customer = _customerRepository.GetByName(userName);
 
-            Reservation reservation = new()
+            CoworkReservation reservation = new()
             {
                 From = _stateContainer.SelectedDate,
-                To = _stateContainer.SelectedDate,
+                //To = _stateContainer.SelectedDate,
                 Customer = customer
             };
 
@@ -55,7 +55,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
         public List<int> GetSeatIdsReservedForDate(DateTime date)
         {
-            ICollection<Reservation> reservations = _reservationRepository.GetAll();
+            ICollection<CoworkReservation> reservations = _reservationRepository.GetAll();
             List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
 
             return seatsReserved;
