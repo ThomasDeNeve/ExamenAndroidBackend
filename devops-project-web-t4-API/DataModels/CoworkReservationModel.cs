@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace devops_project_web_t4_API.DataModels
 {
-    public class ReservationModel
+    public class CoworkReservationModel
     {
         public int CustomerId { get; set; }
         public int SeatId { get; set; }
-        public int RoomId { get; set; }
     }
 }

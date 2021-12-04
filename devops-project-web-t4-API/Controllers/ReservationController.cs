@@ -49,7 +49,7 @@ namespace devops_project_web_t4_API.Controllers
 
         // POST: api/reservation/cowork
         [HttpPost("seat")]
-        public ActionResult<Reservation> AddCoworkReservation(ReservationModel model)
+        public ActionResult<Reservation> AddCoworkReservation(CoworkReservationModel model)
         {
             Reservation reservation = new Reservation()
             {
@@ -63,9 +63,9 @@ namespace devops_project_web_t4_API.Controllers
             return Ok(reservation);
         }
 
-        // POST: api/reservation/cowork
+        // POST: api/reservation/meetingroom
         [HttpPost("meetingroom")]
-        public ActionResult<Reservation> AddMeetingroomReservation(ReservationModel model)
+        public ActionResult<Reservation> AddMeetingroomReservation(MeetingroomReservationModel model)
         {
             Reservation reservation = new Reservation()
             {
