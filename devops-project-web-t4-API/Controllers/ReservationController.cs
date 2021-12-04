@@ -54,7 +54,7 @@ namespace devops_project_web_t4_API.Controllers
             Reservation reservation = new Reservation()
             {
                 Customer = _customerRepository.GetById(model.CustomerId),
-                Seat = _seatRepository.GetById(model.SeatId),
+                //Seat = _seatRepository.GetById(model.SeatId),
             };
 
             _reservationRepository.Add(reservation);
@@ -67,6 +67,7 @@ namespace devops_project_web_t4_API.Controllers
         [HttpPost("meetingroom")]
         public ActionResult<Reservation> AddMeetingroomReservation(MeetingroomReservationModel model)
         {
+            //TODO add exception handling
             Reservation reservation = new Reservation()
             {
                 Customer = _customerRepository.GetById(model.CustomerId),
