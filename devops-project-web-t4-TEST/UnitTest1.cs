@@ -9,7 +9,7 @@ namespace devops_project_web_t4_TEST
         public void Test1()
         {
             int i = 1;
-            Assert.Equal(1, i);
+            Assert.Equal(10, i);
         }
     }
 }
