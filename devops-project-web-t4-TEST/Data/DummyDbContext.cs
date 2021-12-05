@@ -42,7 +42,10 @@ namespace devops_project_web_t4_TEST.Data
         public Customer customer1;
         public Customer customer2;
         public Customer customer3;
-        
+        public Customer yves;
+
+        public DateTime dateTimeNow;
+
 
         public DummyDbContext()
         {
@@ -279,9 +282,19 @@ namespace devops_project_web_t4_TEST.Data
                 Lastname = "Albert",
                 Tel = "+3212345678"
             };
+
+            yves = new Customer()
+            {
+                Email = "Yves.Vanduynslager@voestalpine.com",
+                Firstname = "Yves",
+                Lastname = "Vanduynslager",
+                Tel = "666"
+            };
             #endregion
             #region reservations
             #endregion
+            DateTime _now = DateTime.Now;
+            dateTimeNow = new DateTime(_now.Year, _now.Month, _now.Day, 0, 0, 0);
         }
     }
 }

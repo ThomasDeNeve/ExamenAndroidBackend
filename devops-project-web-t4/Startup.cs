@@ -39,7 +39,7 @@ namespace devops_project_web_t4
             services.AddDbContext<ApplicationDbContext>(options =>
                 //options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocal")));
 
-                options.UseMySql(Configuration.GetConnectionString("Mysql"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql")))); //https://dev.mysql.com/downloads/mysql/
+                options.UseMySql(Configuration.GetConnectionString("Mysqllocal"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql")))); //https://dev.mysql.com/downloads/mysql/
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddDatabaseDeveloperPageExceptionFilter();
