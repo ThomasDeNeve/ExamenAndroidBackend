@@ -33,15 +33,12 @@ namespace devops_project_web_t4_API.Controllers
             _customerRepository = customerRepository;
             _seatRepository = seatRepository;
             _meetingRoomRepository = meetingRoomRepository;
-
         }
 
         [HttpGet]
         public IEnumerable<CoworkReservation> GetReservations()
         {
-
             return _coworkReservationRepository.GetAll();
-
         }
 
         [HttpGet("{id}")]
@@ -53,13 +50,17 @@ namespace devops_project_web_t4_API.Controllers
 
         // POST: api/reservation/cowork
         [HttpPost("seat")]
-        public ActionResult<CoworkReservation> AddCoworkReservation(CoworkReservationModel model)
+        public ActionResult<CoworkReservation> PostCoworkReservation(CoworkReservationModel model)
         {
+            //Customer customer = _customerRepository.GetByName(userName);
+
             CoworkReservation reservation = new CoworkReservation()
             {
-                Customer = _customerRepository.GetById(model.CustomerId),
+                Customer = _customerRepository.GetById(model.CustomerId), //= customer
                 Seat = _seatRepository.GetById(model.SeatId),
             };
+
+            //customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active).ReservationsLeft -= 1;
 
             _coworkReservationRepository.Add(reservation);
             _coworkReservationRepository.SaveChanges();
@@ -69,7 +70,7 @@ namespace devops_project_web_t4_API.Controllers
 
         // POST: api/reservation/meetingroom
         [HttpPost("meetingroom")]
-        public ActionResult<CoworkReservation> AddMeetingroomReservation(MeetingroomReservationModel model)
+        public ActionResult<CoworkReservation> PostMeetingroomReservation(MeetingroomReservationModel model)
         {
             //TODO add exception handling
             MeetingroomReservation reservation = new MeetingroomReservation()
@@ -82,6 +83,26 @@ namespace devops_project_web_t4_API.Controllers
             _meetingRoomReservationRepository.SaveChanges();
 
             return Ok(reservation);
+        }
+
+        //GET: api/reservation/seats_taken_for_date
+        [HttpGet("seats_taken_for_date")]
+        public ActionResult<List<int>> GetSeatIdsReservedForDate(DateTime date)
+        {
+            ICollection<CoworkReservation> reservations = _coworkReservationRepository.GetAll();
+            List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
+
+            return Ok(seatsReserved);
+        }
+
+        //GET: api/reservation/meetingrooms_taken_for_date
+        [HttpGet("meetingrooms_taken_for_date")]
+        public ActionResult<List<int>> GetMeetingroomIdsReservedForDateTime(DateTime date)
+        {
+            ICollection<MeetingroomReservation> reservations = _meetingRoomReservationRepository.GetAll();
+            List<int> roomsReserved = reservations.Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
+
+            return Ok(roomsReserved);
         }
     }
 }
