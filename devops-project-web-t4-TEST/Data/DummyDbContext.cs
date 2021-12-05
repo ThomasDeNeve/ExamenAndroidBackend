@@ -228,6 +228,7 @@ namespace devops_project_web_t4_TEST.Data
 
             locationGent = new Location()
             {
+                Id = 1,
                 Name = "HIER",
                 Street = "Hier ergens",
                 Number = 1,

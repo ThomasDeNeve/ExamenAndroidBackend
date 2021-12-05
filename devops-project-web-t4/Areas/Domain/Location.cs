@@ -30,7 +30,11 @@ namespace devops_project_web_t4.Areas.Domain
 
         public List<CoworkRoom> CoWorkRooms { get; set; } = new List<CoworkRoom>();
 
-        public void AddMeetingRoom(MeetingRoom meetingRoom) => this.MeetingRooms.Add(meetingRoom);
+        public void AddMeetingRoom(MeetingRoom meetingRoom)
+        {
+            meetingRoom.LocationId = this.Id;
+            this.MeetingRooms.Add(meetingRoom);
+        }
 
         private void AddLocationIdToMeetingRoom(List<MeetingRoom> value)
         {

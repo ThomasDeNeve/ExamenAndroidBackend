@@ -26,9 +26,4 @@
     <ProjectReference Include="..\devops-project-web-t4\devops-project-web-t4.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
