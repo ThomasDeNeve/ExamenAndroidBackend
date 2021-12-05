@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,32 +20,56 @@ namespace devops_project_web_t4_API.Controllers
         private readonly IMeetingroomReservationRepository _meetingRoomReservationRepository;
 
         private readonly ICustomerRepository _customerRepository;
+
         private readonly ISeatRepository _seatRepository;
         private readonly IMeetingRoomRepository _meetingRoomRepository;
 
-        public ReservationController(ICoworkReservationRepository coworkReservationRepository,
+        public ReservationController(
+            ICoworkReservationRepository coworkReservationRepository,
             IMeetingroomReservationRepository meetingroomReservationRepository,
+
             ICustomerRepository customerRepository,
+
             ISeatRepository seatRepository,
             IMeetingRoomRepository meetingRoomRepository)
         {
             _coworkReservationRepository = coworkReservationRepository;
             _meetingRoomReservationRepository = meetingroomReservationRepository;
+
             _customerRepository = customerRepository;
+
             _seatRepository = seatRepository;
             _meetingRoomRepository = meetingRoomRepository;
         }
 
+        //TODO: change get to api/reservations/seats (also change api call in android!)
+        // GET: api/reservations
         [HttpGet]
-        public IEnumerable<CoworkReservation> GetReservations()
+        public IEnumerable<CoworkReservation> GetCoworkReservations()
         {
             return _coworkReservationRepository.GetAll();
         }
 
+        // GET: api/reservations/meetingrooms
+        [HttpGet("meetingrooms")]
+        public IEnumerable<MeetingroomReservation> GetMeetingroomReservations()
+        {
+            return _meetingRoomReservationRepository.GetAll();
+        }
+
+        //TODO: change get to api/reservations/seat/{id} (also change api call in android!)
+        // GET : api/reservations/{id}
         [HttpGet("{id}")]
-        public ActionResult<CoworkReservation> GetReservation(int id)
+        public ActionResult<CoworkReservation> GetCoworkReservation(int id)
         {
             CoworkReservation reservation = _coworkReservationRepository.GetById(id);
+            return reservation == null ? NotFound() : reservation;
+        }
+
+        [HttpGet("meetingroom/{id}")]
+        public ActionResult<MeetingroomReservation> GetMeetingroomReservation(int id)
+        {
+            MeetingroomReservation reservation = _meetingRoomReservationRepository.GetById(id);
             return reservation == null ? NotFound() : reservation;
         }
 
@@ -84,6 +109,8 @@ namespace devops_project_web_t4_API.Controllers
 
             return Ok(reservation);
         }
+
+        //DateTime in Android meegeven als "0001-01-01T00:00:00"
 
         //GET: api/reservation/seats_taken_for_date
         [HttpGet("seats_taken_for_date")]
