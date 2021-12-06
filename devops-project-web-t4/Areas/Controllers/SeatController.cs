@@ -15,11 +15,11 @@ namespace devops_project_web_t4.Areas.Controllers
         private MeetingRoom _currentRoom;
         private Seat _currentSeat;
 
-        IReservationRepository _reservationRepository;
+        ICoworkReservationRepository _reservationRepository;
         ILocationRepository _locationRepository;
         ICoworkRoomRepository _roomRepository;
 
-        public SeatController(IReservationRepository reservationRepository, ILocationRepository locationRepository, ICoworkRoomRepository roomRepository)
+        public SeatController(ICoworkReservationRepository reservationRepository, ILocationRepository locationRepository, ICoworkRoomRepository roomRepository)
         {
             _reservationRepository = reservationRepository;
             _locationRepository = locationRepository;
@@ -28,7 +28,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
         public List<int> GetSeatIdsReservedForDate(DateTime date)
         {
-            ICollection<Reservation> reservations = _reservationRepository.GetAll();
+            ICollection<CoworkReservation> reservations = _reservationRepository.GetAll();
             List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
 
             return seatsReserved;
