@@ -5,4 +5,4 @@ EXPOSE 443
 EXPOSE 5000
 EXPOSE 5001
 COPY /app ./
-ENTRYPOINT ["dotnet", "devops-project-web-t4-API.dll"]
+ENTRYPOINT ["dotnet", "devops-project-web-t4.dll"]
