@@ -91,9 +91,9 @@ namespace devops_project_web_t4.Areas.Controllers
 
             return roomsReserved;
         }
-        public List<Reservation> GetReservations()
+        /*public List<Reservation> GetReservations()
         {
             return _reservationRepository.GetAll().ToList();
-        }
+        }*/
     }
 }

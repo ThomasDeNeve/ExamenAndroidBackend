@@ -17,7 +17,7 @@ namespace devops_project_web_t4.Pages.Reservations
         "Van", "Tot", "Vergaderzaal", "Stoel"
         };
 
-        private List<Reservation> ReservationsList;
+        //private List<Reservation> ReservationsList;
 
         public Reservations()
         {
@@ -29,19 +29,19 @@ namespace devops_project_web_t4.Pages.Reservations
 
         protected override void OnInitialized()
         {
-            ReservationsList = ReservationController.GetReservations();
+            //ReservationsList = ReservationController.GetReservations();
         }
 
         public List<List<string>> GetTableData()
         {
             List<List<string>> tableData = new List<List<string>>();
 
-            foreach (Reservation res in ReservationsList)
+            /*foreach (Reservation res in ReservationsList)
             {
                 string roomName = String.IsNullOrEmpty(res.MeetingRoom?.Name) ? "/" : res.MeetingRoom?.Name;
                 string seatId = String.IsNullOrEmpty(res.Seat?.Id.ToString()) ? "/" : res.Seat?.Id.ToString();
                 tableData.Add(new List<string>() { res.From.ToString(), res.To.ToString(), roomName, seatId });
-            }
+            }*/
 
             return tableData;
         }
@@ -58,7 +58,7 @@ namespace devops_project_web_t4.Pages.Reservations
 
         private void initData()
         {
-            Reservation rev1 = GetReservation(12, null, new DateTime(2021, 11, 22, 8, 0, 0), new DateTime(2021, 11, 22, 17, 0, 0));
+            /*Reservation rev1 = GetReservation(12, null, new DateTime(2021, 11, 22, 8, 0, 0), new DateTime(2021, 11, 22, 17, 0, 0));
             Reservation rev2 = GetReservation(9, null, new DateTime(2021, 11, 21, 8, 0, 0), new DateTime(2021, 11, 21, 17, 0, 0));
             Reservation rev3 = GetReservation(12, null, new DateTime(2021, 11, 20, 8, 0, 0), new DateTime(2021, 11, 20, 17, 0, 0));
             Reservation rev4 = GetReservation(2, "Vanachter", new DateTime(2021, 11, 10, 12, 0, 0), new DateTime(2021, 11, 10, 17, 0, 0));
@@ -67,7 +67,7 @@ namespace devops_project_web_t4.Pages.Reservations
             rev5.Seat = null;
 
             List<Reservation> data = new List<Reservation> { rev1, rev2, rev3, rev4, rev5 };
-            this.ReservationsList = data;
+            this.ReservationsList = data;*/
         }
 
         private Seat GetSeat(int id)
@@ -84,7 +84,7 @@ namespace devops_project_web_t4.Pages.Reservations
             return room;
         }
 
-        private Reservation GetReservation(int seatId, string roomName, DateTime from, DateTime to)
+        /*private Reservation GetReservation(int seatId, string roomName, DateTime from, DateTime to)
         {
             Reservation reservation1 = new Reservation();
             reservation1.From = from;
@@ -92,6 +92,6 @@ namespace devops_project_web_t4.Pages.Reservations
             reservation1.Seat = GetSeat(seatId);
             reservation1.MeetingRoom = GetRoom(roomName);
             return reservation1;
-        }
+        }*/
     }
 }
