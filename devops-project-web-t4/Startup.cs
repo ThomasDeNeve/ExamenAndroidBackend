@@ -120,7 +120,8 @@ namespace devops_project_web_t4
 
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<IMeetingRoomRepository, MeetingRoomRepository>();
-            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<ICoworkReservationRepository, CoworkReservationRepository>();
+            services.AddScoped<IMeetingroomReservationRepository, MeetingroomReservationRepository>();
             services.AddScoped<ISeatRepository, SeatRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICoworkRoomRepository, CoworkRoomRepository>();

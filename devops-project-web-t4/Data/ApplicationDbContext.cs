@@ -26,7 +26,8 @@ namespace devops_project_web_t4.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<MeetingRoom> MeetingRooms { get; set; }
         public DbSet<Seat> Seats { get; set; }
-        public DbSet<Reservation> Reservations {get;set;}
+        public DbSet<CoworkReservation> CoworkReservations {get;set;}
+        public DbSet<MeetingroomReservation> MeetingroomReservations { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CoworkRoom> CoworkRooms { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
@@ -48,7 +49,8 @@ namespace devops_project_web_t4.Data
             builder.Entity<CustomerSubscription>(MapCustomerSubscription);
             builder.Entity<Subscription>(MapSubscription);
             builder.Entity<Customer>(MapCustomer);
-            builder.Entity<Reservation>(MapReservation);
+            builder.Entity<CoworkReservation>(MapCoworkReservation);
+            builder.Entity<MeetingroomReservation>(MapMeetingRoomReservation);
         }
 
         private static void MapLocation(EntityTypeBuilder<Location> location)
@@ -100,19 +102,32 @@ namespace devops_project_web_t4.Data
             seat.Property(p => p.PriceYear).IsRequired();
         }
 
-        private static void MapReservation(EntityTypeBuilder<Reservation> reservation)
+        private static void MapCoworkReservation(EntityTypeBuilder<CoworkReservation> reservation)
         {
-            reservation.ToTable("Reservation");
+            reservation.ToTable("CoworkReservation");
 
             reservation.Property(r => r.From).IsRequired();
-            reservation.Property(r => r.To).IsRequired();
+            //reservation.Property(r => r.To).IsRequired();
             reservation.Property(r => r.IsConfirmed).IsRequired();
 
             reservation.HasOne(r => r.Customer).WithMany()/*.HasForeignKey(r => r.CustomerId)*/.IsRequired();
-            reservation.HasOne(r => r.MeetingRoom).WithMany()/*.HasForeignKey(r => r.MeetingRoomId)*/;
+            //reservation.HasOne(r => r.MeetingRoom).WithMany()/*.HasForeignKey(r => r.MeetingRoomId)*/;
             reservation.HasOne(r => r.Seat).WithMany().HasForeignKey(r => r.SeatId);
 
             reservation.HasIndex(r => new { r.SeatId, r.From }).IsUnique();
+        }
+
+        private static void MapMeetingRoomReservation(EntityTypeBuilder<MeetingroomReservation> reservation)
+        {
+            reservation.ToTable("MeetingroomReservation");
+
+            reservation.Property(r => r.From).IsRequired();
+            reservation.Property(r => r.IsConfirmed).IsRequired();
+
+            reservation.HasOne(r => r.Customer).WithMany()/*.HasForeignKey(r => r.CustomerId)*/.IsRequired();
+            reservation.HasOne(r => r.MeetingRoom).WithMany().HasForeignKey(r => r.MeetingroomId);
+
+            reservation.HasIndex(r => new { r.MeetingroomId, r.From }).IsUnique();
         }
 
         private static void MapSubscription(EntityTypeBuilder<Subscription> subscription)
