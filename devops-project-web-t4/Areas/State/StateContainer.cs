@@ -38,8 +38,8 @@ namespace devops_project_web_t4.Areas.State
                 _dateSelected = value;
                 Console.WriteLine("selected date: " + value);
 
-                _seatsReserved = _seatController.GetSeatIdsReservedForDate(_dateSelected);
-                foreach (var seat in SeatsReserved)
+/*                _seatsReserved = _seatController.GetSeatIdsReservedForDate(_dateSelected);
+*/                foreach (var seat in SeatsReserved)
                 {
                     Console.WriteLine(seat);
                 }
