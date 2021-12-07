@@ -8,7 +8,6 @@ namespace devops_project_web_t4.Areas.Controllers
     public interface IReservationController
     {
         public void ConfirmCoworkReservation(int seatId, string username);
-
-        public List<int> GetSeatIdsReservedForDate(DateTime date);
+        public void ConfirmMeetingRoomReservation(int roomId, string userName);
     }
 }

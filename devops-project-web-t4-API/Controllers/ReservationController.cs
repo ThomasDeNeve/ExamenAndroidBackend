@@ -111,7 +111,8 @@ namespace devops_project_web_t4_API.Controllers
         }
 
         //DateTime in Android meegeven als "0001-01-01T00:00:00"
-
+        /*
+        //UNUSED
         //GET: api/reservation/seats_taken_for_date
         [HttpGet("seats_taken_for_date")]
         public ActionResult<List<int>> GetSeatIdsReservedForDate(DateTime date)
@@ -122,6 +123,7 @@ namespace devops_project_web_t4_API.Controllers
             return Ok(seatsReserved);
         }
 
+        //UNUSED
         //GET: api/reservation/meetingrooms_taken_for_date
         [HttpGet("meetingrooms_taken_for_date")]
         public ActionResult<List<int>> GetMeetingroomIdsReservedForDateTime(DateTime date)
@@ -130,6 +132,29 @@ namespace devops_project_web_t4_API.Controllers
             List<int> roomsReserved = reservations.Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
 
             return Ok(roomsReserved);
+        }*/
+
+        //GET: api/reservation/meetingrooms_available_for_date
+        [HttpGet("meetingrooms_available")]
+       
+        public ActionResult<List<MeetingRoom>> GetAvailableMeetingrooms(int neededseats, int locationid, DateTime date) //TODO: change DateTime with optionString (halfday, morning, afternoon, twohours, evening)
+        {
+            ICollection<MeetingroomReservation> reservations = _meetingRoomReservationRepository.GetAll();
+
+            List<int> idsRoomsTaken =
+                reservations.Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
+
+            ICollection<MeetingRoom> meetingRooms = _meetingRoomRepository.GetAll();
+
+            foreach (int idroomtaken in idsRoomsTaken)
+            {
+                meetingRooms.Remove(_meetingRoomRepository.GetById(idroomtaken));
+            }
+
+            //filter based on location and number of needed seats
+            meetingRooms = meetingRooms.Where(m => m.LocationId == locationid && m.NumberOfSeats >= neededseats).ToList();
+
+            return meetingRooms.ToList();
         }
     }
 }
