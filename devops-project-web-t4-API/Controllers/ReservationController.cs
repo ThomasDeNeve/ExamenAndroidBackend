@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Domain;
@@ -134,15 +135,19 @@ namespace devops_project_web_t4_API.Controllers
             return Ok(roomsReserved);
         }*/
 
-        //GET: api/reservation/meetingrooms_available_for_date
-        [HttpGet("meetingrooms_available")]
+        //GET: api/reservation/meetingrooms_available
+        [HttpPost("meetingrooms_available")]
        
-        public ActionResult<List<MeetingRoom>> GetAvailableMeetingrooms(int neededseats, int locationid, DateTime date) //TODO: change DateTime with optionString (halfday, morning, afternoon, twohours, evening)
+        public ActionResult<List<MeetingRoom>> GetAvailableMeetingrooms(int neededseats, int locationid, String date) //TODO: change DateTime with optionString (halfday, morning, afternoon, twohours, evening)
         {
             ICollection<MeetingroomReservation> reservations = _meetingRoomReservationRepository.GetAll();
 
+
+            CultureInfo culture = new CultureInfo("en-US");
+            DateTime tempDate = Convert.ToDateTime(date, culture);
+
             List<int> idsRoomsTaken =
-                reservations.Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
+                reservations.Where(r => r.From == tempDate).Select(r => r.MeetingRoom.Id).ToList();
 
             ICollection<MeetingRoom> meetingRooms = _meetingRoomRepository.GetAll();
 
