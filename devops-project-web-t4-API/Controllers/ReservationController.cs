@@ -135,8 +135,8 @@ namespace devops_project_web_t4_API.Controllers
             return Ok(roomsReserved);
         }*/
 
-        //GET: api/reservation/meetingrooms_available
-        [HttpPost("meetingrooms_available")]
+        //GET: api/reservation/availablemeetingrooms
+        [HttpGet("availablemeetingrooms")]
        
         public ActionResult<List<MeetingRoom>> GetAvailableMeetingrooms(int neededseats, int locationid, String date) //TODO: change DateTime with optionString (halfday, morning, afternoon, twohours, evening)
         {
