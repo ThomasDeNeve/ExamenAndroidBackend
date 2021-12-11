@@ -4,7 +4,7 @@
 <div id="rooms" class="shadow-lg roomPanel">
     @foreach (var room in _meetingRooms)
     {
-        <div class="shadow coworkroom">
+        <div class="shadow coworkroom" @onclick="() => ShowRoom(room.Id)">
             <p>@room.Name</p>
             <div><img src="Images/room.jpg" width="200" height="200" /></div> <br />
         </div>
