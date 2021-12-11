@@ -1,0 +1,12 @@
+﻿@page "/meetingrooms/hier/overzicht"
+
+<h3>Overzicht vergaderzalen HIER</h3>
+<div id="rooms" class="shadow-lg roomPanel">
+    @foreach (var room in _meetingRooms)
+    {
+        <div class="shadow coworkroom">
+            <p>@room.Name</p>
+            <div><img src="Images/room.jpg" width="200" height="200" /></div> <br />
+        </div>
+    }
+</div>
