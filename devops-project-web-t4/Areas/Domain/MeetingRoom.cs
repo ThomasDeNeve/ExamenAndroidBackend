@@ -15,13 +15,10 @@ namespace devops_project_web_t4.Areas.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
-
         public string Description { get; set; }
-
+        public string ImageName { get; set; }
         public int NumberOfSeats { get; set; }
-
         public int LocationId { get; set; }
-
         public double PriceEvening { get; set; }
         public double PriceFullDay { get; set; }
         public double PriceHalfDay { get; set; }
