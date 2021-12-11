@@ -13,7 +13,7 @@ namespace devops_project_web_t4.Data
             context.Database.EnsureCreated();
 
             //Check if database has been seeded with data
-            if(context.MeetingRooms.Any() && context.Locations.Any())
+            if (context.MeetingRooms.Any() && context.Locations.Any())
             {
                 return;
             }
@@ -102,6 +102,7 @@ namespace devops_project_web_t4.Data
                 PriceTwoHours = 80,
                 PriceEvening = 175,
                 PriceFullDay = 250,
+                Description = "De gezelligste van onze vergaderzalen vind je vanvoor in het gebouw van HIER. Door de originele elementen in deze zaal, krijg je instant inspiratie. Deze zaal bied je een oplossing voor het delen van je interessante weetjes en in kleiner comité van maximum 7 personen. Deze zaal heeft een digi-scherm (verstelbaar van hoogte) en een elektrische zit-sta tafel. Leuk om een staande informele meeting te houden."
                 //Seats = seatsHierVanvoor.ToList()
             };
 
@@ -118,6 +119,7 @@ namespace devops_project_web_t4.Data
                 PriceTwoHours = 80,
                 PriceEvening = 175,
                 PriceFullDay = 250,
+                Description = "HIER.boven is overduidelijk onze mooiste, meest luxueuze zaal. Deze zaal kan 16 personen zetten. Tot de uitrusting behoren comfortabele zeteltjes, een grote mooie wig tafel met ingebouwde stekkers, internetaansluiting, projector, digitaal scherm, prima geluidsinstallatie en een goede belichting. De perfecte spot om te laten zien aan je beste klanten of een meeting te organiseren met je managementteam of directors of the board."
                 //Seats = seatsHierBoven.ToList()
             };
 
@@ -133,6 +135,8 @@ namespace devops_project_web_t4.Data
                 PriceHalfDay = 275,
                 PriceEvening = 325,
                 PriceFullDay = 395,
+                Description = "Onze zaal Ginder is de perfecte polyvalente opleidingszaal. Met de aanwezigheid van comfortabele stoelen, ruime tafels, het digischerm en goede belichting heeft dit creative lab alle fysieke elementen in huis om kwalitatief hoogstaande opleidingen of workshops aan te bieden.\n"
+                               + "In onze zaal Ginder zijn verschillende opstellingen mogelijk: ronde, school, u - vorm, L - vorm, receptie …  De maximumcapaciteit bedraagt 40 personen, naargelang de opstelling van de zaal. Voor een zittende opleiding kun je comfortabel met 18 personen zitten."
                 //Seats = seatsHierGinder.ToList()
             };
 
@@ -149,6 +153,7 @@ namespace devops_project_web_t4.Data
                 PriceTwoHours = 80,
                 PriceEvening = 175,
                 PriceFullDay = 250,
+                Description = "In deze zaal staat een mooie grote marmeren tafel met plaats voor 8 mensen. Het grote raam zorgt voor veel lichtinval en samen met de inrichting van de zaal krijg je een gezellige en toch zakelijke sfeer. Deze zaal is perfect om met een board of directors samen te komen of je team te verwennen in deze setting. Wil je graag een formeel diner met wat privacy? Dat kan!"
                 //Seats = seatsExecutiveRoom.ToList()
             };
 
@@ -164,6 +169,7 @@ namespace devops_project_web_t4.Data
                 PriceHalfDay = 225,
                 PriceEvening = 295,
                 PriceFullDay = 355,
+                Description = "Deze exclusieve, discrete zaal met Eames meubilair biedt plaats aan maximum 14 personen. Samenkomen met je team of management team is perfect in deze zaal. Deze ovalen tafel zorgt voor een leuke vergadersfeer. HIER. zijn al veel nieuwe ideeën geboren!"
                 //Seats = seatsBoardroom.ToList()
             };
 
@@ -179,6 +185,7 @@ namespace devops_project_web_t4.Data
                 PriceHalfDay = 325,
                 PriceEvening = 375,
                 PriceFullDay = 455,
+                Description = "Zin om te vergaderen met panoramisch uitzicht op een groene omgeving?  Laat je inspiratie vrij in onze vergaderzaal The Practice. Deze polyvalente zaal is geschikt voor zowel vergaderingen,  workshops als presentaties t.e.m. 50 personen naargelang de opstelling met rustgevend zicht op het groen."
                 //Seats = seatsThePractice.ToList()
             };
 
@@ -194,6 +201,7 @@ namespace devops_project_web_t4.Data
                 PriceHalfDay = 375,
                 PriceEvening = 400,
                 PriceFullDay = 550,
+                Description = "Onze grootste en meest polyvalente zaal met subliem uitzicht op het golfterrein, The Course! De perfecte locatie voor workshops, opleidingen, recepties… Geschikt tot maximum 140 personen naargelang de opstelling."
                 //Seats = seatsTheCourse.ToList()
             };
 
@@ -242,27 +250,27 @@ namespace devops_project_web_t4.Data
             HIER.voor een jaar € 195 10d per jaar*/
 
             //5 beurten of 1 maand
-            Subscription AfEnToe = new Subscription() {Price = 70, Name="HIER.af en toe", MaxNumberOfReservations = 5};
+            Subscription AfEnToe = new Subscription() { Price = 70, Name = "HIER.af en toe", MaxNumberOfReservations = 5 };
             context.Subscriptions.Add(AfEnToe);
 
             //10 beurten of 1 maand
-            Subscription Halftijds = new Subscription() {Price = 120, Name="HIER.halftijds", MaxNumberOfReservations = 10};
+            Subscription Halftijds = new Subscription() { Price = 120, Name = "HIER.halftijds", MaxNumberOfReservations = 10 };
             context.Subscriptions.Add(Halftijds);
 
             //n beurten of 1 maand
-            Subscription Voltijds = new Subscription() {Price = 225, Name="HIER.voltijds"};
+            Subscription Voltijds = new Subscription() { Price = 225, Name = "HIER.voltijds" };
             context.Subscriptions.Add(Voltijds);
 
             //1 maand, vaste stoel beneden
-            Subscription VastBeneden = new Subscription() {Price = 295, Name="HIER.mijn vaste plek beneden"};
+            Subscription VastBeneden = new Subscription() { Price = 295, Name = "HIER.mijn vaste plek beneden" };
             context.Subscriptions.Add(VastBeneden);
 
             //1 maand, vaste stoel boven
-            Subscription VastBoven = new Subscription() {Price = 320, Name="HIER.mijn vaste plek boven"};
+            Subscription VastBoven = new Subscription() { Price = 320, Name = "HIER.mijn vaste plek boven" };
             context.Subscriptions.Add(VastBoven);
 
             //10 beurten of 1 jaar
-            Subscription Jaar = new Subscription() {Price = 195, Name="HIER.voor een jaar", MaxNumberOfReservations = 10};
+            Subscription Jaar = new Subscription() { Price = 195, Name = "HIER.voor een jaar", MaxNumberOfReservations = 10 };
             context.Subscriptions.Add(Jaar);
 
             //context.SaveChanges();

@@ -16,6 +16,8 @@ namespace devops_project_web_t4.Areas.Domain
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public int NumberOfSeats { get; set; }
 
         public int LocationId { get; set; }
