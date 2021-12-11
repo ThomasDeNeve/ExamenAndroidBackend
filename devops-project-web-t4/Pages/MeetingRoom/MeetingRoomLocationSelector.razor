@@ -1,10 +1,20 @@
 ﻿@using devops_project_web_t4.Pages.Location
 @page "/vergaderzalen/locatie"
 
-<LocationSelector TitlePinkUnderline="vergaderzalen" Message="@Message"/>
+<LocationSelector TitlePinkUnderline="vergaderzalen"
+                  Message="@Message"
+                  NavigateHIER="@NavigateToMeetingRoomOverzichtHIER"
+                  NavigateKluizen="@NavigateToMeetingRoomOverzichtKluizen" />
 
 @code {
 
-    
+    public void NavigateToMeetingRoomOverzichtHIER()
+    {
+        _navigationManager.NavigateTo("meetingrooms/hier/overzicht");
+    }
 
+    public void NavigateToMeetingRoomOverzichtKluizen()
+    {
+        _navigationManager.NavigateTo("meetingrooms/kluizen/overzicht");
+    }
 }
