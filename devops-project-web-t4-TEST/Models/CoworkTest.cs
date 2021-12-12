@@ -1,3 +1,4 @@
+/*
 ﻿using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4_TEST.Data;
 using System;
@@ -28,3 +29,4 @@ namespace devops_project_web_t4_TEST.Models
         }
     }
 }
+/*
