@@ -21,6 +21,11 @@ namespace devops_project_web_t4.Areas.State
         private DateTime _dateSelected = new DateTime(_now.Year, _now.Month, _now.Day, 0, 0,0);//DateTime.Now;
         private List<int> _seatsReserved = new List<int>();
 
+        public StateContainer()
+        {
+
+        }
+
         public StateContainer(ISeatController r)
         {
             _seatController = r;
