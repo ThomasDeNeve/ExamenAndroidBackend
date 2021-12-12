@@ -1,4 +1,4 @@
-﻿using devops_project_web_t4.Areas.Domain;
+﻿/*using devops_project_web_t4.Areas.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -297,4 +297,4 @@ namespace devops_project_web_t4_TEST.Data
             dateTimeNow = new DateTime(_now.Year, _now.Month, _now.Day, 0, 0, 0);
         }
     }
-}
+}*/
