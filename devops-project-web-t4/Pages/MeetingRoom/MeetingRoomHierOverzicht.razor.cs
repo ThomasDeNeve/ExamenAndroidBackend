@@ -22,8 +22,8 @@ namespace devops_project_web_t4.Pages.MeetingRoom
 
         public void ShowRoom(int roomId)
         {
-            var selectedRoom = _meetingRooms.Single(room => room.Id == roomId);
-            NavigationManager.NavigateTo("meetingrooms/hier/" + selectedRoom.Name.ToLower());
+            //var selectedRoom = _meetingRooms.Single(room => room.Id == roomId);
+            NavigationManager.NavigateTo("meetingroom/" + roomId);
         }
     }
 }
