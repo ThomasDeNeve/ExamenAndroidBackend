@@ -1,18 +1,11 @@
 ﻿
 <select id="@Id"
-        class="custom-select" 
+        class="custom-select"
         name="@Id">
 
     @foreach (var Option in Options)
-            {
-                <option class="dropdown-item" value="option">@Option</option>
-            }
+    {
+        <option class="dropdown-item" value="option">@Option</option>
+    }
 
 </select>
-
-@code {
-
-    
-
-
-}

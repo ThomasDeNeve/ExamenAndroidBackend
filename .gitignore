@@ -11,7 +11,7 @@
 *.sln.docstates
 
 #
-Dockerfile
+# Dockerfile
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -456,4 +456,4 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-appsettings.json
+# appsettings.json

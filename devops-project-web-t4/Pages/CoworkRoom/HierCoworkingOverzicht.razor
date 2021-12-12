@@ -30,23 +30,3 @@
         <HierCoworkingGelijkvloers1></HierCoworkingGelijkvloers1>
     </div>
 </div>
-
-@code
-{
-    [Inject]
-    private NavigationManager NavigationManager { get; set; }
-    [Inject]
-    private ICoworkRoomRepository CoworkRoomRepository { get; set; }
-    private ICollection<CoworkRoom> _coworkRooms;
-
-    public void ShowDetail(int roomId)
-    {
-        NavigationManager.NavigateTo("/coworking/overzicht/" + roomId);
-    }
-
-
-    protected override void OnInitialized()
-    {
-        _coworkRooms = CoworkRoomRepository.GetAll();
-    }
-}

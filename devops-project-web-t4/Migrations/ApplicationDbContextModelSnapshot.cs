@@ -17,6 +17,34 @@ namespace devops_project_web_t4.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.10");
 
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkReservation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("SeatId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("SeatId", "From")
+                        .IsUnique();
+
+                    b.ToTable("CoworkReservation");
+                });
+
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkRoom", b =>
                 {
                     b.Property<int>("Id")
@@ -39,7 +67,7 @@ namespace devops_project_web_t4.Migrations
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -58,9 +86,48 @@ namespace devops_project_web_t4.Migrations
                     b.Property<string>("Tel")
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Username")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("CustomerId");
 
                     b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CustomerSubscription", b =>
+                {
+                    b.Property<int>("LinkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("DaysLeft")
+                        .HasColumnType("double");
+
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ReservationsLeft")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("To")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("LinkId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("SubscriptionId");
+
+                    b.ToTable("CustomerSubscription");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
@@ -103,12 +170,15 @@ namespace devops_project_web_t4.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("LocationId")
+                    b.Property<int>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("NumberOfSeats")
+                        .HasColumnType("int");
 
                     b.Property<double>("PriceEvening")
                         .HasColumnType("double");
@@ -129,7 +199,7 @@ namespace devops_project_web_t4.Migrations
                     b.ToTable("MeetingRoom");
                 });
 
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Reservation", b =>
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingroomReservation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,10 +214,7 @@ namespace devops_project_web_t4.Migrations
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("MeetingRoomId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SeatId")
+                    b.Property<int>("MeetingroomId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("To")
@@ -157,12 +224,10 @@ namespace devops_project_web_t4.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("MeetingRoomId");
-
-                    b.HasIndex("SeatId", "From")
+                    b.HasIndex("MeetingroomId", "From")
                         .IsUnique();
 
-                    b.ToTable("Reservation");
+                    b.ToTable("MeetingroomReservation");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Seat", b =>
@@ -172,9 +237,6 @@ namespace devops_project_web_t4.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("CoworkRoomId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MeetingRoomId")
                         .HasColumnType("int");
 
                     b.Property<double>("PriceFixedDown")
@@ -199,36 +261,37 @@ namespace devops_project_web_t4.Migrations
 
                     b.HasIndex("CoworkRoomId");
 
-                    b.HasIndex("MeetingRoomId");
-
                     b.ToTable("Seat");
                 });
 
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkRoom", b =>
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Subscription", b =>
                 {
-                    b.HasOne("devops_project_web_t4.Areas.Domain.Location", null)
-                        .WithMany("CoWorkRooms")
-                        .HasForeignKey("LocationId");
+                    b.Property<int>("SubscriptionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxNumberOfReservations")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double");
+
+                    b.HasKey("SubscriptionId");
+
+                    b.ToTable("Subscription");
                 });
 
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingRoom", b =>
-                {
-                    b.HasOne("devops_project_web_t4.Areas.Domain.Location", null)
-                        .WithMany("MeetingRooms")
-                        .HasForeignKey("LocationId");
-                });
-
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Reservation", b =>
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkReservation", b =>
                 {
                     b.HasOne("devops_project_web_t4.Areas.Domain.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("devops_project_web_t4.Areas.Domain.MeetingRoom", "MeetingRoom")
-                        .WithMany()
-                        .HasForeignKey("MeetingRoomId");
 
                     b.HasOne("devops_project_web_t4.Areas.Domain.Seat", "Seat")
                         .WithMany()
@@ -238,9 +301,61 @@ namespace devops_project_web_t4.Migrations
 
                     b.Navigation("Customer");
 
-                    b.Navigation("MeetingRoom");
-
                     b.Navigation("Seat");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkRoom", b =>
+                {
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Location", null)
+                        .WithMany("CoWorkRooms")
+                        .HasForeignKey("LocationId");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CustomerSubscription", b =>
+                {
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Customer", "Customer")
+                        .WithMany("CustomerSubscriptions")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Subscription", "Subscription")
+                        .WithMany("CustomersSubscription")
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Subscription");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingRoom", b =>
+                {
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Location", null)
+                        .WithMany("MeetingRooms")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingroomReservation", b =>
+                {
+                    b.HasOne("devops_project_web_t4.Areas.Domain.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("devops_project_web_t4.Areas.Domain.MeetingRoom", "MeetingRoom")
+                        .WithMany()
+                        .HasForeignKey("MeetingroomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("MeetingRoom");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Seat", b =>
@@ -248,15 +363,16 @@ namespace devops_project_web_t4.Migrations
                     b.HasOne("devops_project_web_t4.Areas.Domain.CoworkRoom", null)
                         .WithMany("Seats")
                         .HasForeignKey("CoworkRoomId");
-
-                    b.HasOne("devops_project_web_t4.Areas.Domain.MeetingRoom", null)
-                        .WithMany("Seats")
-                        .HasForeignKey("MeetingRoomId");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.CoworkRoom", b =>
                 {
                     b.Navigation("Seats");
+                });
+
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Customer", b =>
+                {
+                    b.Navigation("CustomerSubscriptions");
                 });
 
             modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Location", b =>
@@ -266,9 +382,9 @@ namespace devops_project_web_t4.Migrations
                     b.Navigation("MeetingRooms");
                 });
 
-            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.MeetingRoom", b =>
+            modelBuilder.Entity("devops_project_web_t4.Areas.Domain.Subscription", b =>
                 {
-                    b.Navigation("Seats");
+                    b.Navigation("CustomersSubscription");
                 });
 #pragma warning restore 612, 618
         }

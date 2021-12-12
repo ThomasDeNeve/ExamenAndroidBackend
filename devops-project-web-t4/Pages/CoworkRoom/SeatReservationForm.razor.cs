@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Controllers;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace devops_project_web_t4.Pages.CoworkRoom
@@ -13,26 +14,71 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         [Parameter]
         public int Id { get; set; }
 
+        public string SubName = "HIER.af en toe";
+
         [Inject]
-        public IReservationController Controller { get; set; }
+        public IReservationController ReservationController { get; set; }
+        [Inject]
+        public ISubscriptionController SubscriptionController { get; set; }
+
         [Inject]
         private NavigationManager _navigationManager { get; set; }
 
+        private string _userName;
+        private AuthenticationState state;
+
         public void Confirm()
         {
-            
-                Controller.ConfirmReservation(Id, 1);
-                _navigationManager.NavigateTo("/coworking/overzicht");
-            
-            /*catch (DbUpdateException e)
+            if (state.User.Identity.IsAuthenticated)
             {
-                Console.WriteLine("Error while updating database!");
-            }*/
+                if (HasSub())
+                {
+                    ReservationController.ConfirmCoworkReservation(Id, _userName);
+                    _navigationManager.NavigateTo("/coworking/overzicht");
+                }
+                else
+                {
+                    SubscriptionController.ConfirmSubscription(SubName, _userName);
+
+                    ReservationController.ConfirmCoworkReservation(Id, _userName);
+                    _navigationManager.NavigateTo("/coworking/overzicht");
+                }
+            }
         }
 
         public void Cancel()
         {
             _navigationManager.NavigateTo("/coworking/overzicht");
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            state = await AuthState.GetAuthenticationStateAsync();
+            _userName = state.User.Identity.Name;
+
+            await base.OnInitializedAsync();
+        }
+
+        public void RadioSelection(ChangeEventArgs args)
+        {
+            SubName = args.Value.ToString();
+        }
+
+        public bool LoggedIn()
+        {
+            if (!(_userName == null))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool HasSub()
+        {
+            return SubscriptionController.HasActiveSub(_userName);
         }
     }
 }
