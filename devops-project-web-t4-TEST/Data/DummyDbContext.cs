@@ -1,4 +1,4 @@
-﻿/*using devops_project_web_t4.Areas.Domain;
+﻿using devops_project_web_t4.Areas.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +44,8 @@ namespace devops_project_web_t4_TEST.Data
         public Customer customer3;
         public Customer yves;
 
+        public List<CustomerSubscription> customerSubscriptions;
+
         public DateTime dateTimeNow;
 
 
@@ -58,6 +60,29 @@ namespace devops_project_web_t4_TEST.Data
             bureel2 = new CoworkRoom();
 
             coworkSeatsBureel1 = new Seat[4];
+
+            customerSubscriptions = new List<CustomerSubscription>
+            {
+                new()
+                {
+                    Customer = customer1,
+                    Subscription = new()
+                    {
+                        MaxNumberOfReservations = 5,
+                        Price = 50
+                    }
+                },
+
+                new()
+                {
+                    Customer = customer1,
+                    Subscription = new()
+                    {
+                        MaxNumberOfReservations = 10,
+                        Price = 100
+                    }
+                }
+            };
 
             for (int i = 0; i < coworkSeatsBureel1.Length; i++)
             {
@@ -128,7 +153,7 @@ namespace devops_project_web_t4_TEST.Data
                 PriceTwoHours = 80,
                 PriceEvening = 175,
                 PriceFullDay = 250,
-                Seats = seatsHierVanvoor.ToList()
+                //Seats = seatsHierVanvoor.ToList()
             };
 
             seatsHierBoven = new Seat[14];
@@ -143,7 +168,7 @@ namespace devops_project_web_t4_TEST.Data
                 PriceTwoHours = 80,
                 PriceEvening = 175,
                 PriceFullDay = 250,
-                Seats = seatsHierBoven.ToList()
+                //Seats = seatsHierBoven.ToList()
             };
 
             seatsHierGinder = new Seat[40];
@@ -157,7 +182,7 @@ namespace devops_project_web_t4_TEST.Data
                 PriceHalfDay = 275,
                 PriceEvening = 325,
                 PriceFullDay = 395,
-                Seats = seatsHierGinder.ToList()
+                //Seats = seatsHierGinder.ToList()
             };
 
             seatsExecutiveRoom = new Seat[8];
@@ -172,7 +197,7 @@ namespace devops_project_web_t4_TEST.Data
                 PriceTwoHours = 80,
                 PriceEvening = 175,
                 PriceFullDay = 250,
-                Seats = seatsExecutiveRoom.ToList()
+                //Seats = seatsExecutiveRoom.ToList()
             };
 
             seatsBoardroom = new Seat[14];
@@ -186,7 +211,7 @@ namespace devops_project_web_t4_TEST.Data
                 PriceHalfDay = 225,
                 PriceEvening = 295,
                 PriceFullDay = 355,
-                Seats = seatsBoardroom.ToList()
+                //Seats = seatsBoardroom.ToList()
             };
 
             seatsThePractice = new Seat[50];
@@ -200,7 +225,7 @@ namespace devops_project_web_t4_TEST.Data
                 PriceHalfDay = 325,
                 PriceEvening = 375,
                 PriceFullDay = 455,
-                Seats = seatsThePractice.ToList()
+                //Seats = seatsThePractice.ToList()
             };
 
             seatsTheCourse = new Seat[120];
@@ -214,7 +239,7 @@ namespace devops_project_web_t4_TEST.Data
                 PriceHalfDay = 375,
                 PriceEvening = 400,
                 PriceFullDay = 550,
-                Seats = seatsTheCourse.ToList()
+                //Seats = seatsTheCourse.ToList()
             };
 
             List<MeetingRoom> meetingRoomsHier = new List<MeetingRoom>();
@@ -258,9 +283,10 @@ namespace devops_project_web_t4_TEST.Data
                 BTW = "123456",
                 Email = "customer1@dummy.be",
                 Firstname = "Peter",
-                Id = 1,
+                CustomerId = 1,
                 Lastname = "Peters",
-                Tel = "091234567"
+                Tel = "091234567",
+                CustomerSubscriptions = customerSubscriptions
             };
 
             customer2 = new Customer()
@@ -268,7 +294,7 @@ namespace devops_project_web_t4_TEST.Data
                 BTW = "65468465",
                 Email = "customer2@dummy.be",
                 Firstname = "Roger",
-                Id = 2,
+                CustomerId = 2,
                 Lastname = "Federer",
                 Tel = "095468569"
             };
@@ -278,7 +304,7 @@ namespace devops_project_web_t4_TEST.Data
                 BTW = "9984654687",
                 Email = "customer3@dummy.be",
                 Firstname = "Koning",
-                Id = 3,
+                CustomerId = 3,
                 Lastname = "Albert",
                 Tel = "+3212345678"
             };
@@ -297,4 +323,4 @@ namespace devops_project_web_t4_TEST.Data
             dateTimeNow = new DateTime(_now.Year, _now.Month, _now.Day, 0, 0, 0);
         }
     }
-}*/
+}
