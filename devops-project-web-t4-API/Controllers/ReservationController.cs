@@ -8,6 +8,7 @@ using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Data.Repositories;
 using devops_project_web_t4_API.DataModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Identity.Client;
 
@@ -26,6 +27,9 @@ namespace devops_project_web_t4_API.Controllers
 
         private readonly ISeatRepository _seatRepository;
         private readonly IMeetingRoomRepository _meetingRoomRepository;
+
+        private readonly CultureInfo culture = new CultureInfo("en-US");
+        private readonly string format = "yyyy-MM-dd HH:mm:ss";
 
         public ReservationController(
             ICoworkReservationRepository coworkReservationRepository,
@@ -98,17 +102,32 @@ namespace devops_project_web_t4_API.Controllers
 
         // POST: api/reservation/meetingroom
         [HttpPost("meetingroom")]
-        public ActionResult<CoworkReservation> PostMeetingroomReservation(MeetingroomReservationModel model)
+        public ActionResult<MeetingroomReservation> PostMeetingroomReservation(MeetingroomReservationModel model)
         {
+
+
+            DateTime start = DateTime.ParseExact(model.From, format, culture);
+            DateTime end = DateTime.ParseExact(model.To, format, culture);
+
             //TODO add exception handling
             MeetingroomReservation reservation = new MeetingroomReservation()
             {
                 Customer = _customerRepository.GetById(model.CustomerId),
+                From = start,
+                To = end,
                 MeetingRoom = _meetingRoomRepository.GetById(model.RoomId),
             };
 
-            _meetingRoomReservationRepository.Add(reservation);
-            _meetingRoomReservationRepository.SaveChanges();
+            try
+            {
+                _meetingRoomReservationRepository.Add(reservation);
+                _meetingRoomReservationRepository.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+
+            }
+            
 
             return Ok(reservation);
         }
