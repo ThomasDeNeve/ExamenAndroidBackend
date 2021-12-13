@@ -90,6 +90,11 @@ namespace devops_project_web_t4.Areas.Controllers
             List<int> roomsReserved = reservations.Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
 
             return roomsReserved;
+
+        }
+        /*public List<Reservation> GetReservations()
+        {
+            return _reservationRepository.GetAll().ToList();
         }*/
     }
 }
