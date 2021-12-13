@@ -8,6 +8,8 @@ using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Data.Repositories;
 using devops_project_web_t4_API.DataModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Microsoft.Identity.Client;
 
 namespace devops_project_web_t4_API.Controllers
 {
@@ -137,27 +139,35 @@ namespace devops_project_web_t4_API.Controllers
 
         //GET: api/reservation/availablemeetingrooms
         [HttpGet("availablemeetingrooms")]
-       
-        public ActionResult<List<MeetingRoom>> GetAvailableMeetingrooms(int neededseats, int locationid, String date) //TODO: change DateTime with optionString (halfday, morning, afternoon, twohours, evening)
+        public ActionResult<List<MeetingRoom>> GetAvailableMeetingrooms(int neededseats, int locationid, string datetimeStart, string datetimeEnd)
         {
             ICollection<MeetingroomReservation> reservations = _meetingRoomReservationRepository.GetAll();
+            ICollection<MeetingRoom> meetingRooms = new List<MeetingRoom>();
 
-
-            CultureInfo culture = new CultureInfo("en-US");
-            DateTime tempDate = Convert.ToDateTime(date, culture);
-
-            List<int> idsRoomsTaken =
-                reservations.Where(r => r.From == tempDate).Select(r => r.MeetingRoom.Id).ToList();
-
-            ICollection<MeetingRoom> meetingRooms = _meetingRoomRepository.GetAll();
-
-            foreach (int idroomtaken in idsRoomsTaken)
+            try
             {
-                meetingRooms.Remove(_meetingRoomRepository.GetById(idroomtaken));
-            }
+                CultureInfo culture = new CultureInfo("en-US");
+                DateTime tempDateFrom = Convert.ToDateTime(datetimeStart, culture);
+                DateTime tempDateEnd = Convert.ToDateTime(datetimeEnd, culture);
 
-            //filter based on location and number of needed seats
-            meetingRooms = meetingRooms.Where(m => m.LocationId == locationid && m.NumberOfSeats >= neededseats).ToList();
+                //TODO: build dateCompare?
+                List<int> idsRoomsTaken = reservations.Where(r => r.From == tempDateFrom && r.To == tempDateEnd).Select(r => r.MeetingRoom.Id).ToList();
+
+                meetingRooms = _meetingRoomRepository.GetAll();
+
+                foreach (int idroomtaken in idsRoomsTaken)
+                {
+                    meetingRooms.Remove(_meetingRoomRepository.GetById(idroomtaken));
+                }
+
+                //filter based on location and number of needed seats
+                meetingRooms = meetingRooms.Where(m => m.LocationId == locationid && m.NumberOfSeats >= neededseats).ToList();
+            }
+            catch (Exception e)
+            {
+                //TODO: add logging
+                Console.WriteLine("Error retreiving available rooms");
+            }
 
             return meetingRooms.ToList();
         }
