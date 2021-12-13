@@ -11,7 +11,7 @@ namespace devops_project_web_t4.Areas.Controllers
         public void ConfirmCoworkReservation(int seatId, string username);
         public void ConfirmMeetingRoomReservation(int roomId, string userName);
 
-        public List<int> GetSeatIdsReservedForDate(DateTime date);
+        //public List<int> GetSeatIdsReservedForDate(DateTime date);
 
         //public List<Reservation> GetReservations();
     }
