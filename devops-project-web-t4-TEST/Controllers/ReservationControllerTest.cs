@@ -57,7 +57,7 @@ namespace devops_project_web_t4_TEST.Controllers
         public void TestForOps() //do not delete
         {
             string test = "yes";
-            Assert.Equal("no", test);
+            Assert.Equal("yes", test);
         }
 
 
