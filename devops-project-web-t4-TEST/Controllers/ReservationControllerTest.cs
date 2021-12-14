@@ -53,6 +53,14 @@ namespace devops_project_web_t4_TEST.Controllers
             Assert.Equal(_context.seatsThePractice[0].Id, reservation.Seat.Id);
         }
 
+        [Fact]
+        public void TestForOps() //do not delete
+        {
+            string test = "yes";
+            Assert.Equal("no", test);
+        }
+
+
         private void InitializeMockObjects()
         {
             _seatController.Setup(s => s.GetSeatIdsReservedForDate(_context.dateTimeNow)).Returns(new List<int> { 1, 2, 3 });
