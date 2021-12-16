@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Data.Repositories;
 using devops_project_web_t4_API.DataModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
+using Microsoft.Identity.Client;
 
 namespace devops_project_web_t4_API.Controllers
 {
@@ -23,6 +28,15 @@ namespace devops_project_web_t4_API.Controllers
 
         private readonly ISeatRepository _seatRepository;
         private readonly IMeetingRoomRepository _meetingRoomRepository;
+
+        private readonly CultureInfo _culture = new ("en-US");
+        private readonly string format = "yyyy-MM-dd HH:mm:ss";
+
+        private const string STARTTIMEMORNING = "08:00:00";
+        private const string ENDTIMEMORNING = "12:00:00";
+        private const string STARTTIMEAFTERNOON = "13:00:00";
+        private const string ENDTIMEAFTERNOON = "17:00:00";
+        private const string ENDTIMEEVENING = "21:00:00";
 
         public ReservationController(
             ICoworkReservationRepository coworkReservationRepository,
@@ -95,41 +109,131 @@ namespace devops_project_web_t4_API.Controllers
 
         // POST: api/reservation/meetingroom
         [HttpPost("meetingroom")]
-        public ActionResult<CoworkReservation> PostMeetingroomReservation(MeetingroomReservationModel model)
+        public ActionResult<MeetingroomReservation> PostMeetingroomReservation(MeetingroomReservationModel model)
         {
+
+
+            DateTime start = DateTime.ParseExact(model.From, format, _culture);
+            DateTime end = DateTime.ParseExact(model.To, format, _culture);
+
             //TODO add exception handling
             MeetingroomReservation reservation = new MeetingroomReservation()
             {
                 Customer = _customerRepository.GetById(model.CustomerId),
+                From = start,
+                To = end,
                 MeetingRoom = _meetingRoomRepository.GetById(model.RoomId),
             };
 
-            _meetingRoomReservationRepository.Add(reservation);
-            _meetingRoomReservationRepository.SaveChanges();
-
+            try
+            {
+                _meetingRoomReservationRepository.Add(reservation);
+                _meetingRoomReservationRepository.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                //Log error on duplicate reservation
+            }
+            
             return Ok(reservation);
         }
 
-        //DateTime in Android meegeven als "0001-01-01T00:00:00"
-
-        //GET: api/reservation/seats_taken_for_date
-        [HttpGet("seats_taken_for_date")]
-        public ActionResult<List<int>> GetSeatIdsReservedForDate(DateTime date)
+        //GET: api/reservation/availablemeetingrooms
+        [HttpGet("availablemeetingrooms")]
+        public ActionResult<List<MeetingRoom>> GetAvailableMeetingrooms(int neededseats, int locationid, string datetimeStart, string datetimeEnd)
         {
-            ICollection<CoworkReservation> reservations = _coworkReservationRepository.GetAll();
-            List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
+            //SCUFFED code :( maar het werkt...
 
-            return Ok(seatsReserved);
-        }
-
-        //GET: api/reservation/meetingrooms_taken_for_date
-        [HttpGet("meetingrooms_taken_for_date")]
-        public ActionResult<List<int>> GetMeetingroomIdsReservedForDateTime(DateTime date)
-        {
             ICollection<MeetingroomReservation> reservations = _meetingRoomReservationRepository.GetAll();
-            List<int> roomsReserved = reservations.Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
+            ICollection<MeetingRoom> meetingRooms = new List<MeetingRoom>();
 
-            return Ok(roomsReserved);
+            //list of ids for rooms that are already reserved
+            List<int> idsRoomsTaken = new List<int>();
+            
+            try
+            {
+                DateTime tempDateFrom = Convert.ToDateTime(datetimeStart, _culture);
+                DateTime tempDateEnd = Convert.ToDateTime(datetimeEnd, _culture);
+
+                //Only the date without time (used to retreive meetingroomids with a reservation for a full day)
+                DateTime selectedDate = tempDateFrom.Date;
+
+                DateTime fullDayStart = selectedDate;
+                TimeSpan ts = new TimeSpan(8, 0, 0);
+                fullDayStart = fullDayStart.Date + ts;
+
+                DateTime fullDayEnd = selectedDate;
+                ts = new TimeSpan(17, 0, 0);
+                fullDayEnd = fullDayEnd.Date + ts;
+
+                string startingTime = tempDateFrom.TimeOfDay.ToString();
+                string endingTime = tempDateEnd.TimeOfDay.ToString();
+
+                //HELE DAG
+                if (startingTime.Equals(STARTTIMEMORNING) && endingTime.Equals(ENDTIMEAFTERNOON))
+                {
+                    //Here r.From.Date == selectedDate (tempDateFrom.Date), using only the date and not the time.
+                    //This way meetingrooms reserved for mornings and afternoon are also retreived.
+                    idsRoomsTaken = reservations.Where(r => r.From.Date == selectedDate).Select(r => r.MeetingRoom.Id).ToList();
+                }
+                else
+                {
+                    //VOORMIDDAG, reservaties voor een hele dag ook uit filteren
+                    if (startingTime.Equals(STARTTIMEMORNING) && endingTime.Equals(ENDTIMEMORNING))
+                    {
+                        //fill idsRoomTaken with ids for rooms that have a reservation in the morning (between 08 and 12)
+                        idsRoomsTaken = reservations.Where(r => r.From == tempDateFrom && r.To == tempDateEnd)
+                            .Select(r => r.MeetingRoom.Id).ToList();
+
+                        //get the ids for rooms that have a reservation for the entire day and add them to idsRoomsTaken
+                        //These need to be filtered aswell: if there is a reservation for a room for half a day, it shouldn't be possible to reserve it for an entire day
+                        List<int> idsFullDayReservation = reservations
+                            .Where(r => r.From == fullDayStart && r.To == fullDayEnd).Select(r => r.MeetingRoom.Id)
+                            .ToList();
+                        idsRoomsTaken.AddRange(idsFullDayReservation);
+                    }
+                    else
+                    {
+                        //NAMIDDAG, reservaties voor een hele dag ook uit filteren
+                        if (startingTime.Equals(STARTTIMEAFTERNOON) && endingTime.Equals(ENDTIMEAFTERNOON))
+                        {
+                            idsRoomsTaken = reservations.Where(r => r.From == tempDateFrom && r.To == tempDateEnd)
+                                .Select(r => r.MeetingRoom.Id).ToList();
+
+                            List<int> idsFullDayReservation = reservations
+                                .Where(r => r.From == fullDayStart && r.To == fullDayEnd).Select(r => r.MeetingRoom.Id)
+                                .ToList();
+                            idsRoomsTaken.AddRange(idsFullDayReservation);
+                        }
+                        else
+                        {
+                            //AVOND
+                            if (startingTime.Equals(ENDTIMEAFTERNOON) && endingTime.Equals(ENDTIMEEVENING))
+                            {
+                                idsRoomsTaken = reservations.Where(r => r.From == tempDateFrom && r.To == tempDateEnd)
+                                    .Select(r => r.MeetingRoom.Id).ToList();
+                            }
+                        }
+                    }
+                }
+                
+                meetingRooms = _meetingRoomRepository.GetAll();
+                //get the meetingrooms based on locationId and number of needed seats
+                meetingRooms = meetingRooms.Where(m => m.LocationId == locationid && m.NumberOfSeats >= neededseats).ToList();
+
+                //remove items from meetingrooms based on idsRoomsTaken
+                foreach (int idroomtaken in idsRoomsTaken)
+                {
+                    meetingRooms.Remove(_meetingRoomRepository.GetById(idroomtaken));
+                }
+            }
+            catch (Exception e)
+            {
+                //TODO: add logging
+                Console.WriteLine("Error retreiving available rooms");
+            }
+
+            return meetingRooms.ToList();
         }
     }
 }

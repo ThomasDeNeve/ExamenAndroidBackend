@@ -37,6 +37,18 @@ namespace devops_project_web_t4.Data.Repositories
                 .SingleOrDefault(r => r.Id == id);
         }
 
+        public ICollection<MeetingRoom> GetByLocationId(int id)
+        {
+            return _meetingrooms
+                .Where(m => m.LocationId == id).ToList();
+        }
+
+        public ICollection<MeetingRoom> GetByNeededSeats(int numberofseats)
+        {
+            return _meetingrooms
+                .Where(m => m.NumberOfSeats >= numberofseats).ToList();
+        }
+
         public void Remove(MeetingRoom meetingroom)
         {
             _meetingrooms.Remove(meetingroom);

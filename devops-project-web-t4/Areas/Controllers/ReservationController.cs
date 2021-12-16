@@ -76,7 +76,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
         }
 
-        public List<int> GetSeatIdsReservedForDate(DateTime date)
+        /*public List<int> GetSeatIdsReservedForDate(DateTime date)
         {
             ICollection<CoworkReservation> reservations = _coworkReservationRepository.GetAll();
             List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
@@ -90,6 +90,7 @@ namespace devops_project_web_t4.Areas.Controllers
             List<int> roomsReserved = reservations.Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
 
             return roomsReserved;
+
         }
         /*public List<Reservation> GetReservations()
         {
