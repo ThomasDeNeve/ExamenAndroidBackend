@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  portainer:
+    image: aspnetapp
+    container_name: HIER_website
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - ASPNETCORE_URLS="https://+;http://+"
+      - ASPNETCORE_HTTPS_PORT=443
+      - ASPNETCORE_Kestrel__Certificates__Default__Password="crypticpassword"
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - "/home/vagrant/.aspnet/https:/https/"
+    networks:
+      - app_net
+    restart: always
+
+  portainer:
+    image: aspnet-api
+    container_name: HIER_API
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - ASPNETCORE_URLS="https://+;http://+"
+      - ASPNETCORE_HTTPS_PORT=5001
+      - ASPNETCORE_Kestrel__Certificates__Default__Password="crypticpassword"
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - "/home/vagrant/.aspnet/https:/https/"
+    networks:
+      - app_net
+    restart: always
+
+volumes:
+  /home/vagrant/.aspnet/https:
+
+networks:
+  app_net:
