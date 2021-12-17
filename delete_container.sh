@@ -18,3 +18,12 @@ else
     	then docker rm HIER_API
     fi       	
 fi
+if docker ps | grep -q db
+then 
+    docker stop db
+    docker rm db
+else    
+    if docker ps -a | grep -q db
+    	then docker rm db
+    fi       	
+fi
