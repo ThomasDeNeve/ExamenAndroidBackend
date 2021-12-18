@@ -1,3 +1,7 @@
 ﻿@page "/"
 
+<AuthorizeView Roles="Admin">
+    Only Administrators can see this.
+</AuthorizeView>
+
 <img src="/Images/Logo.jpeg" style="height:auto;max-width:100%;">

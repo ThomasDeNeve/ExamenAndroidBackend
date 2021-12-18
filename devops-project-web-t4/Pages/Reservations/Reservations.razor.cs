@@ -17,19 +17,17 @@ namespace devops_project_web_t4.Pages.Reservations
         "Van", "Tot", "Vergaderzaal", "Stoel"
         };
 
-        //private List<Reservation> ReservationsList;
+        private List<MeetingroomReservation> MeetingroomReservationsList;
+        private List<CoworkReservation> CoworkReservationsList;
 
         public Reservations()
         {
-            /*TODO remove initData() and uncomment next line*/
-            //ReservationsList = ReservationController.GetReservations();
-
-            //initData();
         }
 
         protected override void OnInitialized()
         {
-            //ReservationsList = ReservationController.GetReservations();
+            MeetingroomReservationsList = ReservationController.GetMeetingroomReservations();
+            CoworkReservationsList = ReservationController.GetCoworkReservations();
         }
 
         public List<List<string>> GetTableData()

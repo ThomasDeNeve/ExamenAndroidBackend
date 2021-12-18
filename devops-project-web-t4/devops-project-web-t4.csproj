@@ -23,6 +23,10 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Admin\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

@@ -91,10 +91,16 @@ namespace devops_project_web_t4.Areas.Controllers
 
             return roomsReserved;
 
-        }
-        /*public List<Reservation> GetReservations()
-        {
-            return _reservationRepository.GetAll().ToList();
         }*/
+        
+        public List<MeetingroomReservation> GetMeetingroomReservations()
+        {
+          return _meetingroomReservationRepository.GetAll().ToList();
+        }
+
+        public List<CoworkReservation> GetCoworkReservations()
+        {
+            return _coworkReservationRepository.GetAll().ToList();
+        }
     }
 }

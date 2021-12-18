@@ -25,10 +25,9 @@ namespace devops_project_web_t4.Data.Repositories
 
         public ICollection<MeetingroomReservation> GetAll()
         {
-            return _reservations
+            return _reservations?
                 .Include(r => r.Customer)
                 .Include(r => r.MeetingRoom)
-                //.Include(r => r.Seat)
                 .ToList();
         }
 

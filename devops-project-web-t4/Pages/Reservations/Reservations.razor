@@ -7,5 +7,9 @@
 
 <h1 class="text-center locationSelectorElement">Uw <span class="pinkUnderline">reservaties</span></h1>
 
+<h2>Meeting rooms</h2>
 <HierTable Headers="@TableHeaders" TableData="GetTableData()"></HierTable>
 
+<AuthorizeView Roles="Admin">
+	<a href="../beheer/reservaties">Beheer alle reservaties</a>
+</AuthorizeView>
