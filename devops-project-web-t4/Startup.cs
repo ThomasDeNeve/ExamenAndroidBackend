@@ -38,8 +38,9 @@ namespace devops_project_web_t4
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 //options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocal")));
+                //options.UseMySql(Configuration.GetConnectionString("Mysqllocal"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql")))); //https://dev.mysql.com/downloads/mysql/
+                options.UseMySql(Configuration.GetConnectionString("Mysql"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql")))); //https://dev.mysql.com/downloads/mysql/
 
-                options.UseMySql(Configuration.GetConnectionString("Mysqllocal"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysqllocal")))); //https://dev.mysql.com/downloads/mysql/
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -120,7 +121,8 @@ namespace devops_project_web_t4
 
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<IMeetingRoomRepository, MeetingRoomRepository>();
-            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<ICoworkReservationRepository, CoworkReservationRepository>();
+            services.AddScoped<IMeetingroomReservationRepository, MeetingroomReservationRepository>();
             services.AddScoped<ISeatRepository, SeatRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICoworkRoomRepository, CoworkRoomRepository>();

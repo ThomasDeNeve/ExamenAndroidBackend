@@ -33,14 +33,14 @@ namespace devops_project_web_t4.Pages.CoworkRoom
             {
                 if (HasSub())
                 {
-                    ReservationController.ConfirmReservation(Id, _userName);
+                    ReservationController.ConfirmCoworkReservation(Id, _userName);
                     _navigationManager.NavigateTo("/coworking/overzicht");
                 }
                 else
                 {
                     SubscriptionController.ConfirmSubscription(SubName, _userName);
 
-                    ReservationController.ConfirmReservation(Id, _userName);
+                    ReservationController.ConfirmCoworkReservation(Id, _userName);
                     _navigationManager.NavigateTo("/coworking/overzicht");
                 }
             }

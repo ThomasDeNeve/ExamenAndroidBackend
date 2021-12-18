@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+  HIER_website:
+    image: aspnetapp
+    container_name: HIER_website
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - ASPNETCORE_URLS=https://+;http://+
+      - ASPNETCORE_HTTPS_PORT=443
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=crypticpassword
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - /home/ec2-user/.aspnet/https:/https/
+    networks:
+      - app_net
+    restart: always
+
+  HIER_API:
+    image: aspnet-api
+    container_name: HIER_API
+    ports:
+      - 5000:80
+      - 5001:443
+    environment:
+      - ASPNETCORE_URLS=https://+;http://+
+      - ASPNETCORE_HTTPS_PORT=5001
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=crypticpassword
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - /home/ec2-user/.aspnet/https:/https/
+    networks:
+      - app_net
+    restart: always
+volumes:
+  mysql-data:
+
+networks:
+  app_net:
+    external: true

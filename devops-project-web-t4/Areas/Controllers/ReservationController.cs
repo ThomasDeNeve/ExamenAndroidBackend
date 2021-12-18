@@ -7,63 +7,94 @@ using devops_project_web_t4.Areas.State;
 using devops_project_web_t4.Data.Repositories;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
     public class ReservationController : IReservationController
     {
-        private readonly IReservationRepository _reservationRepository;
+        private readonly ICoworkReservationRepository _coworkReservationRepository;
+        private readonly IMeetingroomReservationRepository _meetingroomReservationRepository;
+
         private readonly ICustomerRepository _customerRepository;
+
         private readonly ISeatRepository _seatRepository;
+        private readonly IMeetingRoomRepository _meetingRoomRepository;
+
         private readonly StateContainer _stateContainer;
 
-        public ReservationController(StateContainer sc, IReservationRepository reservationRepository, ICustomerRepository customerRepository, ISeatRepository seatRepository)
+        public ReservationController(StateContainer sc,
+            ICoworkReservationRepository coworkReservationRepository,
+            IMeetingroomReservationRepository meetingroomReservationRepository,
+            ICustomerRepository customerRepository,
+            ISeatRepository seatRepository,
+            IMeetingRoomRepository meetingroomRepository)
         {
-            _reservationRepository = reservationRepository;
+            _coworkReservationRepository = coworkReservationRepository;
+            _meetingroomReservationRepository = meetingroomReservationRepository;
+
             _customerRepository = customerRepository;
+
             _seatRepository = seatRepository;
+            _meetingRoomRepository = meetingroomRepository;
+
             _stateContainer = sc;
         }
 
-        public void ConfirmReservation(int seatId, string userName)
+        public void ConfirmCoworkReservation(int seatId, string userName)
         {
             Customer customer = _customerRepository.GetByName(userName);
 
-            Reservation reservation = new()
+            CoworkReservation reservation = new()
             {
                 From = _stateContainer.SelectedDate,
-                To = _stateContainer.SelectedDate,
                 Customer = customer
             };
 
             reservation.Seat = _seatRepository.GetById(seatId);
 
             customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active).ReservationsLeft -= 1;
-            //customer.GetActiveSubscription().DaysLeft -= 1;
-            
-            
-            //customer.DaysLeft -= 1;
 
-            /*if (customer.DaysLeft == 0)
-            {
-                user.Subscription = null;
-            }*/
-
-            _reservationRepository.Add(reservation);
-            _reservationRepository.SaveChanges();
+            _coworkReservationRepository.Add(reservation);
+            _coworkReservationRepository.SaveChanges();
         }
 
-        public List<int> GetSeatIdsReservedForDate(DateTime date)
+        public void ConfirmMeetingRoomReservation(int roomId, string userName)
         {
-            ICollection<Reservation> reservations = _reservationRepository.GetAll();
+            Customer customer = _customerRepository.GetByName(userName);
+
+            MeetingroomReservation reservation = new()
+            {
+                From = _stateContainer.SelectedDate,
+                Customer = customer
+            };
+
+            reservation.MeetingRoom = _meetingRoomRepository.GetById(roomId);
+
+            _meetingroomReservationRepository.Add(reservation);
+            _meetingRoomRepository.SaveChanges();
+
+        }
+
+        /*public List<int> GetSeatIdsReservedForDate(DateTime date)
+        {
+            ICollection<CoworkReservation> reservations = _coworkReservationRepository.GetAll();
             List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
 
             return seatsReserved;
         }
 
-        public List<Reservation> GetReservations()
+        public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)
+        {
+            ICollection<MeetingroomReservation> reservations = _meetingroomReservationRepository.GetAll();
+            List<int> roomsReserved = reservations.Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
+
+            return roomsReserved;
+
+        }
+        /*public List<Reservation> GetReservations()
         {
             return _reservationRepository.GetAll().ToList();
-        }
+        }*/
     }
 }
