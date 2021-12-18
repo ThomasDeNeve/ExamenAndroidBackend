@@ -76,6 +76,16 @@ namespace devops_project_web_t4.Areas.Controllers
 
         }
 
+        public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)
+        {
+            return _meetingroomReservationRepository.GetAll().Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
+        }
+        public List<MeetingRoom> GetAvailableMeetingRoomsOnDate(DateTime? date, ICollection<MeetingRoom> meetingRooms)
+        {
+            var roomIdsReservedOnSelectedDate = GetMeetingroomIdsReservedForDateTime((DateTime)date);
+            return meetingRooms.Where(room => !roomIdsReservedOnSelectedDate.Any(r2 => r2 == room.Id)).ToList();
+        }
+
         /*public List<int> GetSeatIdsReservedForDate(DateTime date)
         {
             ICollection<CoworkReservation> reservations = _coworkReservationRepository.GetAll();
@@ -83,15 +93,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
             return seatsReserved;
         }
-
-        public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)
-        {
-            ICollection<MeetingroomReservation> reservations = _meetingroomReservationRepository.GetAll();
-            List<int> roomsReserved = reservations.Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
-
-            return roomsReserved;
-
-        }
+        
         /*public List<Reservation> GetReservations()
         {
             return _reservationRepository.GetAll().ToList();
