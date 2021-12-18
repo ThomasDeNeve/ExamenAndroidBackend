@@ -45,6 +45,13 @@ namespace devops_project_web_t4.Data.Repositories
                 .SingleOrDefault(l => l.Id == id);
         }
 
+        public Location GetLocationByName(string name)
+        {
+            return _locations
+                .Include(l => l.MeetingRooms)
+                .SingleOrDefault(l => l.Name.ToLower().Equals(name.ToLower()));
+        }
+
         public void Remove(Location location)
         {
             _locations.Remove(location);

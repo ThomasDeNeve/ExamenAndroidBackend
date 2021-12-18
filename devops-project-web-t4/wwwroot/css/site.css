@@ -1,7 +1,8 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Trebuchet MS', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Montserrat', 'Trebuchet MS', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
 }
 
 a, .btn-link {

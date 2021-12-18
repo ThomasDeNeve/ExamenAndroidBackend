@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using devops_project_web_t4.Data.Repositories;
 using Microsoft.AspNetCore.Components;
 
 namespace devops_project_web_t4.Pages.Location
@@ -15,6 +16,11 @@ namespace devops_project_web_t4.Pages.Location
         public string Message { get; set; }
 
         [Parameter]
-        public EventCallback Navigate { get; set; }
+        public EventCallback NavigateHIER { get; set; }
+
+        [Parameter]
+        public EventCallback NavigateKluizen { get; set; }
+
+
     }
 }

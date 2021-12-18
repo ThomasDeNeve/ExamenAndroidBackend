@@ -1,0 +1,24 @@
+﻿@page "/meetingroom/{Id:int}"
+@implements IDisposable
+@inject devops_project_web_t4.Areas.State.StateContainer StateContainer 
+
+<div class="container">
+    <div class="row" style="margin-top:3em;">
+        <div class="col-lg-6">
+            <h1 class="pinkUnderline">@_currentRoom.Name</h1>
+            <img src="Images/room_icons.jpg" alt="room_icons" class="img-fluid" style="margin-bottom:1em;" />
+            <p>@_currentRoom.Description</p>
+            <p><h3>Vanaf €@_currentRoom.PriceFullDay</h3></p>
+            <p>Water, koffie en thee inbegrepen.<br />Digitaal scherm aanwezig</p>
+            <devops_project_web_t4.Shared.Components.HierDatepicker></devops_project_web_t4.Shared.Components.HierDatepicker>
+            <devops_project_web_t4.Shared.Components.HierButton Title="@_reserveer" Type="Primary" Action="@NavigateToReserve(StateContainer.SelectedDate)" />
+        </div>
+        <div class="col-lg-6">
+            <img src="Images/meetingrooms/@_currentRoom.ImageName" alt="@_currentRoom.Name" class="img-fluid rounded" />
+        </div>
+    </div>
+</div>
+
+@code {
+
+}
