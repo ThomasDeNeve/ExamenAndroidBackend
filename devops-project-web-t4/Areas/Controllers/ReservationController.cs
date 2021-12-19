@@ -60,21 +60,36 @@ namespace devops_project_web_t4.Areas.Controllers
             _coworkReservationRepository.SaveChanges();
         }
 
-        public void ConfirmMeetingRoomReservation(int roomId, string userName)
+        public void ConfirmMeetingRoomReservation(int roomId, string userName, DateTime date, string timeslot, double price)
         {
+            if (MeetingRoomIsNotAvailable(roomId, date, timeslot))
+                throw new InvalidOperationException("Deze vergaderzaal is niet beschikbaar op het gekozen moment.");
+
             Customer customer = _customerRepository.GetByName(userName);
+            var room = _meetingRoomRepository.GetById(roomId);
 
             MeetingroomReservation reservation = new()
             {
-                From = _stateContainer.SelectedDate,
-                Customer = customer
+                From = date,
+                Customer = customer,
+                MeetingRoom = room,
+                MeetingroomId = room.Id,
+                IsConfirmed = false,
+                Price = price,
+                Timeslot = timeslot
             };
-
-            reservation.MeetingRoom = _meetingRoomRepository.GetById(roomId);
 
             _meetingroomReservationRepository.Add(reservation);
             _meetingRoomRepository.SaveChanges();
+        }
 
+        private bool MeetingRoomIsNotAvailable(int roomId, DateTime date, string timeslot)
+        {
+            return _meetingroomReservationRepository
+                 .GetAll()
+                 .Any(reservation => reservation.MeetingroomId == roomId
+                 && reservation.From == date
+                 && reservation.Timeslot.Equals(timeslot));
         }
 
         public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)

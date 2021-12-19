@@ -124,11 +124,13 @@ namespace devops_project_web_t4.Data
 
             reservation.Property(r => r.From).IsRequired();
             reservation.Property(r => r.IsConfirmed).IsRequired();
+            reservation.Property(r => r.Price).IsRequired();
+            reservation.Property(r => r.Timeslot).IsRequired();
 
             reservation.HasOne(r => r.Customer).WithMany()/*.HasForeignKey(r => r.CustomerId)*/.IsRequired();
             reservation.HasOne(r => r.MeetingRoom).WithMany().HasForeignKey(r => r.MeetingroomId);
 
-            reservation.HasIndex(r => new { r.MeetingroomId, r.From }).IsUnique();
+            reservation.HasIndex(r => new { r.MeetingroomId, r.From, r.Timeslot }).IsUnique();
         }
 
         private static void MapSubscription(EntityTypeBuilder<Subscription> subscription)

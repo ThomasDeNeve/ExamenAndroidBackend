@@ -4,12 +4,15 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Pages.MeetingRoom
 {
     public partial class ReserveMeetingRoom
     {
+        [Inject]
+        private NavigationManager _navigationManager { get; set; }
         [Inject]
         public IReservationController ReservationController { get; set; }
         [Inject]
@@ -27,6 +30,10 @@ namespace devops_project_web_t4.Pages.MeetingRoom
         private devops_project_web_t4.Areas.Domain.MeetingRoom _room;
         private devops_project_web_t4.Areas.Domain.Location _location;
         private double _price;
+        private bool _showDiv = true;
+        private bool _reservationFailed;
+        private bool _reservationSucceeded;
+        private string _message;
 
         protected override async Task OnInitializedAsync()
         {
@@ -49,6 +56,30 @@ namespace devops_project_web_t4.Pages.MeetingRoom
             _price = (Double)list[2];
         }
 
+        private string GoBack()
+        {
+            return "/meetingroom/" + Id;
+        }
 
+        private string GoHome()
+        {
+            return "/";
+        }
+
+        private async void Reserve()
+        {
+            _showDiv = false;
+            var date = DateTime.Parse(Date);
+            try
+            {
+                ReservationController.ConfirmMeetingRoomReservation(Id, _userName, date, TimeSlot, _price);
+                _reservationSucceeded = true;
+            }
+            catch (InvalidOperationException e)
+            {
+                _reservationFailed = true;
+                _message = e.Message;
+            }
+        }
     }
 }
