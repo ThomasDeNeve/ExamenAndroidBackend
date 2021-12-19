@@ -17,7 +17,6 @@ namespace devops_project_web_t4.Pages.MeetingRoom
         private IReservationController ReservationController { get; set; }
         private ICollection<devops_project_web_t4.Areas.Domain.MeetingRoom> _meetingRooms;
         private DateTime? dateTimeSelected = null;
-        //private DateTime? dateTimeFilter = null;
         private int? _capacity;
         private int? Capacity
         {
@@ -31,7 +30,7 @@ namespace devops_project_web_t4.Pages.MeetingRoom
 
         protected override void OnInitialized()
         {
-            _meetingRooms = LocationRepository.GetLocationByName("Hier").MeetingRooms;
+            RefreshMeetingRooms();
         }
 
         public void ShowRoom(int roomId)
@@ -57,25 +56,5 @@ namespace devops_project_web_t4.Pages.MeetingRoom
         {
             _meetingRooms = ReservationController.GetAvailableMeetingRoomsWithFilters(dateTimeSelected, Capacity, "Hier");
         }
-
-       /* private void RefreshMeetingRooms()
-        {
-            if (dateTimeSelected.HasValue && Capacity.HasValue)
-            {
-                _meetingRooms = ReservationController.GetAvailableMeetingRoomsOnDate(dateTimeSelected, _meetingRooms).Where(r => r.NumberOfSeats >= _capacity).ToList();
-            }
-            else if (Capacity.HasValue)
-            {
-                _meetingRooms = LocationRepository.GetLocationByName("Hier").MeetingRooms.Where(r => r.NumberOfSeats >= _capacity).ToList();
-            }
-            else if (dateTimeSelected.HasValue)
-            {
-                _meetingRooms = ReservationController.GetAvailableMeetingRoomsOnDate(dateTimeSelected, _meetingRooms);
-            }
-            else
-            {
-                OnInitialized();
-            }
-        }*/
     }
 }
