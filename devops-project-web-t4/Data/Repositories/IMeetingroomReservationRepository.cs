@@ -9,6 +9,7 @@ namespace devops_project_web_t4.Data.Repositories
     public interface IMeetingroomReservationRepository
     {
         public ICollection<MeetingroomReservation> GetAll();
+        public ICollection<MeetingroomReservation> GetAllByCustomerId(int customerId);
         public MeetingroomReservation GetById(int id);
         public void Remove(MeetingroomReservation reservation);
         public void Add(MeetingroomReservation reservation);

@@ -37,6 +37,12 @@ namespace devops_project_web_t4.Data.Repositories
                 .SingleOrDefault(r => r.Id == id);
         }
 
+        public CoworkRoom GetBySeat(Seat seat)
+        {
+            return _coworkrooms
+                .SingleOrDefault(r => r.Seats.Contains(seat));
+        }
+
         public void Remove(CoworkRoom coworkroom)
         {
             _coworkrooms.Remove(coworkroom);

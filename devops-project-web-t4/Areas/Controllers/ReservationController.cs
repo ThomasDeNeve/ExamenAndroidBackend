@@ -20,6 +20,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
         private readonly ISeatRepository _seatRepository;
         private readonly IMeetingRoomRepository _meetingRoomRepository;
+        private readonly ICoworkRoomRepository _coworkRoomRepository;
 
         private readonly StateContainer _stateContainer;
 
@@ -28,7 +29,8 @@ namespace devops_project_web_t4.Areas.Controllers
             IMeetingroomReservationRepository meetingroomReservationRepository,
             ICustomerRepository customerRepository,
             ISeatRepository seatRepository,
-            IMeetingRoomRepository meetingroomRepository)
+            IMeetingRoomRepository meetingroomRepository,
+            ICoworkRoomRepository coworkRoomRepository)
         {
             _coworkReservationRepository = coworkReservationRepository;
             _meetingroomReservationRepository = meetingroomReservationRepository;
@@ -37,6 +39,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
             _seatRepository = seatRepository;
             _meetingRoomRepository = meetingroomRepository;
+            _coworkRoomRepository = coworkRoomRepository;
 
             _stateContainer = sc;
         }
@@ -93,14 +96,31 @@ namespace devops_project_web_t4.Areas.Controllers
 
         }*/
         
-        public List<MeetingroomReservation> GetMeetingroomReservations()
+        public List<MeetingroomReservation> GetMeetingroomReservations(string userName = null)
         {
-          return _meetingroomReservationRepository.GetAll().ToList();
+            if (string.IsNullOrEmpty(userName))
+            {
+                return _meetingroomReservationRepository.GetAll().ToList();
+            }
+            
+            Customer customer = _customerRepository.GetByName(userName);
+            return _meetingroomReservationRepository.GetAllByCustomerId(customer.CustomerId).ToList();
         }
 
-        public List<CoworkReservation> GetCoworkReservations()
+        public List<CoworkReservation> GetCoworkReservations(string userName = null)
         {
-            return _coworkReservationRepository.GetAll().ToList();
+            if (string.IsNullOrEmpty(userName))
+            {
+                return _coworkReservationRepository.GetAll().ToList();
+            }
+
+            Customer customer = _customerRepository.GetByName(userName);
+            return _coworkReservationRepository.GetAllByCustomerId(customer.CustomerId).ToList();
+        }
+
+        public CoworkRoom GetCoworkRoomForSeat(Seat seat)
+        {
+            return _coworkRoomRepository.GetBySeat(seat);
         }
     }
 }

@@ -31,6 +31,15 @@ namespace devops_project_web_t4.Data.Repositories
                 .ToList();
         }
 
+        public ICollection<CoworkReservation> GetAllByCustomerId(int customerId)
+        {
+            return _reservations?
+                .Include(r => r.Customer)
+                .Include(r => r.Seat)
+                .Where(r => r.Customer.CustomerId == customerId)
+                .ToList();
+        }
+
         public CoworkReservation GetById(int id)
         {
             return _reservations

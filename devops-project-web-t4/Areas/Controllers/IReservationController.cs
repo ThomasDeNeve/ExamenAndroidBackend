@@ -13,8 +13,10 @@ namespace devops_project_web_t4.Areas.Controllers
 
         //public List<int> GetSeatIdsReservedForDate(DateTime date);
 
-        public List<CoworkReservation> GetCoworkReservations();
+        public List<CoworkReservation> GetCoworkReservations(string userName = null);
 
-        public List<MeetingroomReservation> GetMeetingroomReservations();
+        public List<MeetingroomReservation> GetMeetingroomReservations(string userName = null);
+
+        public CoworkRoom GetCoworkRoomForSeat(Seat seat);
     }
 }
