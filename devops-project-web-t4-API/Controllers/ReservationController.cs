@@ -30,7 +30,7 @@ namespace devops_project_web_t4_API.Controllers
         private readonly IMeetingRoomRepository _meetingRoomRepository;
 
         private readonly CultureInfo _culture = new ("en-US");
-        private readonly string format = "yyyy-MM-dd HH:mm:ss";
+        private readonly string format = "yyyy-M-dd HH:mm:ss";
 
         private const string STARTTIMEMORNING = "08:00:00";
         private const string ENDTIMEMORNING = "12:00:00";
@@ -111,8 +111,6 @@ namespace devops_project_web_t4_API.Controllers
         [HttpPost("meetingroom")]
         public ActionResult<MeetingroomReservation> PostMeetingroomReservation(MeetingroomReservationModel model)
         {
-
-
             DateTime start = DateTime.ParseExact(model.From, format, _culture);
             DateTime end = DateTime.ParseExact(model.To, format, _culture);
 
@@ -135,7 +133,7 @@ namespace devops_project_web_t4_API.Controllers
                 //Log error on duplicate reservation
             }
             
-            return Ok(reservation);
+            return Ok("OK");
         }
 
         //GET: api/reservation/availablemeetingrooms

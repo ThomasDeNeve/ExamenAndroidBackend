@@ -1,0 +1,45 @@
+﻿@page "/reserveermeetingroom/{Id:int}/{Date}/{TimeSlot}"
+@attribute [Authorize]
+@inject AuthenticationStateProvider AuthState
+@inject devops_project_web_t4.Areas.State.StateContainer StateContainer
+
+<div class="container">
+    @if (_showDiv)
+    {
+        <div>
+            <h2>Bevestig uw reservatie</h2>
+
+            <p>Datum : @Date - @TimeSlot</p>
+            <p>Locatie: @_location.Name.</p>
+            <p>Vergaderzaal: @_room.Name</p>
+            <p>Aantal zitplaatsen: @_room.NumberOfSeats</p>
+            @if (@HasSub())
+            {
+                <p>U heeft 15% korting omdat u een abonnement bezit!</p>
+                <p>Prijs: €@_price</p>
+            }
+            else
+            {
+                <p>Prijs: €@_price</p>
+            }
+            <div>
+                <button class="hierButton primaryHierButton" @onclick="Reserve">Reserveer</button>
+                <devops_project_web_t4.Shared.Components.HierButton Title="Annuleer" Type="Secondary" Action="@GoBack()"></devops_project_web_t4.Shared.Components.HierButton>
+            </div>
+        </div>
+    }
+    @if (@_reservationFailed)
+    {
+        <div>De reservatie is mislukt om de volgende reden: @_message</div>
+        <devops_project_web_t4.Shared.Components.HierButton Title="Terug" Type="Secondary" Action="@GoBack()"></devops_project_web_t4.Shared.Components.HierButton>
+    }
+    @if (@_reservationSucceeded)
+    {
+        <div>De reservatie is gelukt! U kan deze pagina veilig verlaten.</div>
+        <devops_project_web_t4.Shared.Components.HierButton Title="Home" Type="Secondary" Action="@GoHome()"></devops_project_web_t4.Shared.Components.HierButton>
+    }
+    @if ((!_showDiv) && (!_reservationFailed) && (!_reservationSucceeded))
+    {
+        <div>Reservatie verwerken...</div>
+    }
+</div>

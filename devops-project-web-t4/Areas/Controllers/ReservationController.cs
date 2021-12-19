@@ -17,7 +17,7 @@ namespace devops_project_web_t4.Areas.Controllers
         private readonly IMeetingroomReservationRepository _meetingroomReservationRepository;
 
         private readonly ICustomerRepository _customerRepository;
-
+        private readonly ILocationRepository _locationRepository;
         private readonly ISeatRepository _seatRepository;
         private readonly IMeetingRoomRepository _meetingRoomRepository;
         private readonly ICoworkRoomRepository _coworkRoomRepository;
@@ -30,11 +30,12 @@ namespace devops_project_web_t4.Areas.Controllers
             ICustomerRepository customerRepository,
             ISeatRepository seatRepository,
             IMeetingRoomRepository meetingroomRepository,
+            ILocationRepository locationRepository,
             ICoworkRoomRepository coworkRoomRepository)
         {
             _coworkReservationRepository = coworkReservationRepository;
             _meetingroomReservationRepository = meetingroomReservationRepository;
-
+            _locationRepository = locationRepository;
             _customerRepository = customerRepository;
 
             _seatRepository = seatRepository;
@@ -71,18 +72,25 @@ namespace devops_project_web_t4.Areas.Controllers
             _coworkReservationRepository.SaveChanges();
         }
 
-        public void ConfirmMeetingRoomReservation(int roomId, string userName)
+
+        public void ConfirmMeetingRoomReservation(int roomId, string userName, DateTime date, string timeslot, double price)
         {
+            if (MeetingRoomIsNotAvailable(roomId, date, timeslot))
+                throw new InvalidOperationException("Deze vergaderzaal is niet beschikbaar op het gekozen moment.");
+
             Customer customer = _customerRepository.GetByName(userName);
+            var room = _meetingRoomRepository.GetById(roomId);
 
             MeetingroomReservation reservation = new()
             {
-                From = _stateContainer.SelectedDate,
+                From = date,
                 Customer = customer,
-                IsConfirmed = true
+                MeetingRoom = room,
+                MeetingroomId = room.Id,
+                IsConfirmed = true,
+                Price = price,
+                Timeslot = timeslot
             };
-
-            reservation.MeetingRoom = _meetingRoomRepository.GetById(roomId);
 
             _meetingroomReservationRepository.Add(reservation);
             _meetingRoomRepository.SaveChanges();
@@ -96,23 +104,70 @@ namespace devops_project_web_t4.Areas.Controllers
             _coworkReservationRepository.SaveChanges();
         }
 
-        /*public List<int> GetSeatIdsReservedForDate(DateTime date)
+        private bool MeetingRoomIsNotAvailable(int roomId, DateTime date, string timeslot)
         {
-            ICollection<CoworkReservation> reservations = _coworkReservationRepository.GetAll();
-            List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
-
-            return seatsReserved;
+            return _meetingroomReservationRepository
+                 .GetAll()
+                 .Any(reservation => reservation.MeetingroomId == roomId
+                 && reservation.From == date
+                 && reservation.Timeslot.Equals(timeslot));
         }
 
         public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)
         {
-            ICollection<MeetingroomReservation> reservations = _meetingroomReservationRepository.GetAll();
-            List<int> roomsReserved = reservations.Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
+            return _meetingroomReservationRepository.GetAll().Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
+        }
+        public List<MeetingRoom> GetAvailableMeetingRoomsWithFilters(DateTime? date, int? capacity, String location)
+        {
+            var rooms = _locationRepository.GetLocationByName(location).MeetingRooms;
+            if (date.HasValue && capacity.HasValue)
+            {
+                var roomIdsReservedOnSelectedDate = GetMeetingroomIdsReservedForDateTime((DateTime)date);
+                return rooms.Where(room => !roomIdsReservedOnSelectedDate.Any(r2 => r2 == room.Id) && room.NumberOfSeats >= capacity).ToList();
+            }
+            else if (capacity.HasValue)
+            {
+                return rooms.Where(r => r.NumberOfSeats >= capacity).ToList();
+            }
+            else if (date.HasValue)
+            {
+                var roomIdsReservedOnSelectedDate = GetMeetingroomIdsReservedForDateTime((DateTime)date);
+                return rooms.Where(room => !roomIdsReservedOnSelectedDate.Any(r2 => r2 == room.Id)).ToList();
+            }
+            else
+            {
+                return rooms;
+            }
+        }
+        public List<Object> ProposeReservation(bool hasSub, int meetingRoomId, string timeslot)
+        {
+            var room = _meetingRoomRepository.GetById(meetingRoomId);
+            var location = _locationRepository.GetById(room.LocationId);
+            var price = CalculatePrice(hasSub, room, timeslot);
+            return new() { room, location, price };
+        }
 
-            return roomsReserved;
-
-        }*/
-
+        private double CalculatePrice(bool hasSub, MeetingRoom meetingRoom, string timeslot)
+        {
+            double price = 0;
+            switch (timeslot)
+            {
+                case "Volledige dag":
+                    price = meetingRoom.PriceFullDay;
+                    break;
+                case "Voormiddag":
+                case "Namiddag":
+                    price = meetingRoom.PriceHalfDay;
+                    break;
+                case "Avond":
+                    price = meetingRoom.PriceEvening;
+                    break;
+            }
+            if (hasSub)
+                price *= 0.85;
+            return price;
+        }
+        
         public List<MeetingroomReservation> GetMeetingroomReservations(string userName = null)
         {
             if (string.IsNullOrEmpty(userName))
@@ -123,7 +178,7 @@ namespace devops_project_web_t4.Areas.Controllers
             Customer customer = _customerRepository.GetByName(userName);
             return _meetingroomReservationRepository.GetAllByCustomerId(customer.CustomerId).ToList();
         }
-
+        
         public List<CoworkReservation> GetCoworkReservations(string userName = null)
         {
             if (string.IsNullOrEmpty(userName))
@@ -139,5 +194,12 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             return _coworkRoomRepository.GetBySeat(seat);
         }
+        
+        /*public List<int> GetSeatIdsReservedForDate(DateTime date)
+        {
+            ICollection<CoworkReservation> reservations = _coworkReservationRepository.GetAll();
+            List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
+            return seatsReserved;
+        }*/
     }
 }

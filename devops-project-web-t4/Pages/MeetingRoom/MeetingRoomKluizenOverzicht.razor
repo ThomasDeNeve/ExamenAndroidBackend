@@ -1,7 +1,18 @@
 ﻿@page "/meetingrooms/kluizen/overzicht"
 
 <h3>Overzicht vergaderzalen Kluizen</h3>
+<h4>Filter:</h4>
+<div>
+    <RadzenDatePicker @bind-Value=@dateTimeSelected Change=@OnChange />
+    <label for="capacity">Aantal zitplaatsen:</label>
+    <input type="number" id="capacity" name="capacity" min="1" @bind="Capacity">
+    <button @onclick="ResetFilters">Reset filters</button>
+</div>
 <div id="rooms" class="shadow-lg roomPanel">
+    @if (_meetingRooms.Count == 0)
+    {
+        <p>Er zijn geen zalen beschikbaar die voldoen aan de zoekcriteria.</p>
+    }
     @foreach (var room in _meetingRooms)
     {
         <div class="shadow coworkroom" @onclick="() => ShowRoom(room.Id)">
