@@ -84,7 +84,7 @@ namespace devops_project_web_t4.Areas.Controllers
         public List<MeetingRoom> GetAvailableMeetingRoomsWithFilters(DateTime? date, int? capacity, String location)
         {
             var rooms = _locationRepository.GetLocationByName(location).MeetingRooms;
-            if(date.HasValue && capacity.HasValue)
+            if (date.HasValue && capacity.HasValue)
             {
                 var roomIdsReservedOnSelectedDate = GetMeetingroomIdsReservedForDateTime((DateTime)date);
                 return rooms.Where(room => !roomIdsReservedOnSelectedDate.Any(r2 => r2 == room.Id) && room.NumberOfSeats >= capacity).ToList();
@@ -102,6 +102,34 @@ namespace devops_project_web_t4.Areas.Controllers
             {
                 return rooms;
             }
+        }
+        public List<Object> ProposeReservation(bool hasSub, int meetingRoomId, string timeslot)
+        {
+            var room = _meetingRoomRepository.GetById(meetingRoomId);
+            var location = _locationRepository.GetById(room.LocationId);
+            var price = CalculatePrice(hasSub, room, timeslot);
+            return new() { room, location, price };
+        }
+
+        private double CalculatePrice(bool hasSub, MeetingRoom meetingRoom, string timeslot)
+        {
+            double price = 0;
+            switch (timeslot)
+            {
+                case "Volledige dag":
+                    price = meetingRoom.PriceFullDay;
+                    break;
+                case "Voormiddag":
+                case "Namiddag":
+                    price = meetingRoom.PriceHalfDay;
+                    break;
+                case "Avond":
+                    price = meetingRoom.PriceEvening;
+                    break;
+            }
+            if (hasSub)
+                price *= 0.85;
+            return price;
         }
 
         /*public List<int> GetSeatIdsReservedForDate(DateTime date)

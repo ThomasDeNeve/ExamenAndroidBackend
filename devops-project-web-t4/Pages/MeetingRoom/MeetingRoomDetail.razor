@@ -1,6 +1,6 @@
 ﻿@page "/meetingroom/{Id:int}"
 @implements IDisposable
-@inject devops_project_web_t4.Areas.State.StateContainer StateContainer 
+@inject devops_project_web_t4.Areas.State.StateContainer StateContainer
 
 <div class="container">
     <div class="row" style="margin-top:3em;">
@@ -10,8 +10,13 @@
             <p>@_currentRoom.Description</p>
             <p><h3>Vanaf €@_currentRoom.PriceFullDay</h3></p>
             <p>Water, koffie en thee inbegrepen.<br />Digitaal scherm aanwezig</p>
-            <devops_project_web_t4.Shared.Components.HierDatepicker></devops_project_web_t4.Shared.Components.HierDatepicker>
-            <devops_project_web_t4.Shared.Components.HierButton Title="@_reserveer" Type="Primary" Action="@NavigateToReserve(StateContainer.SelectedDate)" />
+            <div>
+                <div>
+                    <RadzenDatePicker @bind-Value=@dateTimeSelected Change=@OnChangeDate />
+                    <RadzenDropDown TValue="string" Data=@choices Value="@choices[0]" Change="@OnChangeSelectList" />
+                </div>
+                <div><devops_project_web_t4.Shared.Components.HierButton Title="@_reserveer" Type="Primary" Action="@NavigateToReserve()" /></div>
+            </div>
         </div>
         <div class="col-lg-6">
             <img src="Images/meetingrooms/@_currentRoom.ImageName" alt="@_currentRoom.Name" class="img-fluid rounded" />

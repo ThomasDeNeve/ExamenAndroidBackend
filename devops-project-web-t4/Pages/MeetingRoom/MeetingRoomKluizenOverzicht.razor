@@ -9,6 +9,10 @@
     <button @onclick="ResetFilters">Reset filters</button>
 </div>
 <div id="rooms" class="shadow-lg roomPanel">
+    @if (_meetingRooms.Count == 0)
+    {
+        <p>Er zijn geen zalen beschikbaar die voldoen aan de zoekcriteria.</p>
+    }
     @foreach (var room in _meetingRooms)
     {
         <div class="shadow coworkroom" @onclick="() => ShowRoom(room.Id)">

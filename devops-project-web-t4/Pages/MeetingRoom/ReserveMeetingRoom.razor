@@ -1,0 +1,22 @@
+﻿@page "/reserveermeetingroom/{Id:int}/{Date}/{TimeSlot}"
+@attribute [Authorize]
+@inject AuthenticationStateProvider AuthState
+@inject devops_project_web_t4.Areas.State.StateContainer StateContainer
+
+<div class="container">
+    <h2>Bevestig uw reservatie</h2>
+
+    <p>Datum : @Date - @TimeSlot</p>
+    <p>Locatie: @_location.Name.</p>
+    <p>Vergaderzaal: @_room.Name</p>
+    <p>Aantal zitplaatsen: @_room.NumberOfSeats</p>
+    @if (@HasSub())
+    {
+        <p>U heeft 15% korting omdat u een abonnement bezit!</p>
+        <p>Prijs: €@_price</p>
+    }
+    else
+    {
+        <p>Prijs: €@_price</p>
+    }
+</div>
