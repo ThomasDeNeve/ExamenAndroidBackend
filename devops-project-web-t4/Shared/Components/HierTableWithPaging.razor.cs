@@ -8,9 +8,6 @@ namespace devops_project_web_t4.Shared.Components
 {
     public partial class HierTableWithPaging
     {
-        [Inject]
-        public NavigationManager MyNavManager { get; set; }
-
         [Parameter]
         public List<string> Headers { get; set; }
 
