@@ -4,6 +4,7 @@ using System;
 using devops_project_web_t4.Areas.Controllers;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace devops_project_web_t4.Pages.Admin
 {
@@ -15,11 +16,11 @@ namespace devops_project_web_t4.Pages.Admin
 
         private List<string> CoworkingTableHeaders = new List<string>()
         {
-        "Van", "Tot", "Zaal", "StoelNummer", "Status", "Klant"
+            "Van", "Tot", "Zaal", "StoelNummer", "Status", "Klant", "###"
         };
         private List<string> MeetingroomsTableHeaders = new List<string>()
         {
-        "Van", "Tot", "Vergaderzaal", "Status", "Klant"
+            "Van", "Tot", "Vergaderzaal", "Status", "Klant", "###"
         };
 
         private string _username;
@@ -37,8 +38,8 @@ namespace devops_project_web_t4.Pages.Admin
             _username = state.User.Identity.Name;
             _hasAdminRole = state.User.IsInRole("Admin");
 
-            _meetingroomReservationsList = ReservationController.GetMeetingroomReservations();
-            _coworkReservationsList = ReservationController.GetCoworkReservations();
+            _meetingroomReservationsList = ReservationController.GetMeetingroomReservations().OrderByDescending(x => x.From).ThenByDescending(x => x.MeetingRoom.Name).ToList();
+            _coworkReservationsList = ReservationController.GetCoworkReservations().OrderByDescending(x => x.From).ThenBy(x => x.SeatId).ToList();
         }
 
         public List<List<string>> CoworkingGetTableData()
@@ -50,7 +51,7 @@ namespace devops_project_web_t4.Pages.Admin
                 Areas.Domain.CoworkRoom room = ReservationController.GetCoworkRoomForSeat(res.Seat);
                 string seatId = String.IsNullOrEmpty(res.Seat?.Id.ToString()) ? "/" : res.Seat?.Id.ToString();
                 string states = res.IsConfirmed ? "Bevestigd" : "Geannuleerd";
-                coworkingTableData.Add(new List<string>() { res.From.ToString(), res.From.ToString(), room.Name, seatId, states, res.Customer.Username });
+                coworkingTableData.Add(new List<string>() { res.From.ToString(), res.From.ToString(), room.Name, seatId, states, res.Customer.Username, "###" + res.Id.ToString() });
             }
 
             return coworkingTableData;
@@ -64,7 +65,7 @@ namespace devops_project_web_t4.Pages.Admin
             {
                 string roomName = String.IsNullOrEmpty(res.MeetingRoom?.Name) ? "/" : res.MeetingRoom?.Name;
                 string states = res.IsConfirmed ? "Bevestigd" : "Geannuleerd";
-                meetingroomTableData.Add(new List<string>() { res.From.ToString(), res.To.ToString(), roomName, states, res.Customer.Username });
+                meetingroomTableData.Add(new List<string>() { res.From.ToString(), res.To.ToString(), roomName, states, res.Customer.Username, res.Id.ToString() });
             }
 
             return meetingroomTableData;

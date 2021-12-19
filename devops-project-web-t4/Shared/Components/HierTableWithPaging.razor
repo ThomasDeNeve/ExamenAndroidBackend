@@ -3,7 +3,15 @@
         <tr>
             @foreach (var Header in Headers)
             {
-                <th scope="col">@Header</th>
+                @if (Header != "###")
+                {
+                    <th scope="col">@Header</th>
+                }
+                else
+                {
+                    // Replace "#" column with an action
+                    <th scope="col">Actie</th>
+                }
             }
         </tr>
     </thead>
@@ -13,7 +21,15 @@
             <tr>
                 @foreach (var Cell in Row)
                 {
-                    <td>@Cell</td>
+                    @if (Cell.StartsWith("###"))
+                    {
+                        // Replace "#" column with an action
+                        <td><a href="@MyNavManager.Uri/@Cell.Substring(3)">Annuleer</a></td>
+                    }
+                    else
+                    {
+                        <td>@Cell</td>
+                    }
                 }
             </tr>
         }
