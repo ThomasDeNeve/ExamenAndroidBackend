@@ -13,7 +13,7 @@
             <div>
                 <div>
                     <RadzenDatePicker @bind-Value=@dateTimeSelected Change=@OnChangeDate />
-                    <RadzenDropDown TValue="string" Data=@choices Value="@choices[0]" Change="@OnChangeSelectList" />
+                    <RadzenDropDown TValue="string" Data=@choices Placeholder="@choices[0]"  Change="@OnChangeSelectList" />
                 </div>
                 <div><devops_project_web_t4.Shared.Components.HierButton Title="@_reserveer" Type="Primary" Action="@NavigateToReserve()" /></div>
             </div>
