@@ -8,10 +8,10 @@
 <h1 class="text-center locationSelectorElement">Uw <span class="pinkUnderline">reservaties</span></h1>
 
 <h2>Coworking</h2>
-<HierTable Headers="@CoworkingTableHeaders" TableData="CoworkingGetTableData()"></HierTable>
+<HierTableWithPaging Headers="@CoworkingTableHeaders" TableData="CoworkingGetTableData()" RecordsPerPage="10"></HierTableWithPaging>
 
 <h2>Meetingrooms</h2>
-<HierTable Headers="@MeetingroomsTableHeaders" TableData="MeetingroomsGetTableData()"></HierTable>
+<HierTableWithPaging Headers="@MeetingroomsTableHeaders" TableData="MeetingroomsGetTableData()" RecordsPerPage="10"></HierTableWithPaging>
 
 <AuthorizeView Roles="Admin">
 	<a href="../reservaties">Bekijk mijn reservaties</a>
