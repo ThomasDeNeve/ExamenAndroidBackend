@@ -42,9 +42,8 @@ namespace devops_project_web_t4.Pages.MeetingRoom
 
         public void ResetFilters()
         {
-            //reset meetingrooms to initial value
-            Capacity = null;
             dateTimeSelected = null;
+            Capacity = null;
         }
 
         private void RefreshMeetingRooms()
