@@ -17,11 +17,13 @@
                 <span class="oi oi-monitor" aria-hidden="true"></span>Vergaderzalen
             </NavLink>
         </li>
+        <AuthorizeView>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="reservaties">
                 <span class="oi oi-spreadsheet" aria-hidden="true"></span>Reservaties
             </NavLink>
         </li>
+        </AuthorizeView>
         <AuthorizeView Roles="Admin">
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="beheer/reservaties">

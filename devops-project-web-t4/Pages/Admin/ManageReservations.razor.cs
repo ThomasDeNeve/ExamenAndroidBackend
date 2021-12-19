@@ -15,11 +15,11 @@ namespace devops_project_web_t4.Pages.Admin
 
         private List<string> CoworkingTableHeaders = new List<string>()
         {
-        "Van", "Tot", "Zaal", "StoelNummer", "Klant"
+        "Van", "Tot", "Zaal", "StoelNummer", "Status", "Klant"
         };
         private List<string> MeetingroomsTableHeaders = new List<string>()
         {
-        "Van", "Tot", "Vergaderzaal", "Klant"
+        "Van", "Tot", "Vergaderzaal", "Status", "Klant"
         };
 
         private string _username;
@@ -49,7 +49,8 @@ namespace devops_project_web_t4.Pages.Admin
             {
                 Areas.Domain.CoworkRoom room = ReservationController.GetCoworkRoomForSeat(res.Seat);
                 string seatId = String.IsNullOrEmpty(res.Seat?.Id.ToString()) ? "/" : res.Seat?.Id.ToString();
-                coworkingTableData.Add(new List<string>() { res.From.ToString(), res.From.ToString(), room.Name, seatId, res.Customer.Username });
+                string states = res.IsConfirmed ? "Bevestigd" : "Geannuleerd";
+                coworkingTableData.Add(new List<string>() { res.From.ToString(), res.From.ToString(), room.Name, seatId, states, res.Customer.Username });
             }
 
             return coworkingTableData;
@@ -62,7 +63,8 @@ namespace devops_project_web_t4.Pages.Admin
             foreach (MeetingroomReservation res in _meetingroomReservationsList)
             {
                 string roomName = String.IsNullOrEmpty(res.MeetingRoom?.Name) ? "/" : res.MeetingRoom?.Name;
-                meetingroomTableData.Add(new List<string>() { res.From.ToString(), res.To.ToString(), roomName, res.Customer.Username });
+                string states = res.IsConfirmed ? "Bevestigd" : "Geannuleerd";
+                meetingroomTableData.Add(new List<string>() { res.From.ToString(), res.To.ToString(), roomName, states, res.Customer.Username });
             }
 
             return meetingroomTableData;

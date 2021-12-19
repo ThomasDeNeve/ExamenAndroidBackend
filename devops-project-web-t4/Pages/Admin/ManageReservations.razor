@@ -1,5 +1,5 @@
 ﻿@page "/beheer/reservaties"
-
+@attribute [Authorize(Roles ="Admin")]
 @using devops_project_web_t4.Shared.Components
 @using devops_project_web_t4.Areas.Controllers 
 @inject AuthenticationStateProvider AuthState
@@ -14,5 +14,5 @@
 <HierTable Headers="@MeetingroomsTableHeaders" TableData="MeetingroomsGetTableData()"></HierTable>
 
 <AuthorizeView Roles="Admin">
-	<a href="../beheer/reservaties">Beheer alle reservaties</a>
+	<a href="../reservaties">Bekijk mijn reservaties</a>
 </AuthorizeView>

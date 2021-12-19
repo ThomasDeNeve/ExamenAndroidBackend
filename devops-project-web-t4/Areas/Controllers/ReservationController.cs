@@ -51,7 +51,8 @@ namespace devops_project_web_t4.Areas.Controllers
             CoworkReservation reservation = new()
             {
                 From = _stateContainer.SelectedDate,
-                Customer = customer
+                Customer = customer,
+                IsConfirmed = true
             };
 
             reservation.Seat = _seatRepository.GetById(seatId);
@@ -62,6 +63,14 @@ namespace devops_project_web_t4.Areas.Controllers
             _coworkReservationRepository.SaveChanges();
         }
 
+        public void CancelCoworkReservation(int reservationId)
+        {
+            CoworkReservation reservation = _coworkReservationRepository.GetById(reservationId);
+            reservation.IsConfirmed = false;
+
+            _coworkReservationRepository.SaveChanges();
+        }
+
         public void ConfirmMeetingRoomReservation(int roomId, string userName)
         {
             Customer customer = _customerRepository.GetByName(userName);
@@ -69,14 +78,22 @@ namespace devops_project_web_t4.Areas.Controllers
             MeetingroomReservation reservation = new()
             {
                 From = _stateContainer.SelectedDate,
-                Customer = customer
+                Customer = customer,
+                IsConfirmed = true
             };
 
             reservation.MeetingRoom = _meetingRoomRepository.GetById(roomId);
 
             _meetingroomReservationRepository.Add(reservation);
             _meetingRoomRepository.SaveChanges();
+        }
 
+        public void CancelMeetingRoomReservation(int reservationId)
+        {
+            MeetingroomReservation reservation = _meetingroomReservationRepository.GetById(reservationId);
+            reservation.IsConfirmed = false;
+
+            _coworkReservationRepository.SaveChanges();
         }
 
         /*public List<int> GetSeatIdsReservedForDate(DateTime date)
@@ -95,7 +112,7 @@ namespace devops_project_web_t4.Areas.Controllers
             return roomsReserved;
 
         }*/
-        
+
         public List<MeetingroomReservation> GetMeetingroomReservations(string userName = null)
         {
             if (string.IsNullOrEmpty(userName))
