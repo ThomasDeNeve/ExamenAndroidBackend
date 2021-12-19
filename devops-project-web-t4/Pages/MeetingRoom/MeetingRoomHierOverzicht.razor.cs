@@ -55,6 +55,11 @@ namespace devops_project_web_t4.Pages.MeetingRoom
 
         private void RefreshMeetingRooms()
         {
+            _meetingRooms = ReservationController.GetAvailableMeetingRoomsWithFilters(dateTimeSelected, Capacity, "Hier");
+        }
+
+       /* private void RefreshMeetingRooms()
+        {
             if (dateTimeSelected.HasValue && Capacity.HasValue)
             {
                 _meetingRooms = ReservationController.GetAvailableMeetingRoomsOnDate(dateTimeSelected, _meetingRooms).Where(r => r.NumberOfSeats >= _capacity).ToList();
@@ -71,6 +76,6 @@ namespace devops_project_web_t4.Pages.MeetingRoom
             {
                 OnInitialized();
             }
-        }
+        }*/
     }
 }

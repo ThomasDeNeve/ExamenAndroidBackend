@@ -17,7 +17,7 @@ namespace devops_project_web_t4.Areas.Controllers
         private readonly IMeetingroomReservationRepository _meetingroomReservationRepository;
 
         private readonly ICustomerRepository _customerRepository;
-
+        private readonly ILocationRepository _locationRepository;
         private readonly ISeatRepository _seatRepository;
         private readonly IMeetingRoomRepository _meetingRoomRepository;
 
@@ -28,11 +28,12 @@ namespace devops_project_web_t4.Areas.Controllers
             IMeetingroomReservationRepository meetingroomReservationRepository,
             ICustomerRepository customerRepository,
             ISeatRepository seatRepository,
-            IMeetingRoomRepository meetingroomRepository)
+            IMeetingRoomRepository meetingroomRepository,
+            ILocationRepository locationRepository)
         {
             _coworkReservationRepository = coworkReservationRepository;
             _meetingroomReservationRepository = meetingroomReservationRepository;
-
+            _locationRepository = locationRepository;
             _customerRepository = customerRepository;
 
             _seatRepository = seatRepository;
@@ -80,10 +81,27 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             return _meetingroomReservationRepository.GetAll().Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
         }
-        public List<MeetingRoom> GetAvailableMeetingRoomsOnDate(DateTime? date, ICollection<MeetingRoom> meetingRooms)
+        public List<MeetingRoom> GetAvailableMeetingRoomsWithFilters(DateTime? date, int? capacity, String location)
         {
-            var roomIdsReservedOnSelectedDate = GetMeetingroomIdsReservedForDateTime((DateTime)date);
-            return meetingRooms.Where(room => !roomIdsReservedOnSelectedDate.Any(r2 => r2 == room.Id)).ToList();
+            var rooms = _locationRepository.GetLocationByName(location).MeetingRooms;
+            if(date.HasValue && capacity.HasValue)
+            {
+                var roomIdsReservedOnSelectedDate = GetMeetingroomIdsReservedForDateTime((DateTime)date);
+                return rooms.Where(room => !roomIdsReservedOnSelectedDate.Any(r2 => r2 == room.Id) && room.NumberOfSeats >= capacity).ToList();
+            }
+            else if (capacity.HasValue)
+            {
+                return rooms.Where(r => r.NumberOfSeats >= capacity).ToList();
+            }
+            else if (date.HasValue)
+            {
+                var roomIdsReservedOnSelectedDate = GetMeetingroomIdsReservedForDateTime((DateTime)date);
+                return rooms.Where(room => !roomIdsReservedOnSelectedDate.Any(r2 => r2 == room.Id)).ToList();
+            }
+            else
+            {
+                return rooms;
+            }
         }
 
         /*public List<int> GetSeatIdsReservedForDate(DateTime date)

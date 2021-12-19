@@ -4,7 +4,7 @@
 
 <h4>Filter:</h4>
 <div>
-    <RadzenDatePicker @bind-Value=@dateTimeSelected Change=@OnChange ShowTime="true" MinutesStep="15" ShowSeconds="false" />
+    <RadzenDatePicker @bind-Value=@dateTimeSelected Change=@OnChange />
     <label for="capacity">Aantal zitplaatsen:</label>
     <input type="number" id="capacity" name="capacity" min="1" @bind="Capacity">
     <button @onclick="ResetFilters">Reset filters</button>
