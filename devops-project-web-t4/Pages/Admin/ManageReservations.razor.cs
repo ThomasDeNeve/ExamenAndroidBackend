@@ -24,7 +24,6 @@ namespace devops_project_web_t4.Pages.Admin
         };
 
         private string _username;
-        private bool _hasAdminRole;
         private List<MeetingroomReservation> _meetingroomReservationsList;
         private List<CoworkReservation> _coworkReservationsList;
 
@@ -46,10 +45,7 @@ namespace devops_project_web_t4.Pages.Admin
         private int _numberOfPagesMR = 1;
         private int _numberOfPagesCW = 1;
 
-        public int _recordsPerPage = 3;
-        private List<List<string>> _tableData = new List<List<string>>();
-
-
+        public int _recordsPerPage = 5;
 
         public ManageReservations()
         {
@@ -59,7 +55,6 @@ namespace devops_project_web_t4.Pages.Admin
         {
             var state = await AuthState.GetAuthenticationStateAsync();
             _username = state.User.Identity.Name;
-            _hasAdminRole = state.User.IsInRole("Admin");
 
             _meetingroomReservationsList = ReservationController.GetMeetingroomReservations().OrderByDescending(x => x.From).ThenByDescending(x => x.MeetingRoom.Name).ToList();
             _coworkReservationsList = ReservationController.GetCoworkReservations().OrderByDescending(x => x.From).ThenBy(x => x.SeatId).ToList();
@@ -69,8 +64,8 @@ namespace devops_project_web_t4.Pages.Admin
 
         private void SelectRows()
         {
-            _numberOfPagesCW = (int)Math.Ceiling((double)_coworkReservationsList?.Count / _recordsPerPage);
-            _numberOfPagesMR = (int)Math.Ceiling((double)_meetingroomReservationsList?.Count / _recordsPerPage);
+            _numberOfPagesCW = _coworkReservationsList?.Count > 0 ? (int)Math.Ceiling((double)_coworkReservationsList?.Count / _recordsPerPage) : 1;
+            _numberOfPagesMR = _meetingroomReservationsList?.Count > 0 ? (int)Math.Ceiling((double)_meetingroomReservationsList?.Count / _recordsPerPage) : 1;
 
             _coworkingTableData = new List<List<string>>();
             _meetingroomTableData = new List<List<string>>();
