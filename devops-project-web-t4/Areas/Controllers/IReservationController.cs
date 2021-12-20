@@ -20,6 +20,8 @@ namespace devops_project_web_t4.Areas.Controllers
 
         public List<MeetingroomReservation> GetMeetingroomReservations(string userName = null);
 
+        public List<MeetingroomReservation> GetConfirmedMeetingroomReservations(DateTime month, string userName = null);
+
         public CoworkRoom GetCoworkRoomForSeat(Seat seat);
     }
 }

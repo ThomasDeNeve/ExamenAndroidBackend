@@ -16,6 +16,13 @@ namespace devops_project_web_t4.Areas.Controllers
             _customerRepository = customerRepository;
         }
 
+        public List<Customer> GetAll()
+        {
+            ICollection<Customer> customers = _customerRepository.GetAll();
+
+            return customers.ToList();
+        }
+
         public void MapAuth0User(string username)
         {
             Customer c = _customerRepository.GetByName(username);
