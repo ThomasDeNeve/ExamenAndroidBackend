@@ -21,6 +21,10 @@ a, .btn-link {
     stroke: darkorange;
 }
 
+.textDisabled {
+    color: #bbb;
+}
+
 .coworkroom {
     display: inline-block;
     margin: 5px;

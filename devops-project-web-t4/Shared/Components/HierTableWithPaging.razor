@@ -1,0 +1,46 @@
+﻿<table class="table">
+    <thead>
+        <tr>
+            @foreach (var Header in Headers)
+            {
+                <th scope="col">@Header</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Row in _tableData)
+        {
+            <tr>
+                @foreach (var Cell in Row)
+                {
+                    <td>@Cell</td>
+                }
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="100%">
+                <p>
+                    @if (BackLinkEnabled)
+                    {
+                        <a href="" @onclick="@PreviousPage"  @onclick:preventDefault>&lt; Vorige</a>
+                    }
+                    else
+                    {
+                        <span class="textDisabled">&lt; Vorige</span>
+                    }
+                     | Pagina @_currentPage/@_numberOfPages |
+                    @if (NextLinkEnabled)
+                    {
+                        <a href="" @onclick="@NextPage"  @onclick:preventDefault>Volgende &gt;</a>
+                    }
+                    else
+                    {
+                        <span class="textDisabled">Volgende &gt;</span>
+                    }
+                </p>
+            </td>
+        </tr>
+    </tfoot>
+</table>

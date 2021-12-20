@@ -19,6 +19,7 @@ namespace devops_project_web_t4_TEST.Controllers
         private readonly Mock<ICoworkReservationRepository> _coworkReservationRepository;
         private readonly Mock<IMeetingroomReservationRepository> _meetingRoomReservationRepository;
         private readonly Mock<IMeetingRoomRepository> _meetingRoomRepository;
+        private readonly Mock<ICoworkRoomRepository> _coworkRoomRepository;
         private readonly Mock<ICustomerRepository> _customerRepository;
         private readonly Mock<ISeatRepository> _seatRepository;
         private readonly Mock<ILocationRepository> _locationRepository;
@@ -32,13 +33,15 @@ namespace devops_project_web_t4_TEST.Controllers
             _coworkReservationRepository = new Mock<ICoworkReservationRepository>();
             _meetingRoomReservationRepository = new Mock<IMeetingroomReservationRepository>();
             _meetingRoomRepository = new Mock<IMeetingRoomRepository>();
+            _coworkRoomRepository = new Mock<ICoworkRoomRepository>();
             _customerRepository = new Mock<ICustomerRepository>();
             _seatRepository = new Mock<ISeatRepository>();
             _locationRepository = new Mock<ILocationRepository>();
             _seatController = new Mock<ISeatController>();
             InitializeMockObjects();
             _stateContainer = new StateContainer(_seatController.Object);
-            _reservationController = new ReservationController(_stateContainer, _coworkReservationRepository.Object, _meetingRoomReservationRepository.Object, _customerRepository.Object, _seatRepository.Object, _meetingRoomRepository.Object, _locationRepository.Object);
+
+            _reservationController = new ReservationController(_stateContainer, _coworkReservationRepository.Object, _meetingRoomReservationRepository.Object, _customerRepository.Object, _seatRepository.Object, _meetingRoomRepository.Object, _locationRepository.Object, _coworkRoomRepository.Object);
         }
 
         [Fact]

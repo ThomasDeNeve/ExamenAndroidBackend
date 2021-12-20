@@ -1,0 +1,18 @@
+﻿@page "/beheer/reservaties"
+@attribute [Authorize(Roles ="Admin")]
+@using devops_project_web_t4.Shared.Components
+@using devops_project_web_t4.Areas.Controllers 
+@inject AuthenticationStateProvider AuthState
+
+
+<h1 class="text-center locationSelectorElement">Uw <span class="pinkUnderline">reservaties</span></h1>
+
+<h2>Coworking</h2>
+<HierTableWithPaging Headers="@CoworkingTableHeaders" TableData="CoworkingGetTableData()" RecordsPerPage="10"></HierTableWithPaging>
+
+<h2>Meetingrooms</h2>
+<HierTableWithPaging Headers="@MeetingroomsTableHeaders" TableData="MeetingroomsGetTableData()" RecordsPerPage="10"></HierTableWithPaging>
+
+<AuthorizeView Roles="Admin">
+	<a href="../reservaties">Bekijk mijn reservaties</a>
+</AuthorizeView>

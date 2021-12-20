@@ -20,6 +20,7 @@ namespace devops_project_web_t4.Areas.Controllers
         private readonly ILocationRepository _locationRepository;
         private readonly ISeatRepository _seatRepository;
         private readonly IMeetingRoomRepository _meetingRoomRepository;
+        private readonly ICoworkRoomRepository _coworkRoomRepository;
 
         private readonly StateContainer _stateContainer;
 
@@ -29,7 +30,8 @@ namespace devops_project_web_t4.Areas.Controllers
             ICustomerRepository customerRepository,
             ISeatRepository seatRepository,
             IMeetingRoomRepository meetingroomRepository,
-            ILocationRepository locationRepository)
+            ILocationRepository locationRepository,
+            ICoworkRoomRepository coworkRoomRepository)
         {
             _coworkReservationRepository = coworkReservationRepository;
             _meetingroomReservationRepository = meetingroomReservationRepository;
@@ -38,6 +40,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
             _seatRepository = seatRepository;
             _meetingRoomRepository = meetingroomRepository;
+            _coworkRoomRepository = coworkRoomRepository;
 
             _stateContainer = sc;
         }
@@ -49,7 +52,8 @@ namespace devops_project_web_t4.Areas.Controllers
             CoworkReservation reservation = new()
             {
                 From = _stateContainer.SelectedDate,
-                Customer = customer
+                Customer = customer,
+                IsConfirmed = true
             };
 
             reservation.Seat = _seatRepository.GetById(seatId);
@@ -59,6 +63,15 @@ namespace devops_project_web_t4.Areas.Controllers
             _coworkReservationRepository.Add(reservation);
             _coworkReservationRepository.SaveChanges();
         }
+
+        public void CancelCoworkReservation(int reservationId)
+        {
+            CoworkReservation reservation = _coworkReservationRepository.GetById(reservationId);
+            reservation.IsConfirmed = false;
+
+            _coworkReservationRepository.SaveChanges();
+        }
+
 
         public void ConfirmMeetingRoomReservation(int roomId, string userName, DateTime date, string timeslot, double price)
         {
@@ -74,13 +87,21 @@ namespace devops_project_web_t4.Areas.Controllers
                 Customer = customer,
                 MeetingRoom = room,
                 MeetingroomId = room.Id,
-                IsConfirmed = false,
+                IsConfirmed = true,
                 Price = price,
                 Timeslot = timeslot
             };
 
             _meetingroomReservationRepository.Add(reservation);
             _meetingRoomRepository.SaveChanges();
+        }
+
+        public void CancelMeetingRoomReservation(int reservationId)
+        {
+            MeetingroomReservation reservation = _meetingroomReservationRepository.GetById(reservationId);
+            reservation.IsConfirmed = false;
+
+            _coworkReservationRepository.SaveChanges();
         }
 
         private bool MeetingRoomIsNotAvailable(int roomId, DateTime date, string timeslot)
@@ -146,18 +167,39 @@ namespace devops_project_web_t4.Areas.Controllers
                 price *= 0.85;
             return price;
         }
+        
+        public List<MeetingroomReservation> GetMeetingroomReservations(string userName = null)
+        {
+            if (string.IsNullOrEmpty(userName))
+            {
+                return _meetingroomReservationRepository.GetAll().ToList();
+            }
+            
+            Customer customer = _customerRepository.GetByName(userName);
+            return _meetingroomReservationRepository.GetAllByCustomerId(customer.CustomerId).ToList();
+        }
+        
+        public List<CoworkReservation> GetCoworkReservations(string userName = null)
+        {
+            if (string.IsNullOrEmpty(userName))
+            {
+                return _coworkReservationRepository.GetAll().ToList();
+            }
 
+            Customer customer = _customerRepository.GetByName(userName);
+            return _coworkReservationRepository.GetAllByCustomerId(customer.CustomerId).ToList();
+        }
+
+        public CoworkRoom GetCoworkRoomForSeat(Seat seat)
+        {
+            return _coworkRoomRepository.GetBySeat(seat);
+        }
+        
         /*public List<int> GetSeatIdsReservedForDate(DateTime date)
         {
             ICollection<CoworkReservation> reservations = _coworkReservationRepository.GetAll();
             List<int> seatsReserved = reservations.Where(r => r.From == date).Select(r => r.Seat.Id).ToList();
-
             return seatsReserved;
-        }
-        
-        /*public List<Reservation> GetReservations()
-        {
-            return _reservationRepository.GetAll().ToList();
         }*/
     }
 }
