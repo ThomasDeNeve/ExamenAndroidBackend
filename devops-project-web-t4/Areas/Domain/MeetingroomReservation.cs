@@ -18,7 +18,8 @@ namespace devops_project_web_t4.Areas.Domain
         public MeetingRoom MeetingRoom { get; set; }
         public Customer Customer { get; set; }
         public bool IsConfirmed { get; set; }
-        public string Timeslot { get; set; }
+        
+        //public string Timeslot { get; set; }
         public double Price { get; set; }
     }
 

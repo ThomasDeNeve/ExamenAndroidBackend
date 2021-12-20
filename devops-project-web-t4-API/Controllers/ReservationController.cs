@@ -114,13 +114,34 @@ namespace devops_project_web_t4_API.Controllers
             DateTime start = DateTime.ParseExact(model.From, format, _culture);
             DateTime end = DateTime.ParseExact(model.To, format, _culture);
 
+            double price = 0.0;
+            MeetingRoom room = _meetingRoomRepository.GetById(model.RoomId);
+
+            switch (model.Timeslot)
+            {
+                case "Voormiddag" :
+                    price = room.PriceHalfDay;
+                    break;
+                case "Namiddag" :
+                    price = room.PriceHalfDay;
+                    break;
+                case "Volledige dag" :
+                    price = room.PriceFullDay;
+                    break;
+                case "Avond" :
+                    price = room.PriceEvening;
+                    break;
+            }
+
             //TODO add exception handling
             MeetingroomReservation reservation = new MeetingroomReservation()
             {
                 Customer = _customerRepository.GetById(model.CustomerId),
                 From = start,
                 To = end,
-                MeetingRoom = _meetingRoomRepository.GetById(model.RoomId),
+                Price = price,
+                IsConfirmed = true,
+                MeetingRoom = room
             };
 
             try

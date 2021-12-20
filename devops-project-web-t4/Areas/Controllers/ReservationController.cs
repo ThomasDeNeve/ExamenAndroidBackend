@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using devops_project_web_t4.Areas.Domain;
@@ -80,16 +81,47 @@ namespace devops_project_web_t4.Areas.Controllers
 
             Customer customer = _customerRepository.GetByName(userName);
             var room = _meetingRoomRepository.GetById(roomId);
+            
+            DateTime Start = date;
+            TimeSpan tsStart = new();
+            DateTime End = date;
+            TimeSpan tsEnd = new();
+
+            //"Volledige dag", "Voormiddag", "Namiddag", "Avond"
+            switch (timeslot)
+            {
+                case "Voormiddag":
+                    tsStart = new TimeSpan(8, 0, 0);
+                    tsEnd = new TimeSpan(12, 0, 0);
+                    break;
+                case "Namiddag":
+                    tsStart = new TimeSpan(13, 0, 0);
+                    tsEnd = new TimeSpan(17, 0, 0);
+                    break;
+                case "Volledige dag":
+                    tsStart = new TimeSpan(8, 0, 0);
+                    tsEnd = new TimeSpan(17, 0, 0);
+                    break;
+                case "Avond":
+                    tsStart = new TimeSpan(17, 0, 0);
+                    tsEnd = new TimeSpan(21, 0, 0);
+                    break;
+            }
+
+            Start = Start.Date + tsStart;
+            End = End.Date + tsEnd;
 
             MeetingroomReservation reservation = new()
             {
-                From = date,
+                //From = date,
+                From = Start,
+                To = End,
                 Customer = customer,
                 MeetingRoom = room,
-                MeetingroomId = room.Id,
+                //MeetingroomId = room.Id,
                 IsConfirmed = true,
                 Price = price,
-                Timeslot = timeslot
+                //Timeslot = timeslot
             };
 
             _meetingroomReservationRepository.Add(reservation);
@@ -106,11 +138,41 @@ namespace devops_project_web_t4.Areas.Controllers
 
         private bool MeetingRoomIsNotAvailable(int roomId, DateTime date, string timeslot)
         {
-            return _meetingroomReservationRepository
+            DateTime Start = date;
+            TimeSpan tsStart = new();
+            DateTime End = date;
+            TimeSpan tsEnd = new();
+
+            //"Volledige dag", "Voormiddag", "Namiddag", "Avond"
+            switch (timeslot)
+            {
+                case "Voormiddag":
+                    tsStart = new TimeSpan(8, 0, 0);
+                    tsEnd = new TimeSpan(12, 0, 0);
+                    break;
+                case "Namiddag":
+                    tsStart = new TimeSpan(13, 0, 0);
+                    tsEnd = new TimeSpan(17, 0, 0);
+                    break;
+                case "Volledige dag":
+                    tsStart = new TimeSpan(8, 0, 0);
+                    tsEnd = new TimeSpan(17, 0, 0);
+                    break;
+                case "Avond":
+                    tsStart = new TimeSpan(17, 0, 0);
+                    tsEnd = new TimeSpan(21, 0, 0);
+                    break;
+            }
+
+            Start = Start.Date + tsStart;
+            End = End.Date + tsEnd;
+
+            /*return _meetingroomReservationRepository
                  .GetAll()
                  .Any(reservation => reservation.MeetingroomId == roomId
                  && reservation.From == date
-                 && reservation.Timeslot.Equals(timeslot));
+                 && reservation.Timeslot.Equals(timeslot));*/
+            return _meetingroomReservationRepository.GetAll().Any(reservation => reservation.MeetingroomId == roomId && reservation.From == Start && reservation.To == End);
         }
 
         public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)
