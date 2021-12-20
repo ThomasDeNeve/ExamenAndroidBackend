@@ -99,7 +99,7 @@ namespace devops_project_web_t4_API.Controllers
                 Seat = _seatRepository.GetById(model.SeatId),
             };
 
-            //customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active).ReservationsLeft -= 1;
+            //customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= DateTime.Now && cs.To >= DateTime.Now).ReservationsLeft -= 1;
 
             _coworkReservationRepository.Add(reservation);
             _coworkReservationRepository.SaveChanges();

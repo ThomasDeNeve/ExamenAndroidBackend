@@ -25,11 +25,27 @@ namespace devops_project_web_t4.Areas.Controllers
             Customer customer = _customerRepository.GetByName(userName);
             //customer.AddSubscription(cs);
 
+            DateTime from;
+            DateTime to;
+
+            if (sub.SubscriptionId == 6)
+            {
+                from = DateTime.Now;
+                to = from.AddYears(1);
+            }
+            else
+            {
+                from = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                to = from.AddMonths(1);
+            }
+
             customer.CustomerSubscriptions.Add(
                 new CustomerSubscription()
                 {
                     Subscription = sub,
-                    Customer = customer
+                    Customer = customer,
+                    From = from,
+                    To = to
                 });
 
             _customerRepository.SaveChanges();
@@ -39,7 +55,7 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             Customer customer = _customerRepository.GetByName(userName);
             
-            if (customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active) != null)
+            if (customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= DateTime.Now && cs.To >= DateTime.Now) != null)
             {
                 return true;
             }
