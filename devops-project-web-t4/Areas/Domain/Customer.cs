@@ -30,7 +30,7 @@ namespace devops_project_web_t4.Areas.Domain
 
         public bool HasActiveSubscription()
         {
-            if (CustomerSubscriptions.FirstOrDefault(cs => cs.Active) != null)
+            if (CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= DateTime.Now && cs.To >= DateTime.Now) != null)
             {
                 return true;
             }

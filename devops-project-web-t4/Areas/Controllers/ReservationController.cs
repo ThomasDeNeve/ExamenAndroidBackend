@@ -60,7 +60,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
             reservation.Seat = _seatRepository.GetById(seatId);
 
-            customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active).ReservationsLeft -= 1;
+            customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= DateTime.Now && cs.To >= DateTime.Now).ReservationsLeft -= 1;
 
             _coworkReservationRepository.Add(reservation);
             _coworkReservationRepository.SaveChanges();
@@ -241,7 +241,21 @@ namespace devops_project_web_t4.Areas.Controllers
             Customer customer = _customerRepository.GetByName(userName);
             return _meetingroomReservationRepository.GetAllByCustomerId(customer.CustomerId).ToList();
         }
-        
+
+        public List<MeetingroomReservation> GetConfirmedMeetingroomReservations(DateTime month, string userName = null)
+        {
+            DateTime monthStart = new DateTime(month.Year, month.Month, 1);
+            DateTime monthEnd = monthStart.AddMonths(1).AddDays(-1);
+
+            if (string.IsNullOrEmpty(userName))
+            {
+                return _meetingroomReservationRepository.GetAll().Where(r => r.IsConfirmed && monthStart <= r.To.Date && monthEnd >= r.From).ToList();
+            }
+
+            Customer customer = _customerRepository.GetByName(userName);
+            return _meetingroomReservationRepository.GetAllByCustomerId(customer.CustomerId).Where(r => r.IsConfirmed && monthStart <= r.To.Date && monthEnd >= r.From).ToList();
+        }
+
         public List<CoworkReservation> GetCoworkReservations(string userName = null)
         {
             if (string.IsNullOrEmpty(userName))

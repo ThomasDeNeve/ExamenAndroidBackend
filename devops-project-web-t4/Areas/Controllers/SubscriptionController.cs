@@ -12,11 +12,13 @@ namespace devops_project_web_t4.Areas.Controllers
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly ISubscriptionRepository _subscriptionRepository;
+        private readonly ICustomerSubscriptionRepository _customerSubscriptionRepository;
 
-        public SubscriptionController(ICustomerRepository customerRepository, ISubscriptionRepository subscriptionRepository)
+        public SubscriptionController(ICustomerRepository customerRepository, ISubscriptionRepository subscriptionRepository, ICustomerSubscriptionRepository customerSubscriptionRepository)
         {
             _customerRepository = customerRepository;
             _subscriptionRepository = subscriptionRepository;
+            _customerSubscriptionRepository = customerSubscriptionRepository;
         }
 
         public void ConfirmSubscription(string subName, string userName)
@@ -25,11 +27,27 @@ namespace devops_project_web_t4.Areas.Controllers
             Customer customer = _customerRepository.GetByName(userName);
             //customer.AddSubscription(cs);
 
+            DateTime from;
+            DateTime to;
+
+            if (sub.SubscriptionId == 6)
+            {
+                from = DateTime.Now;
+                to = from.AddYears(1);
+            }
+            else
+            {
+                from = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                to = from.AddMonths(1).AddSeconds(-1);
+            }
+
             customer.CustomerSubscriptions.Add(
                 new CustomerSubscription()
                 {
                     Subscription = sub,
-                    Customer = customer
+                    Customer = customer,
+                    From = from,
+                    To = to
                 });
 
             _customerRepository.SaveChanges();
@@ -39,11 +57,16 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             Customer customer = _customerRepository.GetByName(userName);
             
-            if (customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active) != null)
+            if (customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= DateTime.Now && cs.To >= DateTime.Now) != null)
             {
                 return true;
             }
             return false;
+        }
+
+        public List<CustomerSubscription> GetCustomerSubscriptions(string customerName = null, DateTime? month = null)
+        {
+            return _customerSubscriptionRepository.GetByCustomerAndMonth(customerName, month).ToList();
         }
     }
 }
