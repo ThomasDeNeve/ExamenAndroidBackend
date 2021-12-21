@@ -40,6 +40,17 @@ namespace devops_project_web_t4.Data.Repositories
                 .ToList();
         }
 
+        /**
+         * Customer name is not included for privacy
+         */
+        public List<CoworkReservation> GetByDate(DateTime date)
+        {
+            return _reservations
+                .Include(r => r.Seat)
+                .Where(r => r.From == date)
+                .ToList();
+        }
+
         public CoworkReservation GetById(int id)
         {
             return _reservations

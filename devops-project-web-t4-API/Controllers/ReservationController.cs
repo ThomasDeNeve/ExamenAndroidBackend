@@ -87,6 +87,16 @@ namespace devops_project_web_t4_API.Controllers
             return reservation == null ? NotFound() : reservation;
         }
 
+        //GET: api/reservation/{date}
+        [HttpGet("{date}")]
+        public ActionResult<List<CoworkReservation>> GetCoworkReservation(long date)
+        {
+            DateTime _date = new DateTime(date);
+            List<CoworkReservation> response = _coworkReservationRepository.GetByDate(_date);
+            return response == null ? NotFound() : response;
+        }
+
+
         // POST: api/reservation/cowork
         [HttpPost("seat")]
         public ActionResult<CoworkReservation> PostCoworkReservation(CoworkReservationModel model)
