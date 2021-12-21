@@ -14,6 +14,9 @@ namespace devops_project_web_t4.Areas.Controllers
         public List<MeetingRoom> GetAvailableMeetingRoomsWithFilters(DateTime? date, int? capacity, String location);
         public List<Object> ProposeReservation(bool hasSub, int meetingRoomId, string timeslot);
 
+        public void CancelCoworkReservation(int reservationId);
+        public void CancelMeetingRoomReservation(int reservationId);
+
         //public List<int> GetSeatIdsReservedForDate(DateTime date);
 
         public List<CoworkReservation> GetCoworkReservations(string userName = null);

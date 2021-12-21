@@ -7,6 +7,7 @@ using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Areas.State;
 using devops_project_web_t4.Data.Repositories;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
