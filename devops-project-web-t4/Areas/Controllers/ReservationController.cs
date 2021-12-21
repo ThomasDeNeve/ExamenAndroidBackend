@@ -82,7 +82,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
             Customer customer = _customerRepository.GetByName(userName);
             var room = _meetingRoomRepository.GetById(roomId);
-            
+
             DateTime Start = date;
             TimeSpan tsStart = new();
             DateTime End = date;
@@ -168,12 +168,11 @@ namespace devops_project_web_t4.Areas.Controllers
             Start = Start.Date + tsStart;
             End = End.Date + tsEnd;
 
-            /*return _meetingroomReservationRepository
-                 .GetAll()
-                 .Any(reservation => reservation.MeetingroomId == roomId
-                 && reservation.From == date
-                 && reservation.Timeslot.Equals(timeslot));*/
-            return _meetingroomReservationRepository.GetAll().Any(reservation => reservation.MeetingroomId == roomId && reservation.From == Start && reservation.To == End);
+            return _meetingroomReservationRepository.GetAll()
+                .Any(reservation => reservation.MeetingroomId == roomId
+                && reservation.From == Start
+                && reservation.To == End
+                && reservation.IsConfirmed);
         }
 
         public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)
@@ -230,14 +229,14 @@ namespace devops_project_web_t4.Areas.Controllers
                 price *= 0.85;
             return price;
         }
-        
+
         public List<MeetingroomReservation> GetMeetingroomReservations(string userName = null)
         {
             if (string.IsNullOrEmpty(userName))
             {
                 return _meetingroomReservationRepository.GetAll().ToList();
             }
-            
+
             Customer customer = _customerRepository.GetByName(userName);
             return _meetingroomReservationRepository.GetAllByCustomerId(customer.CustomerId).ToList();
         }
@@ -271,7 +270,7 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             return _coworkRoomRepository.GetBySeat(seat);
         }
-        
+
         /*public List<int> GetSeatIdsReservedForDate(DateTime date)
         {
             ICollection<CoworkReservation> reservations = _coworkReservationRepository.GetAll();

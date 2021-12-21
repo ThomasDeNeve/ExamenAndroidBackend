@@ -15,7 +15,7 @@ namespace devops_project_web_t4.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -26,7 +26,7 @@ namespace devops_project_web_t4.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<MeetingRoom> MeetingRooms { get; set; }
         public DbSet<Seat> Seats { get; set; }
-        public DbSet<CoworkReservation> CoworkReservations {get;set;}
+        public DbSet<CoworkReservation> CoworkReservations { get; set; }
         public DbSet<MeetingroomReservation> MeetingroomReservations { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CoworkRoom> CoworkRooms { get; set; }
@@ -70,7 +70,7 @@ namespace devops_project_web_t4.Data
         private static void MapMeetingRoom(EntityTypeBuilder<MeetingRoom> room)
         {
             room.ToTable("MeetingRoom");
-            
+
             room.Property(r => r.Name).IsRequired();
             room.Property(r => r.NumberOfSeats).IsRequired();
             room.Property(r => r.PriceEvening).IsRequired();
@@ -131,8 +131,7 @@ namespace devops_project_web_t4.Data
             reservation.HasOne(r => r.Customer).WithMany() /*.HasForeignKey(r => r.CustomerId)*/.IsRequired();
             reservation.HasOne(r => r.MeetingRoom).WithMany().HasForeignKey(r => r.MeetingroomId);
 
-            //reservation.HasIndex(r => new { r.MeetingroomId, r.From, r.Timeslot }).IsUnique();
-            reservation.HasIndex(r => new {r.MeetingroomId, r.From, r.To}).IsUnique();
+            //reservation.HasIndex(r => new {r.MeetingroomId, r.From, r.To}).IsUnique();
         }
 
         private static void MapSubscription(EntityTypeBuilder<Subscription> subscription)

@@ -66,7 +66,7 @@ namespace devops_project_web_t4.Pages.MeetingRoom
             return "/";
         }
 
-        private async void Reserve()
+        private void Reserve()
         {
             _showDiv = false;
             var date = DateTime.Parse(Date);
