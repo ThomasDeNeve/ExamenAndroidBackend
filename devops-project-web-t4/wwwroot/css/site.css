@@ -8,6 +8,24 @@ html, body {
 a, .btn-link {
     color: #0366d6;
 }
+
+.hierURL {
+    color: #EC3381;
+}
+
+a.hierURL:hover {
+    color: #a6406a;
+}
+
+.table th,
+.table tfoot td {
+    border-top-color: #ECA5C3;
+}
+
+.table thead th {
+    border-bottom-color: #EC3381;
+}
+
 .seattaken {
     fill: #ff0000;
     stroke: darkred;
@@ -219,4 +237,8 @@ a, .btn-link {
 
 .container {
     width: 100%;
+}
+
+.spacerBottom {
+    margin-bottom: 1.5em;
 }

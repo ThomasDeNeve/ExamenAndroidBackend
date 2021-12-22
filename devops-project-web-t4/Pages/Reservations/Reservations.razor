@@ -35,7 +35,7 @@
                 }
                 @if (DateTime.Parse(row[2]) > DateTime.Now)
                 {
-                    <td><a href="" @onclick="() => CancelCoworkingReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
+                    <td><a class="hierURL" href="" @onclick="() => CancelCoworkingReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
                 }
                 else
                 {
@@ -50,7 +50,7 @@
                 <p>
                     @if (BackLinkEnabledCW)
                     {
-                        <a href="" @onclick="@PreviousPageCoworking"  @onclick:preventDefault>&lt; Vorige</a>
+                        <a class="hierURL" href="" @onclick="@PreviousPageCoworking"  @onclick:preventDefault>&lt; Vorige</a>
                     }
                     else
                     {
@@ -59,7 +59,7 @@
                      | Pagina @_currentPageCW/@_numberOfPagesCW |
                     @if (NextLinkEnabledCW)
                     {
-                        <a href="" @onclick="@NextPageCoworking"  @onclick:preventDefault>Volgende &gt;</a>
+                        <a class="hierURL" href="" @onclick="@NextPageCoworking"  @onclick:preventDefault>Volgende &gt;</a>
                     }
                     else
                     {
@@ -91,7 +91,7 @@
                 }
                 @if (DateTime.Parse(row[2]) > DateTime.Now)
                 {
-                    <td><a href="" @onclick="() => CancelMeetingRoomReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
+                    <td><a class="hierURL" href="" @onclick="() => CancelMeetingRoomReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
                 }
                 else
                 {
@@ -106,7 +106,7 @@
                 <p>
                     @if (BackLinkEnabledMR)
                     {
-                        <a href="" @onclick="@PreviousPageMeetingroom"  @onclick:preventDefault>&lt; Vorige</a>
+                        <a class="hierURL" href="" @onclick="@PreviousPageMeetingroom"  @onclick:preventDefault>&lt; Vorige</a>
                     }
                     else
                     {
@@ -115,7 +115,7 @@
                      | Pagina @_currentPageMR/@_numberOfPagesMR |
                     @if (NextLinkEnabledMR)
                     {
-                        <a href="" @onclick="@NextPageMeetingroom"  @onclick:preventDefault>Volgende &gt;</a>
+                        <a class="hierURL" href="" @onclick="@NextPageMeetingroom"  @onclick:preventDefault>Volgende &gt;</a>
                     }
                     else
                     {
@@ -128,5 +128,5 @@
 </table>
 
 <AuthorizeView Roles="Admin">
-	<a href="../beheer/reservaties">Beheer alle reservaties</a>
+	<a class="hierURL" href="../beheer/reservaties">Beheer alle reservaties</a>
 </AuthorizeView>
