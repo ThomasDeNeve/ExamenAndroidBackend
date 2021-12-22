@@ -96,21 +96,5 @@ namespace devops_project_web_t4.Pages.Admin
             }
             Load();
         }
-
-        /*
-        public List<List<string>> CoworkingGetTableData()
-        {
-            List<List<string>> coworkingTableData = new List<List<string>>();
-
-            foreach (CoworkReservation res in _coworkReservationsList)
-            {
-                Areas.Domain.CoworkRoom room = ReservationController.GetCoworkRoomForSeat(res.Seat);
-                string seatId = String.IsNullOrEmpty(res.Seat?.Id.ToString()) ? "/" : res.Seat?.Id.ToString();
-                string states = res.IsConfirmed ? "Bevestigd" : "Geannuleerd";
-                coworkingTableData.Add(new List<string>() { res.From.ToString(), res.From.ToString(), room.Name, seatId, states, res.Customer.Username });
-            }
-
-            return coworkingTableData;
-        }*/
     }
 }

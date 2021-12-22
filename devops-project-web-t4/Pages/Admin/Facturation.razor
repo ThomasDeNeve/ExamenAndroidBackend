@@ -8,9 +8,9 @@
 
 <h1 class="text-center locationSelectorElement">Overzicht van <span class="pinkUnderline">facturatie</span></h1>
 
-<RadzenDatePicker @bind-Value=@FacturationMonth Change=@OnChangeDate ShowTime="false" /><br />
+<RadzenDatePicker @bind-Value=@FacturationMonth Change=@OnChangeDate ShowTime="false" />
 <RadzenDropDown id="cboCustomer" AllowClear="true" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-    Data=@_customerList TextProperty="Username" ValueProperty="CustomerId" Placeholder="Filter klant" Change=@(args => OnChangeCustomer(args)) />
+    Data=@_customerList TextProperty="Username" ValueProperty="CustomerId" Placeholder="Filter klant" Change=@(args => OnChangeCustomer(args)) Style="display: inline-block; top: 13px; margin-bottom: 1em" />
 
 <h2>Maandoverzicht @FacturationMonth.ToString("MMMM", CultureInfo.GetCultureInfo("nl-BE"))</h2>
 <h3>Meetingroom reservaties te factureren</h3>

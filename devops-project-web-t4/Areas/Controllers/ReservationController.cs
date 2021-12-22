@@ -69,8 +69,8 @@ namespace devops_project_web_t4.Areas.Controllers
         public void CancelCoworkReservation(int reservationId)
         {
             CoworkReservation reservation = _coworkReservationRepository.GetById(reservationId);
-            reservation.IsConfirmed = false;
 
+            _coworkReservationRepository.Remove(reservation);
             _coworkReservationRepository.SaveChanges();
         }
 
@@ -132,9 +132,9 @@ namespace devops_project_web_t4.Areas.Controllers
         public void CancelMeetingRoomReservation(int reservationId)
         {
             MeetingroomReservation reservation = _meetingroomReservationRepository.GetById(reservationId);
-            reservation.IsConfirmed = false;
 
-            _coworkReservationRepository.SaveChanges();
+            _meetingroomReservationRepository.Remove(reservation);
+            _meetingroomReservationRepository.SaveChanges();
         }
 
         private bool MeetingRoomIsNotAvailable(int roomId, DateTime date, string timeslot)
@@ -171,8 +171,7 @@ namespace devops_project_web_t4.Areas.Controllers
             return _meetingroomReservationRepository.GetAll()
                 .Any(reservation => reservation.MeetingroomId == roomId
                 && reservation.From == Start
-                && reservation.To == End
-                && reservation.IsConfirmed);
+                && reservation.To == End);
         }
 
         public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)
@@ -248,11 +247,11 @@ namespace devops_project_web_t4.Areas.Controllers
 
             if (string.IsNullOrEmpty(userName))
             {
-                return _meetingroomReservationRepository.GetAll().Where(r => r.IsConfirmed && monthStart <= r.To.Date && monthEnd >= r.From).ToList();
+                return _meetingroomReservationRepository.GetAll().Where(r => monthStart <= r.To.Date && monthEnd >= r.From).ToList();
             }
 
             Customer customer = _customerRepository.GetByName(userName);
-            return _meetingroomReservationRepository.GetAllByCustomerId(customer.CustomerId).Where(r => r.IsConfirmed && monthStart <= r.To.Date && monthEnd >= r.From).ToList();
+            return _meetingroomReservationRepository.GetAllByCustomerId(customer.CustomerId).Where(r => monthStart <= r.To.Date && monthEnd >= r.From).ToList();
         }
 
         public List<CoworkReservation> GetCoworkReservations(string userName = null)
