@@ -13,6 +13,8 @@ namespace devops_project_web_t4.Pages.CoworkRoom
     {
         [Parameter]
         public int Id { get; set; }
+        [Parameter]
+        public string Date { get; set; }
 
         public string SubName = "HIER.af en toe";
 
@@ -31,15 +33,16 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         {
             if (state.User.Identity.IsAuthenticated)
             {
+                var date = DateTime.Parse(Date);
+
                 if (HasSub())
                 {
-                    ReservationController.ConfirmCoworkReservation(Id, _userName);
+                    ReservationController.ConfirmCoworkReservation(Id, _userName, date);
                     _navigationManager.NavigateTo("/coworking/overzicht");
                 }
                 else
                 {
-                    SubscriptionController.ConfirmSubscription(SubName, _userName);
-
+                    SubscriptionController.ConfirmSubscription(SubName, _userName, date);
                     ReservationController.ConfirmCoworkReservation(Id, _userName);
                     _navigationManager.NavigateTo("/coworking/overzicht");
                 }
@@ -78,7 +81,8 @@ namespace devops_project_web_t4.Pages.CoworkRoom
 
         public bool HasSub()
         {
-            return SubscriptionController.HasActiveSub(_userName);
+            var date = DateTime.Parse(Date);
+            return SubscriptionController.HasActiveSub(_userName, date);
         }
     }
 }

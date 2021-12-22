@@ -11,7 +11,8 @@ namespace devops_project_web_t4.Areas.Controllers
         /// <summary>Finalizes a subsciption type for a user.</summary>
         /// <param name="subName">The type of subscription</param>
         /// <param name="userName">The name of the user</param>
-        public void ConfirmSubscription(string subName, string userName);
+        /// <param name="date">The day of the confirmation</param>
+        public void ConfirmSubscription(string subName, string userName, DateTime? date = null);
 
         /// <summary>Get the subscription for a certain customer.</summary>
         /// <param name="customerName">The name of the customer</param>
@@ -20,6 +21,6 @@ namespace devops_project_web_t4.Areas.Controllers
 
         /// <summary>Check if the user has a valid subscription</summary>
         /// <param name="userName">The name of the user</param>
-        public bool HasActiveSub(string userName);
+        public bool HasActiveSub(string userName, DateTime? date = null);
     }
 }

@@ -54,7 +54,7 @@ namespace devops_project_web_t4.Pages.CoworkRoom
 
         public void NavigateTo(int id)
         {
-            UriHelper.NavigateTo("/coworking/reserveer/seatReservationForm/" + id, false);
+            UriHelper.NavigateTo("/coworking/reserveer/seatReservationForm/" + id + "/" + _selectedDate.ToString("yyyy-MM-dd"), false);
         }
     }
 }

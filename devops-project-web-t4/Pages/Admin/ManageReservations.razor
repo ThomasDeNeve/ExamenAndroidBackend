@@ -33,14 +33,7 @@
                 {
                     <td>@cell</td>
                 }
-                @if (row[5] == "Bevestigd")
-                {
-                    <td><a href="" @onclick="() => CancelCoworkingReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
-                }
-                else
-                {
-                    <td></td>
-                }
+                <td><a href="" @onclick="() => CancelCoworkingReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
             </tr>
         }
     </tbody>
@@ -89,14 +82,7 @@
                 {
                     <td>@cell</td>
                 }
-                @if (row[4] == "Bevestigd")
-                {
-                    <td><a href="" @onclick="() => CancelMeetingRoomReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
-                }
-                else
-                {
-                    <td></td>
-                }
+                <td><a href="" @onclick="() => CancelMeetingRoomReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
             </tr>
         }
     </tbody>

@@ -21,7 +21,7 @@ namespace devops_project_web_t4.Areas.Controllers
             _customerSubscriptionRepository = customerSubscriptionRepository;
         }
 
-        public void ConfirmSubscription(string subName, string userName)
+        public void ConfirmSubscription(string subName, string userName, DateTime? date = null)
         {
             Subscription sub = _subscriptionRepository.GetByName(subName);
             Customer customer = _customerRepository.GetByName(userName);
@@ -30,14 +30,19 @@ namespace devops_project_web_t4.Areas.Controllers
             DateTime from;
             DateTime to;
 
+            if (!date.HasValue)
+            {
+                date = DateTime.Now;
+            }
+
             if (sub.SubscriptionId == 6)
             {
-                from = DateTime.Now;
+                from = date.Value;
                 to = from.AddYears(1);
             }
             else
             {
-                from = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                from = new DateTime(date.Value.Year, date.Value.Month, 1);
                 to = from.AddMonths(1).AddSeconds(-1);
             }
 
@@ -53,14 +58,25 @@ namespace devops_project_web_t4.Areas.Controllers
             _customerRepository.SaveChanges();
         }
 
-        public bool HasActiveSub(string userName)
+        public bool HasActiveSub(string userName, DateTime? date = null)
         {
             Customer customer = _customerRepository.GetByName(userName);
-            
-            if (customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= DateTime.Now && cs.To >= DateTime.Now) != null)
+
+            if (date.HasValue)
             {
-                return true;
+                if (customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= date.Value && cs.To >= date.Value) != null)
+                {
+                    return true;
+                }
             }
+            else
+            {
+                if (customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active) != null)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 

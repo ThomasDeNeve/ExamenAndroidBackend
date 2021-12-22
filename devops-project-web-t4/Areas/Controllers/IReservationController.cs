@@ -11,7 +11,8 @@ namespace devops_project_web_t4.Areas.Controllers
         /// <summary>Confirms a coworking reservation for a full day.</summary>
         /// <param name="seatId">The id of the to be reserved seat</param>
         /// <param name="username">The username of the customer reserving the seat</param>
-        public void ConfirmCoworkReservation(int seatId, string username);
+        /// <param name="date">The day of the confirmation</param>
+        public void ConfirmCoworkReservation(int seatId, string username, DateTime? date = null);
 
         /// <summary>Confirms a meetingroom reservation for a specified time.</summary>
         /// <param name="roomId">The id of the to be reserved meeting room</param>
@@ -39,7 +40,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
         /// <summary>Cancels a coworking seat reservatoin</summary>
         /// <param name="reservationId">Id of the coworkingReservation</param>
-        public void CancelCoworkReservation(int reservationId);
+        public void CancelCoworkReservation(int reservationId, string userName);
 
         /// <summary>Cancels a meeting room reservation.</summary>
         /// <param name="reservationId">The id of the meetingroom reservation</param>

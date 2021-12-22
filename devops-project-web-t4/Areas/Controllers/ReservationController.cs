@@ -47,9 +47,14 @@ namespace devops_project_web_t4.Areas.Controllers
             _stateContainer = sc;
         }
 
-        public void ConfirmCoworkReservation(int seatId, string userName)
+        public void ConfirmCoworkReservation(int seatId, string userName, DateTime? date = null)
         {
             Customer customer = _customerRepository.GetByName(userName);
+
+            if (!date.HasValue)
+            {
+                date = DateTime.Now;
+            }
 
             CoworkReservation reservation = new()
             {
@@ -60,17 +65,30 @@ namespace devops_project_web_t4.Areas.Controllers
 
             reservation.Seat = _seatRepository.GetById(seatId);
 
-            customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= DateTime.Now && cs.To >= DateTime.Now).ReservationsLeft -= 1;
+            customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= date.Value && cs.To >= date.Value).ReservationsLeft -= 1;
 
             _coworkReservationRepository.Add(reservation);
             _coworkReservationRepository.SaveChanges();
         }
 
-        public void CancelCoworkReservation(int reservationId)
+        public void CancelCoworkReservation(int reservationId, string userName)
         {
+            Customer customer = _customerRepository.GetByName(userName);
             CoworkReservation reservation = _coworkReservationRepository.GetById(reservationId);
-            reservation.IsConfirmed = false;
+            DateTime date = reservation.From;
 
+            CustomerSubscription subscription = customer.CustomerSubscriptions.OrderByDescending(cs => cs.LinkId).FirstOrDefault(cs => cs.From <= date && cs.To >= date);
+
+            if (subscription != null)
+            {
+                if (!subscription.Active)
+                {
+                    subscription.Active = true;
+                }
+                subscription.ReservationsLeft += 1;
+            }
+
+            _coworkReservationRepository.Remove(reservation);
             _coworkReservationRepository.SaveChanges();
         }
 
@@ -132,9 +150,9 @@ namespace devops_project_web_t4.Areas.Controllers
         public void CancelMeetingRoomReservation(int reservationId)
         {
             MeetingroomReservation reservation = _meetingroomReservationRepository.GetById(reservationId);
-            reservation.IsConfirmed = false;
 
-            _coworkReservationRepository.SaveChanges();
+            _meetingroomReservationRepository.Remove(reservation);
+            _meetingroomReservationRepository.SaveChanges();
         }
 
         private bool MeetingRoomIsNotAvailable(int roomId, DateTime date, string timeslot)
@@ -171,8 +189,7 @@ namespace devops_project_web_t4.Areas.Controllers
             return _meetingroomReservationRepository.GetAll()
                 .Any(reservation => reservation.MeetingroomId == roomId
                 && reservation.From == Start
-                && reservation.To == End
-                && reservation.IsConfirmed);
+                && reservation.To == End);
         }
 
         public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)
@@ -248,11 +265,11 @@ namespace devops_project_web_t4.Areas.Controllers
 
             if (string.IsNullOrEmpty(userName))
             {
-                return _meetingroomReservationRepository.GetAll().Where(r => r.IsConfirmed && monthStart <= r.To.Date && monthEnd >= r.From).ToList();
+                return _meetingroomReservationRepository.GetAll().Where(r => monthStart <= r.To.Date && monthEnd >= r.From).ToList();
             }
 
             Customer customer = _customerRepository.GetByName(userName);
-            return _meetingroomReservationRepository.GetAllByCustomerId(customer.CustomerId).Where(r => r.IsConfirmed && monthStart <= r.To.Date && monthEnd >= r.From).ToList();
+            return _meetingroomReservationRepository.GetAllByCustomerId(customer.CustomerId).Where(r => monthStart <= r.To.Date && monthEnd >= r.From).ToList();
         }
 
         public List<CoworkReservation> GetCoworkReservations(string userName = null)

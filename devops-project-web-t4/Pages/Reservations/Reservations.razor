@@ -33,7 +33,7 @@
                 {
                     <td>@cell</td>
                 }
-                @if (row[5] == "Bevestigd" && DateTime.Parse(row[2]) > DateTime.Now)
+                @if (DateTime.Parse(row[2]) > DateTime.Now)
                 {
                     <td><a href="" @onclick="() => CancelCoworkingReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
                 }
@@ -89,7 +89,7 @@
                 {
                     <td>@cell</td>
                 }
-                @if (row[4] == "Bevestigd")
+                @if (DateTime.Parse(row[2]) > DateTime.Now)
                 {
                     <td><a href="" @onclick="() => CancelMeetingRoomReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
                 }
