@@ -8,6 +8,10 @@ namespace devops_project_web_t4.Areas.Controllers
 {
     public interface IReservationController
     {
+        /// <summary>Confirms a coworking reservation for a full day.</summary>
+        /// <param name="seatId">The id of the to be reserved seat</param>
+        /// <param name="username">The username of the customer reserving the seat</param>
+        /// <param name="date">The day of the confirmation</param>
         public void ConfirmCoworkReservation(int seatId, string username, DateTime? date = null);
 
         /// <summary>Confirms a meetingroom reservation for a specified time.</summary>
@@ -34,7 +38,12 @@ namespace devops_project_web_t4.Areas.Controllers
         /// <param name="timeslot">The time of day</param>
         public List<Object> ProposeReservation(bool hasSub, int meetingRoomId, string timeslot);
 
+        /// <summary>Cancels a coworking seat reservatoin</summary>
+        /// <param name="reservationId">Id of the coworkingReservation</param>
         public void CancelCoworkReservation(int reservationId, string userName);
+
+        /// <summary>Cancels a meeting room reservation.</summary>
+        /// <param name="reservationId">The id of the meetingroom reservation</param>
         public void CancelMeetingRoomReservation(int reservationId);
 
         //public List<int> GetSeatIdsReservedForDate(DateTime date);
