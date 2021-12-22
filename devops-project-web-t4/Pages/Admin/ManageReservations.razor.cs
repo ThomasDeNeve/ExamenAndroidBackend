@@ -105,7 +105,7 @@ namespace devops_project_web_t4.Pages.Admin
             try
             {
                 int resId = int.Parse(id);
-                ReservationController.CancelCoworkReservation(resId);
+                ReservationController.CancelCoworkReservation(resId, _username);
                 SetMessage("Reservatie werd succesvol geannuleerd.");
                 SelectRows();
             }

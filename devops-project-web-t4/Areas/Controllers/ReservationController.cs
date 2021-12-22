@@ -47,9 +47,14 @@ namespace devops_project_web_t4.Areas.Controllers
             _stateContainer = sc;
         }
 
-        public void ConfirmCoworkReservation(int seatId, string userName)
+        public void ConfirmCoworkReservation(int seatId, string userName, DateTime? date = null)
         {
             Customer customer = _customerRepository.GetByName(userName);
+
+            if (!date.HasValue)
+            {
+                date = DateTime.Now;
+            }
 
             CoworkReservation reservation = new()
             {
@@ -60,15 +65,28 @@ namespace devops_project_web_t4.Areas.Controllers
 
             reservation.Seat = _seatRepository.GetById(seatId);
 
-            customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= DateTime.Now && cs.To >= DateTime.Now).ReservationsLeft -= 1;
+            customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= date.Value && cs.To >= date.Value).ReservationsLeft -= 1;
 
             _coworkReservationRepository.Add(reservation);
             _coworkReservationRepository.SaveChanges();
         }
 
-        public void CancelCoworkReservation(int reservationId)
+        public void CancelCoworkReservation(int reservationId, string userName)
         {
+            Customer customer = _customerRepository.GetByName(userName);
             CoworkReservation reservation = _coworkReservationRepository.GetById(reservationId);
+            DateTime date = reservation.From;
+
+            CustomerSubscription subscription = customer.CustomerSubscriptions.OrderByDescending(cs => cs.LinkId).FirstOrDefault(cs => cs.From <= date && cs.To >= date);
+
+            if (subscription != null)
+            {
+                if (!subscription.Active)
+                {
+                    subscription.Active = true;
+                }
+                subscription.ReservationsLeft += 1;
+            }
 
             _coworkReservationRepository.Remove(reservation);
             _coworkReservationRepository.SaveChanges();

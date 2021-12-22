@@ -8,8 +8,8 @@ namespace devops_project_web_t4.Areas.Controllers
 {
     public interface ISubscriptionController
     {
-        public void ConfirmSubscription(string subName, string userName);
+        public void ConfirmSubscription(string subName, string userName, DateTime? date = null);
         public List<CustomerSubscription> GetCustomerSubscriptions(string customerName = null, DateTime? month = null);
-        public bool HasActiveSub(string userName);
+        public bool HasActiveSub(string userName, DateTime? date = null);
     }
 }

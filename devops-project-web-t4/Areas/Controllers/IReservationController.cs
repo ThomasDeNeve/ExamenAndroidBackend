@@ -8,13 +8,13 @@ namespace devops_project_web_t4.Areas.Controllers
 {
     public interface IReservationController
     {
-        public void ConfirmCoworkReservation(int seatId, string username);
+        public void ConfirmCoworkReservation(int seatId, string username, DateTime? date = null);
         public void ConfirmMeetingRoomReservation(int roomId, string userName, DateTime date, string timeslot, double price);
         public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date);
         public List<MeetingRoom> GetAvailableMeetingRoomsWithFilters(DateTime? date, int? capacity, String location);
         public List<Object> ProposeReservation(bool hasSub, int meetingRoomId, string timeslot);
 
-        public void CancelCoworkReservation(int reservationId);
+        public void CancelCoworkReservation(int reservationId, string userName);
         public void CancelMeetingRoomReservation(int reservationId);
 
         //public List<int> GetSeatIdsReservedForDate(DateTime date);
