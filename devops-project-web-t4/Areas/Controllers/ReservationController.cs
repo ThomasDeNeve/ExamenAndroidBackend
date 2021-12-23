@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using devops_project_web_t4.Areas.Domain;
+﻿using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Areas.State;
 using devops_project_web_t4.Data.Repositories;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
