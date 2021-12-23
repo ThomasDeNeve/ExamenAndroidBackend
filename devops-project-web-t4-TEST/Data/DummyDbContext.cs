@@ -28,6 +28,8 @@ namespace devops_project_web_t4_TEST.Data
         public Seat[] seatsThePractice;
         public Seat[] seatsTheCourse;
 
+        public List<MeetingRoom> meetingRooms;
+        
         public MeetingRoom hierVanvoor;
         public MeetingRoom hierBoven;
         public MeetingRoom hierGinder;
@@ -43,6 +45,9 @@ namespace devops_project_web_t4_TEST.Data
         public Customer customer2;
         public Customer customer3;
         public Customer yves;
+
+        public MeetingroomReservation meetingRoomReservation1;
+        public MeetingroomReservation meetingRoomReservation2;
 
         public List<CustomerSubscription> customerSubscriptions;
 
@@ -66,6 +71,8 @@ namespace devops_project_web_t4_TEST.Data
                 new()
                 {
                     Customer = customer1,
+                    From = new DateTime(2022, 2, 1),
+                    To = new DateTime(2022, 2, 28, 23, 59, 59),
                     Subscription = new()
                     {
                         MaxNumberOfReservations = 5,
@@ -253,7 +260,6 @@ namespace devops_project_web_t4_TEST.Data
             meetingRoomsKluizen.Add(thePractice);
             meetingRoomsKluizen.Add(theCourse);
 
-
             locationGent = new Location()
             {
                 Id = 1,
@@ -318,6 +324,27 @@ namespace devops_project_web_t4_TEST.Data
             };
             #endregion
             #region reservations
+            meetingRoomReservation1 = new MeetingroomReservation()
+            {
+                Customer = customer1,
+                From = new DateTime(2022, 2, 20, 8, 0, 0),
+                To = new DateTime(2022, 2, 20, 12, 0, 0),
+                Price = hierBoven.PriceHalfDay,
+                IsConfirmed = true,
+                MeetingRoom = hierBoven,
+                MeetingroomId = 1
+            };
+
+            meetingRoomReservation2 = new MeetingroomReservation()
+            {
+                Customer = customer1,
+                From = new DateTime(2022, 2, 20, 8, 0, 0),
+                To = new DateTime(2022, 2, 20, 17, 0, 0),
+                Price = hierBoven.PriceFullDay,
+                IsConfirmed = true,
+                MeetingRoom = hierBoven,
+                MeetingroomId = 1
+            };
             #endregion
             DateTime _now = DateTime.Now;
             dateTimeNow = new DateTime(_now.Year, _now.Month, _now.Day, 0, 0, 0);
