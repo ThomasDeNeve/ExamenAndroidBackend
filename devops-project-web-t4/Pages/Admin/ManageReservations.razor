@@ -33,7 +33,7 @@
                 {
                     <td>@cell</td>
                 }
-                <td><a href="" @onclick="() => CancelCoworkingReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
+                <td><a class="hierURL" href="" @onclick="() => CancelCoworkingReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
             </tr>
         }
     </tbody>
@@ -43,7 +43,7 @@
                 <p>
                     @if (BackLinkEnabledCW)
                     {
-                        <a href="" @onclick="@PreviousPageCoworking"  @onclick:preventDefault>&lt; Vorige</a>
+                        <a class="hierURL" href="" @onclick="@PreviousPageCoworking"  @onclick:preventDefault>&lt; Vorige</a>
                     }
                     else
                     {
@@ -52,7 +52,7 @@
                      | Pagina @_currentPageCW/@_numberOfPagesCW |
                     @if (NextLinkEnabledCW)
                     {
-                        <a href="" @onclick="@NextPageCoworking"  @onclick:preventDefault>Volgende &gt;</a>
+                        <a class="hierURL" href="" @onclick="@NextPageCoworking"  @onclick:preventDefault>Volgende &gt;</a>
                     }
                     else
                     {
@@ -82,7 +82,7 @@
                 {
                     <td>@cell</td>
                 }
-                <td><a href="" @onclick="() => CancelMeetingRoomReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
+                <td><a class="hierURL" href="" @onclick="() => CancelMeetingRoomReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
             </tr>
         }
     </tbody>
@@ -92,7 +92,7 @@
                 <p>
                     @if (BackLinkEnabledMR)
                     {
-                        <a href="" @onclick="@PreviousPageMeetingroom"  @onclick:preventDefault>&lt; Vorige</a>
+                        <a class="hierURL" href="" @onclick="@PreviousPageMeetingroom"  @onclick:preventDefault>&lt; Vorige</a>
                     }
                     else
                     {
@@ -114,5 +114,5 @@
 </table>
 
 <AuthorizeView Roles="Admin">
-	<a href="../reservaties">Bekijk mijn eigen reservaties</a>
+	<a class="hierURL" href="../reservaties">Bekijk mijn eigen reservaties</a>
 </AuthorizeView>

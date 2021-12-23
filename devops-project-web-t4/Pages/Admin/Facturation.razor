@@ -8,29 +8,36 @@
 
 <h1 class="text-center locationSelectorElement">Overzicht van <span class="pinkUnderline">facturatie</span></h1>
 
-<RadzenDatePicker @bind-Value=@FacturationMonth Change=@OnChangeDate ShowTime="false" />
-<RadzenDropDown id="cboCustomer" AllowClear="true" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-    Data=@_customerList TextProperty="Username" ValueProperty="CustomerId" Placeholder="Filter klant" Change=@(args => OnChangeCustomer(args)) class="dropdownNextToDatePicker" />
-
 <h2>Maandoverzicht @FacturationMonth.ToString("MMMM", CultureInfo.GetCultureInfo("nl-BE"))</h2>
+
+<div class="spacerBottom">
+    <RadzenDatePicker @bind-Value=@FacturationMonth Change=@OnChangeDate ShowTime="false" DateFormat="dd/MM/yyyy" />
+    <RadzenDropDown id="cboCustomer" AllowClear="true" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
+        Data=@_customerList TextProperty="Username" ValueProperty="CustomerId" Placeholder="Filter klant" Change=@(args => OnChangeCustomer(args)) class="dropdownNextToDatePicker" />
+</div>
+
 <h3>Meetingroom reservaties te factureren</h3>
 <table class="table">
-    <tr>
-        @foreach (string header in MeetingroomTableHeaders)
-        {
-            <th>@header</th>
-        }
-    </tr>
-    @foreach (MeetingroomReservation reservation in _meetingroomReservationList)
-    {
+    <thead>
         <tr>
-            <td>@reservation.Customer.Username</td>
-            <td>@reservation.From.ToShortDateString()</td>
-            <td>@reservation.To.ToShortDateString()</td>
-            <td>@reservation.MeetingRoom.Name</td>
-            <td>€ @reservation.Price</td>
+            @foreach (string header in MeetingroomTableHeaders)
+            {
+                <th>@header</th>
+            }
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (MeetingroomReservation reservation in _meetingroomReservationList)
+        {
+            <tr>
+                <td>@reservation.Customer.Username</td>
+                <td>@reservation.From.ToShortDateString()</td>
+                <td>@reservation.To.ToShortDateString()</td>
+                <td>@reservation.MeetingRoom.Name</td>
+                <td>€ @reservation.Price</td>
+            </tr>
+        }
+    </tbody>
     <tfoot>
         <tr>
             <th colspan="4">Totaal:</th><th>€ @PriceMeetingrooms</th>
@@ -40,22 +47,26 @@
 
 <h3>Abonnementen te factureren</h3>
 <table class="table">
-    <tr>
-        @foreach (string header in SubscriptionTableHeaders)
-        {
-            <th>@header</th>
-        }
-    </tr>
-    @foreach (CustomerSubscription subscription in _customerSubscriptionList)
-    {
+    <thead>
         <tr>
-            <td>@subscription.Customer.Username</td>
-            <td>@subscription.From.ToShortDateString()</td>
-            <td>@subscription.To.ToShortDateString()</td>
-            <td>@subscription.Subscription.Name</td>
-            <td>€ @subscription.Subscription.Price</td>
+            @foreach (string header in SubscriptionTableHeaders)
+            {
+                <th>@header</th>
+            }
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (CustomerSubscription subscription in _customerSubscriptionList)
+        {
+            <tr>
+                <td>@subscription.Customer.Username</td>
+                <td>@subscription.From.ToShortDateString()</td>
+                <td>@subscription.To.ToShortDateString()</td>
+                <td>@subscription.Subscription.Name</td>
+                <td>€ @subscription.Subscription.Price</td>
+            </tr>
+        }
+    </tbody>
     <tfoot>
         <tr>
             <th colspan="4">Totaal:</th><th>€ @PriceSubscriptions</th>
@@ -63,4 +74,4 @@
     </tfoot>
 </table>
 
-<h3>Totaal te factureren voor selectie: € @PriceTotal</h3>
+<h3>Totaal te factureren: € @PriceTotal</h3>
