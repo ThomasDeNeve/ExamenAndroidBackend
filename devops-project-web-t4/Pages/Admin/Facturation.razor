@@ -10,7 +10,7 @@
 
 <RadzenDatePicker @bind-Value=@FacturationMonth Change=@OnChangeDate ShowTime="false" />
 <RadzenDropDown id="cboCustomer" AllowClear="true" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-    Data=@_customerList TextProperty="Username" ValueProperty="CustomerId" Placeholder="Filter klant" Change=@(args => OnChangeCustomer(args)) Style="display: inline-block; top: 13px;" />
+    Data=@_customerList TextProperty="Username" ValueProperty="CustomerId" Placeholder="Filter klant" Change=@(args => OnChangeCustomer(args)) class="dropdownNextToDatePicker" />
 
 <h2>Maandoverzicht @FacturationMonth.ToString("MMMM", CultureInfo.GetCultureInfo("nl-BE"))</h2>
 <h3>Meetingroom reservaties te factureren</h3>

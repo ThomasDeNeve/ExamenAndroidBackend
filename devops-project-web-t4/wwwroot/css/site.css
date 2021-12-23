@@ -40,6 +40,10 @@ a, .btn-link {
     border-radius: 5px;
 }
 
+.dropdownNextToDatePicker {
+    top: 13px;
+}
+
 /* initial hide of details for room */
 #bureelgelijkvloers1 {
     display: none;
@@ -219,4 +223,8 @@ a, .btn-link {
 
 .container {
     width: 100%;
+}
+
+.spacerBottom {
+    margin-bottom: 1.5em;
 }
