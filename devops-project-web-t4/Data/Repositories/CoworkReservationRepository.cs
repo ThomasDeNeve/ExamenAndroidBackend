@@ -48,6 +48,7 @@ namespace devops_project_web_t4.Data.Repositories
             return _reservations
                 .Include(r => r.Seat)
                 .Where(r => r.From == date)
+                //.Where(r => r.)
                 .ToList();
         }
 

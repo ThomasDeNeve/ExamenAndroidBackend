@@ -9,5 +9,9 @@ namespace devops_project_web_t4_API.DataModels
     {
         public int CustomerId { get; set; }
         public int SeatId { get; set; }
+
+        public long From { get; set; }
+
+        public string Chamber { get; set; }
     }
 }

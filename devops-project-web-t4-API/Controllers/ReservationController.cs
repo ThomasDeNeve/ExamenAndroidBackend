@@ -98,6 +98,26 @@ namespace devops_project_web_t4_API.Controllers
 
 
         // POST: api/reservation/cowork
+        /*[HttpPost("seat")]
+        public ActionResult<CoworkReservation> PostCoworkReservation(CoworkReservationModel model)
+        {
+            //Customer customer = _customerRepository.GetByName(userName);
+
+            CoworkReservation reservation = new CoworkReservation()
+            {
+                Customer = _customerRepository.GetById(model.CustomerId), //= customer
+                Seat = _seatRepository.GetById(model.SeatId),
+            };
+
+            //customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active).ReservationsLeft -= 1;
+
+            _coworkReservationRepository.Add(reservation);
+            _coworkReservationRepository.SaveChanges();
+
+            return Ok(reservation);
+        }
+        */
+
         [HttpPost("seat")]
         public ActionResult<CoworkReservation> PostCoworkReservation(CoworkReservationModel model)
         {
