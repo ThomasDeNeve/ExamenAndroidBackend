@@ -44,18 +44,19 @@ namespace devops_project_web_t4_TEST.Controllers
             _reservationController = new ReservationController(_stateContainer, _coworkReservationRepository.Object, _meetingRoomReservationRepository.Object, _customerRepository.Object, _seatRepository.Object, _meetingRoomRepository.Object, _locationRepository.Object, _coworkRoomRepository.Object);
         }
 
-        [Fact(Skip = "TODO: FIX NPE")]
-        public void TestConfirmReservationMeetingRoom()
+        [Fact]
+        public void TestConfirmReservationCoworking()
         {
             CoworkReservation reservation = null;
             _coworkReservationRepository.Setup(r => r.Add(It.IsAny<CoworkReservation>())).Callback<CoworkReservation>(r => reservation = r);
             _customerRepository.Setup(r => r.GetByName("dummy")).Returns(_context.customer1);
-            _reservationController.ConfirmCoworkReservation(1, "dummy");
+            _reservationController.ConfirmCoworkReservation(1, "dummy", new DateTime(2022, 2, 20));
             Assert.Equal(_context.customer1.Firstname, reservation.Customer.Firstname);
             Assert.Equal(_context.customer1.Lastname, reservation.Customer.Lastname);
             Assert.Equal(_context.customer1.Email, reservation.Customer.Email);
             Assert.Equal(_context.customer1.Tel, reservation.Customer.Tel);
             Assert.Equal(_context.seatsThePractice[0].Id, reservation.Seat.Id);
+            Assert.Equal(new DateTime(2022, 2, 20), reservation.From);
         }
 
         [Fact]
