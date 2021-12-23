@@ -12,9 +12,9 @@ Vergaderen met klanten, leveranciers of elk ander professioneel contact. Onze Co
 Koffie, water en thee zijn steeds inbegrepen.";
 
 
-        public void NavigateToReserveSeat()
+        /*public void NavigateToReserveSeat()
         {
             _navigationManager.NavigateTo("/coworking/reserveer", false);
-        }
+        }*/
     }
 }

@@ -84,6 +84,7 @@ namespace devops_project_web_t4.Data
             room.ToTable("CoworkRoom");
 
             room.Property(r => r.Name).IsRequired();
+            room.Property(r => r.LocationId).IsRequired();
             room.HasMany(r => r.Seats).WithOne();
 
         }
