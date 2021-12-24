@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace devops_project_web_t4.Pages.CoworkRoom
 {
-    public partial class HierCoworkingOverzicht
+    public partial class CoworkingKluizenOverzicht
     {
         [Inject]
         private NavigationManager NavigationManager { get; set; }
