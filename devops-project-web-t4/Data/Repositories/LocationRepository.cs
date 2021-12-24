@@ -25,6 +25,7 @@ namespace devops_project_web_t4.Data.Repositories
         {
             return _locations
                 .Include(l => l.MeetingRooms)
+                .Include(l => l.CoWorkRooms)
                 .ToList();
         }
 
@@ -33,6 +34,7 @@ namespace devops_project_web_t4.Data.Repositories
             return _locations
                 .Where(l => l.Name.Contains(name))
                 .Include(l => l.MeetingRooms)
+                .Include(l => l.CoWorkRooms)
                 .ToList();
         }
 
@@ -40,6 +42,7 @@ namespace devops_project_web_t4.Data.Repositories
         {
             return _locations
                 .Include(l => l.MeetingRooms)
+                .Include(l => l.CoWorkRooms)
                 .SingleOrDefault(l => l.Id == id);
         }
 
@@ -47,6 +50,7 @@ namespace devops_project_web_t4.Data.Repositories
         {
             return _locations
                 .Include(l => l.MeetingRooms)
+                .Include(l => l.CoWorkRooms)
                 .SingleOrDefault(l => l.Name.ToLower().Equals(name.ToLower()));
         }
 

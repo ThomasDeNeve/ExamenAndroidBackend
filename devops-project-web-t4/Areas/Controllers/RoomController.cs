@@ -15,8 +15,8 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             _coworkRoomRepository = cr;
             _locationRepository = lr;
-            _locationHier = _locationRepository.GetAllByName("HIER").FirstOrDefault();
-            _locationKluizen = _locationRepository.GetAllByName("Kluizen").FirstOrDefault();
+            _locationHier = _locationRepository.GetLocationByName("HIER");
+            _locationKluizen = _locationRepository.GetLocationByName("Kluizen");
         }
         public ICollection<CoworkRoom> GetAllCoworkRooms()
         {
