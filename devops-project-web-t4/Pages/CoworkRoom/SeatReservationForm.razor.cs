@@ -35,20 +35,20 @@ namespace devops_project_web_t4.Pages.CoworkRoom
                 if (HasSub())
                 {
                     ReservationController.ConfirmCoworkReservation(Id, _userName, date);
-                    _navigationManager.NavigateTo("/coworking/overzicht");
+                    _navigationManager.NavigateTo("/reservaties");
                 }
                 else
                 {
                     SubscriptionController.ConfirmSubscription(SubName, _userName, date);
                     ReservationController.ConfirmCoworkReservation(Id, _userName);
-                    _navigationManager.NavigateTo("/coworking/overzicht");
+                    _navigationManager.NavigateTo("/reservaties");
                 }
             }
         }
 
         public void Cancel()
         {
-            _navigationManager.NavigateTo("/coworking/overzicht");
+            _navigationManager.NavigateTo("/coworking/locatie");
         }
 
         protected override async Task OnInitializedAsync()
