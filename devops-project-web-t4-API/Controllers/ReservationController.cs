@@ -29,7 +29,7 @@ namespace devops_project_web_t4_API.Controllers
         private readonly ISeatRepository _seatRepository;
         private readonly IMeetingRoomRepository _meetingRoomRepository;
 
-        private readonly CultureInfo _culture = new ("en-US");
+        private readonly CultureInfo _culture = new("en-US");
         private readonly string format = "yyyy-M-dd HH:mm:ss";
 
         private const string STARTTIMEMORNING = "08:00:00";
@@ -87,54 +87,39 @@ namespace devops_project_web_t4_API.Controllers
             return reservation == null ? NotFound() : reservation;
         }
 
-        //GET: api/reservation/{date}
-        [HttpGet("{date}")]
-        public ActionResult<List<CoworkReservation>> GetCoworkReservation(long date)
+        //GET: api/reservation/coworkroom/{date}
+        [HttpGet("coworkroom")]
+        public ActionResult<List<CoworkReservation>> GetCoworkReservation(string date)
         {
-            DateTime _date = new DateTime(date);
+            DateTime _date = DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             List<CoworkReservation> response = _coworkReservationRepository.GetByDate(_date);
             return response == null ? NotFound() : response;
         }
 
-
-        // POST: api/reservation/cowork
-        /*[HttpPost("seat")]
-        public ActionResult<CoworkReservation> PostCoworkReservation(CoworkReservationModel model)
-        {
-            //Customer customer = _customerRepository.GetByName(userName);
-
-            CoworkReservation reservation = new CoworkReservation()
-            {
-                Customer = _customerRepository.GetById(model.CustomerId), //= customer
-                Seat = _seatRepository.GetById(model.SeatId),
-            };
-
-            //customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active).ReservationsLeft -= 1;
-
-            _coworkReservationRepository.Add(reservation);
-            _coworkReservationRepository.SaveChanges();
-
-            return Ok(reservation);
-        }
-        */
-
         [HttpPost("seat")]
         public ActionResult<CoworkReservation> PostCoworkReservation(CoworkReservationModel model)
         {
-            //Customer customer = _customerRepository.GetByName(userName);
-
+            Customer customer = _customerRepository.GetById(model.CustomerId);
+            DateTime date = DateTime.ParseExact(model.From, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             CoworkReservation reservation = new CoworkReservation()
             {
-                Customer = _customerRepository.GetById(model.CustomerId), //= customer
-                Seat = _seatRepository.GetById(model.SeatId),
+                From = date,
+                Customer = customer,
+                IsConfirmed = true
             };
+            reservation.Seat = _seatRepository.GetById(model.SeatId);
 
-            //customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active).ReservationsLeft -= 1;
+            try
+            {
+                if (customer.CustomerSubscriptions.Count > 0)
+                    customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= date && cs.To >= date).ReservationsLeft -= 1;
+            }
+            catch (NullReferenceException) { }
 
             _coworkReservationRepository.Add(reservation);
             _coworkReservationRepository.SaveChanges();
 
-            return Ok(reservation);
+            return Ok("Ok");
         }
 
         // POST: api/reservation/meetingroom
@@ -149,16 +134,16 @@ namespace devops_project_web_t4_API.Controllers
 
             switch (model.Timeslot)
             {
-                case "Voormiddag" :
+                case "Voormiddag":
                     price = room.PriceHalfDay;
                     break;
-                case "Namiddag" :
+                case "Namiddag":
                     price = room.PriceHalfDay;
                     break;
-                case "Volledige dag" :
+                case "Volledige dag":
                     price = room.PriceFullDay;
                     break;
-                case "Avond" :
+                case "Avond":
                     price = room.PriceEvening;
                     break;
             }
@@ -183,7 +168,7 @@ namespace devops_project_web_t4_API.Controllers
             {
                 //Log error on duplicate reservation
             }
-            
+
             return Ok("OK");
         }
 
@@ -198,7 +183,7 @@ namespace devops_project_web_t4_API.Controllers
 
             //list of ids for rooms that are already reserved
             List<int> idsRoomsTaken = new List<int>();
-            
+
             try
             {
                 DateTime tempDateFrom = Convert.ToDateTime(datetimeStart, _culture);
@@ -265,7 +250,7 @@ namespace devops_project_web_t4_API.Controllers
                         }
                     }
                 }
-                
+
                 meetingRooms = _meetingRoomRepository.GetAll();
                 //get the meetingrooms based on locationId and number of needed seats
                 meetingRooms = meetingRooms.Where(m => m.LocationId == locationid && m.NumberOfSeats >= neededseats).ToList();

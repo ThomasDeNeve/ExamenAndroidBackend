@@ -46,9 +46,9 @@ namespace devops_project_web_t4.Data.Repositories
         public List<CoworkReservation> GetByDate(DateTime date)
         {
             return _reservations
+                .Include(r => r.Customer)
                 .Include(r => r.Seat)
                 .Where(r => r.From == date)
-                //.Where(r => r.)
                 .ToList();
         }
 
