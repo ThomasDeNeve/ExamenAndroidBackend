@@ -47,19 +47,22 @@ namespace devops_project_web_t4.Areas.Controllers
 
             if (!date.HasValue)
             {
-                date = DateTime.Now;
+                date = _stateContainer.SelectedDate;
             }
 
             CoworkReservation reservation = new()
             {
-                From = _stateContainer.SelectedDate,
+                From = date.Value,
                 Customer = customer,
                 IsConfirmed = true
             };
 
             reservation.Seat = _seatRepository.GetById(seatId);
 
-            customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= date.Value && cs.To >= date.Value).ReservationsLeft -= 1;
+            if (customer.CustomerSubscriptions.Any(cs => cs.Active && cs.From <= date.Value && cs.To >= date.Value))
+            {
+                customer.CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= date.Value && cs.To >= date.Value).ReservationsLeft -= 1;
+            }
 
             _coworkReservationRepository.Add(reservation);
             _coworkReservationRepository.SaveChanges();
@@ -182,8 +185,8 @@ namespace devops_project_web_t4.Areas.Controllers
 
             return _meetingroomReservationRepository.GetAll()
                 .Any(reservation => reservation.MeetingroomId == roomId
-                && reservation.From == Start
-                && reservation.To == End);
+                && reservation.From <= End
+                && reservation.To >= Start);
         }
 
         public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)

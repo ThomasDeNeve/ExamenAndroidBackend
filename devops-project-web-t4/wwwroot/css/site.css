@@ -60,6 +60,10 @@ a.hierURL:hover {
     border-radius: 5px;
 }
 
+.dropdownNextToDatePicker {
+    top: 13px;
+}
+
 /* initial hide of details for room */
 #bureelgelijkvloers1 {
     display: none;
