@@ -1,59 +1,54 @@
 ﻿using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Data.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace devops_project_web_t4_API.Controllers
 {
-  [ApiConventionType(typeof(DefaultApiConventions))]
-  [Produces("application/json")]
-  [Route("api/[controller]")]
-  // Add authentication?
-  //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-  [ApiController]
-  public class LocationController : ControllerBase
-  {
-    private readonly ILocationRepository _locationRepository;
-
-    public LocationController(ILocationRepository locationRepo)
+    [ApiConventionType(typeof(DefaultApiConventions))]
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    // Add authentication?
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [ApiController]
+    public class LocationController : ControllerBase
     {
-      _locationRepository = locationRepo;
-    }
+        private readonly ILocationRepository _locationRepository;
 
-    // GET: api/Location
-    /// <summary>Get all locations ordered by name</summary>
-    /// <param name="name">Optional filter: The name of the location</param>
-    /// <returns>array of locations</returns>
-    [HttpGet]
-    public IEnumerable<Location> GetLocations(string name = null)
-    {
-      if (name == null)
-      {
-        return _locationRepository.GetAll().OrderBy(l => l.Name);
-      }
-      else
-      {
-        //get filtered results
-        return _locationRepository.GetAllByName(name).OrderBy(l => l.Name);
-      }
-    }
+        public LocationController(ILocationRepository locationRepo)
+        {
+            _locationRepository = locationRepo;
+        }
 
-    // GET: api/Location/{id}
-    /// <summary>Get a location by giving an id</summary>
-    /// <param name="id">The id of a location</param>
-    /// <returns>a location object</returns>
-    [HttpGet("{id}")]
-    public ActionResult<Location> GetLocations(int id)
-    {
-      Location location = _locationRepository.GetById(id);
-      return location == null ? NotFound() : location;
-    }
+        // GET: api/Location
+        /// <summary>Get all locations ordered by name</summary>
+        /// <param name="name">Optional filter: The name of the location</param>
+        /// <returns>array of locations</returns>
+        [HttpGet]
+        public IEnumerable<Location> GetLocations(string name = null)
+        {
+            if (name == null)
+            {
+                return _locationRepository.GetAll().OrderBy(l => l.Name);
+            }
+            else
+            {
+                //get filtered results
+                return _locationRepository.GetAllByName(name).OrderBy(l => l.Name);
+            }
+        }
+
+        // GET: api/Location/{id}
+        /// <summary>Get a location by giving an id</summary>
+        /// <param name="id">The id of a location</param>
+        /// <returns>a location object</returns>
+        [HttpGet("{id}")]
+        public ActionResult<Location> GetLocations(int id)
+        {
+            Location location = _locationRepository.GetById(id);
+            return location == null ? NotFound() : location;
+        }
 
         /// <summary>
         /// Create a location
@@ -111,24 +106,24 @@ namespace devops_project_web_t4_API.Controllers
             return Ok(location);
         }*/
 
-    /// <summary>
-    /// Delete a location
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [HttpDelete("{id}")]
-    public ActionResult Delete(int id)
-    {
-          Location location = _locationRepository.GetById(id);
+        /// <summary>
+        /// Delete a location
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            Location location = _locationRepository.GetById(id);
 
-          if (location == null)
-          {
-            return NotFound();
-          }
-          _locationRepository.Remove(location);
-          _locationRepository.SaveChanges();
+            if (location == null)
+            {
+                return NotFound();
+            }
+            _locationRepository.Remove(location);
+            _locationRepository.SaveChanges();
 
-          return NoContent();
+            return NoContent();
+        }
     }
-  }
 }

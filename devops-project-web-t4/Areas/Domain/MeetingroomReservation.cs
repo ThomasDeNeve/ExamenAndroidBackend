@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Domain
 {
@@ -18,7 +15,7 @@ namespace devops_project_web_t4.Areas.Domain
         public MeetingRoom MeetingRoom { get; set; }
         public Customer Customer { get; set; }
         public bool IsConfirmed { get; set; }
-        
+
         //public string Timeslot { get; set; }
         public double Price { get; set; }
     }

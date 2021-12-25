@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Domain
 {
     public class Location
     {
-        private List<MeetingRoom> _rooms;
+        private List<MeetingRoom> _meetingRooms;
+        private List<CoworkRoom> _coworkRooms;
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -21,14 +18,21 @@ namespace devops_project_web_t4.Areas.Domain
         public string Place { get; set; }
         public List<MeetingRoom> MeetingRooms
         {
-            get => _rooms;
+            get => _meetingRooms;
             set
             {
                 AddLocationIdToMeetingRoom(value);
             }
         }
 
-        public List<CoworkRoom> CoWorkRooms { get; set; } = new List<CoworkRoom>();
+        public List<CoworkRoom> CoWorkRooms
+        {
+            get => _coworkRooms;
+            set
+            {
+                AddLocationIdToCoworkRoom(value);
+            }
+        }
 
         public void AddMeetingRoom(MeetingRoom meetingRoom)
         {
@@ -45,7 +49,18 @@ namespace devops_project_web_t4.Areas.Domain
                 tempRoom.LocationId = this.Id;
                 tempList.Add(tempRoom);
             }
-            _rooms = tempList;
+            _meetingRooms = tempList;
+        }
+        private void AddLocationIdToCoworkRoom(List<CoworkRoom> value)
+        {
+            List<CoworkRoom> tempList = new List<CoworkRoom>();
+            foreach (CoworkRoom room in value)
+            {
+                CoworkRoom tempRoom = room;
+                tempRoom.LocationId = this.Id;
+                tempList.Add(tempRoom);
+            }
+            _coworkRooms = tempList;
         }
 
         //Onderstaande methode staat nu in CoworkRoom

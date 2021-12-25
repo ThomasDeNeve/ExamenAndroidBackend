@@ -1,10 +1,6 @@
 ﻿using devops_project_web_t4.Areas.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.IdentityModel.Protocols;
 
 namespace devops_project_web_t4.Data
 {
@@ -88,6 +84,8 @@ namespace devops_project_web_t4.Data
             room.ToTable("CoworkRoom");
 
             room.Property(r => r.Name).IsRequired();
+            room.Property(r => r.ImageName);
+            room.Property(r => r.LocationId).IsRequired();
             room.HasMany(r => r.Seats).WithOne();
 
         }

@@ -1,9 +1,8 @@
-﻿using System;
+﻿using devops_project_web_t4.Areas.Domain;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using devops_project_web_t4.Areas.Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace devops_project_web_t4.Data.Repositories
 {
@@ -29,7 +28,7 @@ namespace devops_project_web_t4.Data.Repositories
                 DateTime monthStart = new DateTime(month.Value.Year, month.Value.Month, 1);
                 DateTime monthEnd = monthStart.AddMonths(1).AddDays(-1);
                 return _customerSubscriptions.Where(
-                    cs => cs.Customer.Username == customerName 
+                    cs => cs.Customer.Username == customerName
                     && monthStart <= cs.To.Date && monthEnd >= cs.From
                 ).Include(cs => cs.Subscription).ToList();
             }

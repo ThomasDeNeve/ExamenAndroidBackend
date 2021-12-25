@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using devops_project_web_t4.Areas.Domain;
+﻿using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Data.Repositories;
 using devops_project_web_t4_API.DataModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
-using Microsoft.Identity.Client;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace devops_project_web_t4_API.Controllers
 {
@@ -29,7 +24,7 @@ namespace devops_project_web_t4_API.Controllers
         private readonly ISeatRepository _seatRepository;
         private readonly IMeetingRoomRepository _meetingRoomRepository;
 
-        private readonly CultureInfo _culture = new ("en-US");
+        private readonly CultureInfo _culture = new("en-US");
         private readonly string format = "yyyy-M-dd HH:mm:ss";
 
         private const string STARTTIMEMORNING = "08:00:00";
@@ -119,16 +114,16 @@ namespace devops_project_web_t4_API.Controllers
 
             switch (model.Timeslot)
             {
-                case "Voormiddag" :
+                case "Voormiddag":
                     price = room.PriceHalfDay;
                     break;
-                case "Namiddag" :
+                case "Namiddag":
                     price = room.PriceHalfDay;
                     break;
-                case "Volledige dag" :
+                case "Volledige dag":
                     price = room.PriceFullDay;
                     break;
-                case "Avond" :
+                case "Avond":
                     price = room.PriceEvening;
                     break;
             }
@@ -153,7 +148,7 @@ namespace devops_project_web_t4_API.Controllers
             {
                 //Log error on duplicate reservation
             }
-            
+
             return Ok("OK");
         }
 
@@ -168,7 +163,7 @@ namespace devops_project_web_t4_API.Controllers
 
             //list of ids for rooms that are already reserved
             List<int> idsRoomsTaken = new List<int>();
-            
+
             try
             {
                 DateTime tempDateFrom = Convert.ToDateTime(datetimeStart, _culture);
@@ -235,7 +230,7 @@ namespace devops_project_web_t4_API.Controllers
                         }
                     }
                 }
-                
+
                 meetingRooms = _meetingRoomRepository.GetAll();
                 //get the meetingrooms based on locationId and number of needed seats
                 meetingRooms = meetingRooms.Where(m => m.LocationId == locationid && m.NumberOfSeats >= neededseats).ToList();

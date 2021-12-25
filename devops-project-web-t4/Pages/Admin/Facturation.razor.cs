@@ -1,11 +1,10 @@
-﻿using devops_project_web_t4.Areas.Domain;
-using devops_project_web_t4.Areas.Controllers;
-using devops_project_web_t4.Shared.Components;
+﻿using devops_project_web_t4.Areas.Controllers;
+using devops_project_web_t4.Areas.Domain;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Pages.Admin
 {
@@ -65,7 +64,7 @@ namespace devops_project_web_t4.Pages.Admin
         protected async Task Load()
         {
             _customerList = CustomerController.GetAll();
-            
+
             _meetingroomReservationList = ReservationController.GetConfirmedMeetingroomReservations(FacturationMonth, Customer?.Username);
             _customerSubscriptionList = SubscriptionController.GetCustomerSubscriptions(Customer?.Username, FacturationMonth);
         }

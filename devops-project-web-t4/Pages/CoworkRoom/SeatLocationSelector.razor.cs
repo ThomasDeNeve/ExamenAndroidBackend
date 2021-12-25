@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace devops_project_web_t4.Pages.CoworkRoom
 {
@@ -16,9 +12,9 @@ Vergaderen met klanten, leveranciers of elk ander professioneel contact. Onze Co
 Koffie, water en thee zijn steeds inbegrepen.";
 
 
-        public void NavigateToReserveSeat()
+        /*public void NavigateToReserveSeat()
         {
             _navigationManager.NavigateTo("/coworking/reserveer", false);
-        }
+        }*/
     }
 }

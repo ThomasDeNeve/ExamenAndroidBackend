@@ -3,15 +3,19 @@
 
 <LocationSelector TitlePinkUnderline="coworking"
                   Message="@Message"
-                  NavigateHIER="@NavigateToCoworkingOverzicht" 
-                  NavigateKluizen="@NavigateToCoworkingOverzicht"/>
+                  NavigateHIER="@NavigateToCoworkingOverzichtHIER" 
+                  NavigateKluizen="@NavigateToCoworkingOverzichtKluizen"/>
 
 
 @code {
 
-
-    public void NavigateToCoworkingOverzicht()
+    public void NavigateToCoworkingOverzichtHIER()
     {
-        _navigationManager.NavigateTo("/coworking/overzicht", false);
+        _navigationManager.NavigateTo("/coworking/hier/overzicht");
+    }
+
+    public void NavigateToCoworkingOverzichtKluizen()
+    {
+        _navigationManager.NavigateTo("/coworking/kluizen/overzicht");
     }
 }
