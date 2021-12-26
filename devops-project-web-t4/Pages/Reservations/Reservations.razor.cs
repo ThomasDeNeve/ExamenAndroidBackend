@@ -85,7 +85,7 @@ namespace devops_project_web_t4.Pages.Reservations
             {
                 Areas.Domain.CoworkRoom room = ReservationController.GetCoworkRoomForSeat(res.Seat);
                 string seatId = String.IsNullOrEmpty(res.Seat?.Id.ToString()) ? "/" : res.Seat?.Id.ToString();
-                string from = res.From.Hour == 0 && res.From.Minute == 0 ? res.From.ToString("dd-MM-yyyy") : res.From.ToString("dd/MM/yyyy HH:mm");
+                string from = res.From.Hour == 0 && res.From.Minute == 0 ? res.From.ToString(_format) : res.From.ToString("dd-MM-yyyy HH:mm");
                 _coworkingTableData.Add(new List<string>() { res.Id.ToString(), from, from, room.Name, seatId, res.Customer.Username });
             }
 
@@ -99,8 +99,8 @@ namespace devops_project_web_t4.Pages.Reservations
             foreach (MeetingroomReservation res in _meetingroomReservationsList.Skip(skipRecords).Take(_recordsPerPage))
             {
                 string roomName = String.IsNullOrEmpty(res.MeetingRoom?.Name) ? "/" : res.MeetingRoom?.Name;
-                string from = res.From.Hour == 0 && res.From.Minute == 0 ? res.From.ToString("dd-MM-yyyy") : res.From.ToString("dd/MM/yyyy HH:mm");
-                string to = res.To.Hour == 0 && res.To.Minute == 0 ? res.To.ToString("dd-MM-yyyy") : res.To.ToString("dd/MM/yyyy HH:mm");
+                string from = res.From.Hour == 0 && res.From.Minute == 0 ? res.From.ToString(_format) : res.From.ToString("dd-MM-yyyy HH:mm");
+                string to = res.To.Hour == 0 && res.To.Minute == 0 ? res.To.ToString(_format) : res.To.ToString("dd-MM-yyyy HH:mm");
                 _meetingroomTableData.Add(new List<string>() { res.Id.ToString(), from, to, roomName, res.Customer.Username });
             }
 

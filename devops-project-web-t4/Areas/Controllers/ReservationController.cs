@@ -192,7 +192,7 @@ namespace devops_project_web_t4.Areas.Controllers
 
         public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date)
         {
-            return _meetingroomReservationRepository.GetAll().Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
+            return _meetingroomReservationRepository.GetAll().Where(r => r.From.Date == date && r.From.Hour == 8 && r.To.Hour == 17).Select(r => r.MeetingRoom.Id).ToList();
         }
         private List<MeetingRoom> GetAvailableMeetingRoomsWithFilters(DateTime? date, int? capacity, String location)
         {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Pages.MeetingRoom
@@ -31,6 +32,9 @@ namespace devops_project_web_t4.Pages.MeetingRoom
         private bool _reservationFailed;
         private bool _reservationSucceeded;
         private string _message;
+
+        private readonly string _format = "yyyy-MM-dd";
+        private CultureInfo _culture = CultureInfo.InvariantCulture;
 
         protected override async Task OnInitializedAsync()
         {
@@ -66,7 +70,7 @@ namespace devops_project_web_t4.Pages.MeetingRoom
         private void Reserve()
         {
             _showDiv = false;
-            var date = DateTime.Parse(Date);
+            var date = DateTime.ParseExact(Date, _format, _culture);
             try
             {
                 ReservationController.ConfirmMeetingRoomReservation(Id, _userName, date, TimeSlot, _price);

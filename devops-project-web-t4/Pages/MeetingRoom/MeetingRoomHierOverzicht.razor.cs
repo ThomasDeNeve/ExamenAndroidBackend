@@ -13,6 +13,7 @@ namespace devops_project_web_t4.Pages.MeetingRoom
         private IReservationController ReservationController { get; set; }
         private ICollection<Areas.Domain.MeetingRoom> _meetingRooms;
         private DateTime? dateTimeSelected = null;
+        private readonly string _format = "yyyy-MM-dd";
         private int? _capacity;
         private int? Capacity
         {
@@ -31,7 +32,14 @@ namespace devops_project_web_t4.Pages.MeetingRoom
 
         public void ShowRoom(int roomId)
         {
-            NavigationManager.NavigateTo("meetingroom/" + roomId);
+            if (dateTimeSelected != null)
+            {
+                NavigationManager.NavigateTo("meetingroom/" + roomId + "/" + dateTimeSelected.Value.ToString(_format));
+            }
+            else
+            {
+                NavigationManager.NavigateTo("meetingroom/" + roomId);
+            }
         }
 
         void OnChange(DateTime? value)
