@@ -11,9 +11,9 @@
             <p><h3>Vanaf €@_currentRoom.PriceFullDay</h3></p>
             <p>Water, koffie en thee inbegrepen.<br />Digitaal scherm aanwezig</p>
             <div>
-                <div>
+                <div class="spacerBottom">
                     <RadzenDatePicker @bind-Value=@dateTimeSelected Change=@OnChangeDate />
-                    <RadzenDropDown TValue="string" Data=@choices Placeholder="@choices[0]"  Change="@OnChangeSelectList" />
+                    <RadzenDropDown TValue="string" Data=@choices Placeholder="@choices[0]"  Change="@OnChangeSelectList" class="dropdownNextToDatePicker" />
                 </div>
                 <div><devops_project_web_t4.Shared.Components.HierButton Title="@_reserveer" Type="Primary" Action="@NavigateToReserve()" /></div>
             </div>

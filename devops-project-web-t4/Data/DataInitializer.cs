@@ -1,8 +1,6 @@
 ﻿using devops_project_web_t4.Areas.Domain;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Data
 {
@@ -45,6 +43,7 @@ namespace devops_project_web_t4.Data
             }
 
             bureel1.Name = "Bureel 1";
+            bureel1.ImageName = "Bureel_1.jpeg";
             bureel1.Seats = coworkSeatsBureel1.ToList();
 
             var coworkSeatsCoworking = new Seat[6];
@@ -63,6 +62,7 @@ namespace devops_project_web_t4.Data
             }
 
             coworking.Name = "Coworking";
+            coworking.ImageName = "Coworking.jpeg";
             coworking.Seats = coworkSeatsCoworking.ToList();
 
             var coworkSeatsBureel2 = new Seat[3];
@@ -81,6 +81,7 @@ namespace devops_project_web_t4.Data
             }
 
             bureel2.Name = "Bureel 2";
+            bureel2.ImageName = "Bureel_2.jpeg";
             bureel2.Seats = coworkSeatsBureel2.ToList();
 
             coworkRoomsHier.Add(bureel1);

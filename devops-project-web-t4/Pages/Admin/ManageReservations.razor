@@ -4,15 +4,115 @@
 @using devops_project_web_t4.Areas.Controllers 
 @inject AuthenticationStateProvider AuthState
 
+@if (!string.IsNullOrEmpty(_error))
+{
+    <div class="alert alert-danger" role="alert">@_error</div>
+}
+@if (!string.IsNullOrEmpty(_message))
+{
+    <div class="alert alert-success" role="alert">@_message</div>
+}
 
 <h1 class="text-center locationSelectorElement">Uw <span class="pinkUnderline">reservaties</span></h1>
 
 <h2>Coworking</h2>
-<HierTableWithPaging Headers="@CoworkingTableHeaders" TableData="CoworkingGetTableData()" RecordsPerPage="10"></HierTableWithPaging>
+<table class="table">
+    <thead>
+        <tr>
+            @foreach (var header in _coworkingTableHeaders)
+            {
+                <th scope="col">@header</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in _coworkingTableData)
+        {
+            <tr>
+                @foreach (var cell in row.Skip(1))
+                {
+                    <td>@cell</td>
+                }
+                <td><a class="hierURL" href="" @onclick="() => CancelCoworkingReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="100%">
+                <p>
+                    @if (BackLinkEnabledCW)
+                    {
+                        <a class="hierURL" href="" @onclick="@PreviousPageCoworking"  @onclick:preventDefault>&lt; Vorige</a>
+                    }
+                    else
+                    {
+                        <span class="textDisabled">&lt; Vorige</span>
+                    }
+                     | Pagina @_currentPageCW/@_numberOfPagesCW |
+                    @if (NextLinkEnabledCW)
+                    {
+                        <a class="hierURL" href="" @onclick="@NextPageCoworking"  @onclick:preventDefault>Volgende &gt;</a>
+                    }
+                    else
+                    {
+                        <span class="textDisabled">Volgende &gt;</span>
+                    }
+                </p>
+            </td>
+        </tr>
+    </tfoot>
+</table>
 
 <h2>Meetingrooms</h2>
-<HierTableWithPaging Headers="@MeetingroomsTableHeaders" TableData="MeetingroomsGetTableData()" RecordsPerPage="10"></HierTableWithPaging>
+<table class="table">
+    <thead>
+        <tr>
+            @foreach (var header in _meetingroomTableHeaders)
+            {
+                <th scope="col">@header</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in _meetingroomTableData)
+        {
+            <tr>
+                @foreach (var cell in row.Skip(1))
+                {
+                    <td>@cell</td>
+                }
+                <td><a class="hierURL" href="" @onclick="() => CancelMeetingRoomReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="100%">
+                <p>
+                    @if (BackLinkEnabledMR)
+                    {
+                        <a class="hierURL" href="" @onclick="@PreviousPageMeetingroom"  @onclick:preventDefault>&lt; Vorige</a>
+                    }
+                    else
+                    {
+                        <span class="textDisabled">&lt; Vorige</span>
+                    }
+                     | Pagina @_currentPageMR/@_numberOfPagesMR |
+                    @if (NextLinkEnabledMR)
+                    {
+                        <a href="" @onclick="@NextPageMeetingroom"  @onclick:preventDefault>Volgende &gt;</a>
+                    }
+                    else
+                    {
+                        <span class="textDisabled">Volgende &gt;</span>
+                    }
+                </p>
+            </td>
+        </tr>
+    </tfoot>
+</table>
 
 <AuthorizeView Roles="Admin">
-	<a href="../reservaties">Bekijk mijn reservaties</a>
+	<a class="hierURL" href="../reservaties">Bekijk mijn eigen reservaties</a>
 </AuthorizeView>

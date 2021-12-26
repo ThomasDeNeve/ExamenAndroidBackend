@@ -8,14 +8,34 @@ html, body {
 a, .btn-link {
     color: #0366d6;
 }
+
+.hierURL {
+    color: #EC3381;
+}
+
+a.hierURL:hover {
+    color: #a6406a;
+}
+
+.table th,
+.table tfoot td {
+    border-top-color: #ECA5C3;
+}
+
+.table thead th {
+    border-bottom-color: #EC3381;
+}
+
 .seattaken {
     fill: #ff0000;
     stroke: darkred;
 }
+
 .seatavailable {
     fill: #d5e8d4;
     stroke: #82b366;
 }
+
 .seattemplock {
     fill: orange;
     stroke: darkorange;
@@ -38,6 +58,10 @@ a, .btn-link {
     margin: 5px;
     padding: 10px;
     border-radius: 5px;
+}
+
+.dropdownNextToDatePicker {
+    top: 13px;
 }
 
 /* initial hide of details for room */
@@ -219,4 +243,8 @@ a, .btn-link {
 
 .container {
     width: 100%;
+}
+
+.spacerBottom {
+    margin-bottom: 1.5em;
 }

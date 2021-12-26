@@ -2,11 +2,11 @@
 @using devops_project_web_t4.Data.Repositories
 @using devops_project_web_t4.Areas.Controllers
 @inject AuthenticationStateProvider AuthState
-@page "/coworking/reserveer/seatReservationForm/{Id:int}"
+@page "/coworking/reserveer/seatReservationForm/{Id:int}/{Date}/"
 
 <div id="reservationform">
 
-    <h3>Reservation voor stoel @Id </h3>
+    <h3>Reservatie voor stoel @Id </h3>
     
     @if (LoggedIn())
     {

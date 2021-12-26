@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Domain
 {
@@ -12,7 +11,7 @@ namespace devops_project_web_t4.Areas.Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerId { get; set; }
-        public string Firstname {get;set;}
+        public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
@@ -30,7 +29,7 @@ namespace devops_project_web_t4.Areas.Domain
 
         public bool HasActiveSubscription()
         {
-            if (CustomerSubscriptions.FirstOrDefault(cs => cs.Active) != null)
+            if (CustomerSubscriptions.FirstOrDefault(cs => cs.Active && cs.From <= DateTime.Now && cs.To >= DateTime.Now) != null)
             {
                 return true;
             }

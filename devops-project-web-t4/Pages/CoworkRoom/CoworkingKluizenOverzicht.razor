@@ -1,4 +1,4 @@
-﻿@page "/coworking/overzicht"
+﻿@page "/coworking/kluizen/overzicht"
 @using devops_project_web_t4.Shared.Components
 @using Pomelo.EntityFrameworkCore.MySql.Query.Internal
 @using devops_project_web_t4.Areas.Controllers
@@ -6,15 +6,13 @@
 @using devops_project_web_t4.Data.Repositories
 @using System.Collections.ObjectModel
 
-<h3>Overzicht coworking</h3>
+<h3>Overzicht coworking Kluizen</h3>
 <div id="rooms" class="shadow-lg roomPanel">
     @foreach (var item in _coworkRooms)
     {
-        <!--@onclick="@(e => ShowDetail(item.Id))"--> 
         <div class="shadow coworkroom" onclick="showDetail(@item.Id)">
         <p>@item.Name</p>
         <div><img src="Images/room.jpg" width="200" height="200"/></div> <br/>
-        <!--<button @onclick="@(e => ShowDetail(item.Id))" class="hierButton primaryHierButton">Detail</button>-->
     </div>
 }
 </div>

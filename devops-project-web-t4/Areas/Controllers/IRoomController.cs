@@ -1,11 +1,12 @@
-﻿using System;
+﻿using devops_project_web_t4.Areas.Domain;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
     public interface IRoomController
     {
+        ICollection<CoworkRoom> GetAllCoworkRooms();
+        ICollection<CoworkRoom> GetAllCoworkRoomsHier();
+        ICollection<CoworkRoom> GetAllCoworkRoomsKluizen();
     }
 }

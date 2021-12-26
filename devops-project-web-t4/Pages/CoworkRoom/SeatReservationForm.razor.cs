@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using devops_project_web_t4.Areas.Controllers;
+﻿using devops_project_web_t4.Areas.Controllers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Pages.CoworkRoom
 {
@@ -13,6 +10,8 @@ namespace devops_project_web_t4.Pages.CoworkRoom
     {
         [Parameter]
         public int Id { get; set; }
+        [Parameter]
+        public string Date { get; set; }
 
         public string SubName = "HIER.af en toe";
 
@@ -31,24 +30,25 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         {
             if (state.User.Identity.IsAuthenticated)
             {
+                var date = DateTime.Parse(Date);
+
                 if (HasSub())
                 {
-                    ReservationController.ConfirmCoworkReservation(Id, _userName);
-                    _navigationManager.NavigateTo("/coworking/overzicht");
+                    ReservationController.ConfirmCoworkReservation(Id, _userName, date);
+                    _navigationManager.NavigateTo("/reservaties");
                 }
                 else
                 {
-                    SubscriptionController.ConfirmSubscription(SubName, _userName);
-
+                    SubscriptionController.ConfirmSubscription(SubName, _userName, date);
                     ReservationController.ConfirmCoworkReservation(Id, _userName);
-                    _navigationManager.NavigateTo("/coworking/overzicht");
+                    _navigationManager.NavigateTo("/reservaties");
                 }
             }
         }
 
         public void Cancel()
         {
-            _navigationManager.NavigateTo("/coworking/overzicht");
+            _navigationManager.NavigateTo("/coworking/locatie");
         }
 
         protected override async Task OnInitializedAsync()
@@ -78,7 +78,8 @@ namespace devops_project_web_t4.Pages.CoworkRoom
 
         public bool HasSub()
         {
-            return SubscriptionController.HasActiveSub(_userName);
+            var date = DateTime.Parse(Date);
+            return SubscriptionController.HasActiveSub(_userName, date);
         }
     }
 }

@@ -6,9 +6,6 @@ using devops_project_web_t4_TEST.Data;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace devops_project_web_t4_TEST.Controllers
@@ -45,17 +42,57 @@ namespace devops_project_web_t4_TEST.Controllers
         }
 
         [Fact]
-        public void TestConfirmReservationMeetingRoom()
+        public void TestConfirmReservationCoworking()
         {
             CoworkReservation reservation = null;
             _coworkReservationRepository.Setup(r => r.Add(It.IsAny<CoworkReservation>())).Callback<CoworkReservation>(r => reservation = r);
             _customerRepository.Setup(r => r.GetByName("dummy")).Returns(_context.customer1);
-            _reservationController.ConfirmCoworkReservation(1, "dummy");
+            _reservationController.ConfirmCoworkReservation(1, "dummy", new DateTime(2022, 2, 20));
             Assert.Equal(_context.customer1.Firstname, reservation.Customer.Firstname);
             Assert.Equal(_context.customer1.Lastname, reservation.Customer.Lastname);
             Assert.Equal(_context.customer1.Email, reservation.Customer.Email);
             Assert.Equal(_context.customer1.Tel, reservation.Customer.Tel);
             Assert.Equal(_context.seatsThePractice[0].Id, reservation.Seat.Id);
+            Assert.Equal(new DateTime(2022, 2, 20), reservation.From);
+        }
+
+        [Fact]
+        public void TestConfirmReservationMeetingRoomSuccess()
+        {
+            MeetingroomReservation reservation = null;
+            _meetingRoomReservationRepository.Setup(r => r.Add(It.IsAny<MeetingroomReservation>())).Callback<MeetingroomReservation>(r => reservation = r);
+            _meetingRoomRepository.Setup(r => r.GetById(1)).Returns(_context.hierBoven);
+            _customerRepository.Setup(r => r.GetByName("dummy")).Returns(_context.customer1);
+            _meetingRoomReservationRepository.Setup(r => r.GetAll()).Returns(new List<MeetingroomReservation>());
+            _reservationController.ConfirmMeetingRoomReservation(1, "dummy", new DateTime(2022, 2, 20), "Volledige dag", 250);
+            Assert.Equal(_context.customer1.Firstname, reservation.Customer.Firstname);
+            Assert.Equal(_context.customer1.Lastname, reservation.Customer.Lastname);
+            Assert.Equal(_context.customer1.Email, reservation.Customer.Email);
+            Assert.Equal(_context.hierBoven.Id, reservation.MeetingroomId);
+            Assert.Equal(new DateTime(2022, 2, 20, 8, 0, 0), reservation.From);
+            Assert.Equal(new DateTime(2022, 2, 20, 17, 0, 0), reservation.To);
+        }
+
+        [Fact]
+        public void TestConfirmReservationMeetingRoomPartOverlapException ()
+        {
+            MeetingroomReservation reservation = null;
+            _meetingRoomReservationRepository.Setup(r => r.Add(It.IsAny<MeetingroomReservation>())).Callback<MeetingroomReservation>(r => reservation = r);
+            _meetingRoomRepository.Setup(r => r.GetById(1)).Returns(_context.hierBoven);
+            _customerRepository.Setup(r => r.GetByName("dummy")).Returns(_context.customer1);
+            _meetingRoomReservationRepository.Setup(r => r.GetAll()).Returns(new List<MeetingroomReservation>() { _context.meetingRoomReservation1 });
+            Assert.Throws<InvalidOperationException>(() => _reservationController.ConfirmMeetingRoomReservation(1, "dummy", new DateTime(2022, 2, 20), "Volledige dag", 250));
+        }
+
+        [Fact]
+        public void TestConfirmReservationMeetingRoomFullOverlapException()
+        {
+            MeetingroomReservation reservation = null;
+            _meetingRoomReservationRepository.Setup(r => r.Add(It.IsAny<MeetingroomReservation>())).Callback<MeetingroomReservation>(r => reservation = r);
+            _meetingRoomRepository.Setup(r => r.GetById(1)).Returns(_context.hierBoven);
+            _customerRepository.Setup(r => r.GetByName("dummy")).Returns(_context.customer1);
+            _meetingRoomReservationRepository.Setup(r => r.GetAll()).Returns(new List<MeetingroomReservation>() { _context.meetingRoomReservation2 });
+            Assert.Throws<InvalidOperationException>(() => _reservationController.ConfirmMeetingRoomReservation(1, "dummy", new DateTime(2022, 2, 20), "Volledige dag", 250));
         }
 
         [Fact]
