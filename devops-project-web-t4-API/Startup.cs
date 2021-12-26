@@ -36,8 +36,7 @@ namespace devops_project_web_t4_API
     {
       services.AddDbContext<ApplicationDbContext>(options =>
         //options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocal")));
-        //options.UseMySql(Configuration.GetConnectionString("Mysql"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql"))));
-        options.UseMySql(Configuration.GetConnectionString("Mysqllocal"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysqllocal"))));
+        options.UseMySql(Configuration.GetConnectionString("Mysql"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql"))));
 
       services.AddRazorPages();
       services.AddServerSideBlazor();
