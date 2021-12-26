@@ -11,5 +11,6 @@ namespace devops_project_web_t4.Data.Repositories
         public void Remove(CoworkReservation reservation);
         public void Add(CoworkReservation reservation);
         public void SaveChanges();
+        List<CoworkReservation> GetByDate(DateTime date);
     }
 }
