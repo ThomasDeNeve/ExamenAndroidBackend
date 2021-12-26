@@ -2,6 +2,7 @@
 using devops_project_web_t4.Data.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
@@ -21,6 +22,11 @@ namespace devops_project_web_t4.Areas.Controllers
         public ICollection<CoworkRoom> GetAllCoworkRooms()
         {
             return _coworkRoomRepository.GetAll();
+        }
+
+        public async Task<ICollection<CoworkRoom>> GetAllCoworkRoomsAsync()
+        {
+            return await _coworkRoomRepository.GetAllAsync();
         }
 
         public ICollection<CoworkRoom> GetAllCoworkRoomsHier()
