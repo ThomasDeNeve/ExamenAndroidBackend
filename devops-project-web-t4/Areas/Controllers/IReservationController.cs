@@ -1,6 +1,7 @@
 ﻿using devops_project_web_t4.Areas.Domain;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
@@ -24,11 +25,11 @@ namespace devops_project_web_t4.Areas.Controllers
         /// <param name="date">The day to be checked.</param>
         public List<int> GetMeetingroomIdsReservedForDateTime(DateTime date);
 
-        /// <summary>Fetched all available MeetingRoom objects with filter from database</summary>
+        /// <summary>Fetched all available MeetingRoom objects with filter from database in an asynchronous way</summary>
         /// <param name="date">The day</param>
-        /// <param name="capacity">How many seat need to be in the meeting room</param>
+        /// <param name="capacity">How many seat need to be in the meeting room at minimum</param>
         /// <param name="location">One of the two locations</param>
-        public List<MeetingRoom> GetAvailableMeetingRoomsWithFilters(DateTime? date, int? capacity, String location);
+        public Task<List<MeetingRoom>> GetAvailableMeetingRoomsWithFiltersAsync(DateTime? date, int? capacity, String location);
 
         /// <summary>Locks the meeting room.</summary>
         /// <param name="hasSub">True if the current customer has a subscription</param>

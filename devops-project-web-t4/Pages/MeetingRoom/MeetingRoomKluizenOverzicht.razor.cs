@@ -47,9 +47,9 @@ namespace devops_project_web_t4.Pages.MeetingRoom
             dateTimeSelected = null;
         }
 
-        private void RefreshMeetingRooms()
+        private async void RefreshMeetingRooms()
         {
-            _meetingRooms = ReservationController.GetAvailableMeetingRoomsWithFilters(dateTimeSelected, Capacity, "Kluizen");
+            _meetingRooms = await ReservationController.GetAvailableMeetingRoomsWithFiltersAsync(dateTimeSelected, Capacity, "Kluizen");
         }
     }
 }

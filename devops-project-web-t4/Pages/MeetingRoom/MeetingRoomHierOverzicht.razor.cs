@@ -46,9 +46,9 @@ namespace devops_project_web_t4.Pages.MeetingRoom
             Capacity = null;
         }
 
-        private void RefreshMeetingRooms()
+        private async void RefreshMeetingRooms()
         {
-            _meetingRooms = ReservationController.GetAvailableMeetingRoomsWithFilters(dateTimeSelected, Capacity, "Hier");
+            _meetingRooms = await ReservationController.GetAvailableMeetingRoomsWithFiltersAsync(dateTimeSelected, Capacity, "Hier");
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Data.Repositories
 {
@@ -26,6 +27,12 @@ namespace devops_project_web_t4.Data.Repositories
             return _coworkrooms
                 .Include(r => r.Seats)
                 .ToList();
+        }
+        public async Task<ICollection<CoworkRoom>> GetAllAsync()
+        {
+            return await Task.FromResult(_coworkrooms
+                .Include(r => r.Seats)
+                .ToList());
         }
 
         public CoworkRoom GetById(int id)
