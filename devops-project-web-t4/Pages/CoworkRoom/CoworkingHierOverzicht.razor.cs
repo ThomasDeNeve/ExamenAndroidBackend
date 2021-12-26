@@ -17,9 +17,9 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         {
             NavigationManager.NavigateTo("/coworking/overzicht/" + roomId);
         }
-        protected override void OnInitialized()
+        protected override async void OnInitialized()
         {
-            _coworkRooms = RoomController.GetAllCoworkRooms();
+            _coworkRooms = await RoomController.GetAllCoworkRoomsAsync();
         }
     }
 }

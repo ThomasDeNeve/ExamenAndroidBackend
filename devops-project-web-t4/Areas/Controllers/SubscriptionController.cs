@@ -3,6 +3,7 @@ using devops_project_web_t4.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
@@ -78,9 +79,9 @@ namespace devops_project_web_t4.Areas.Controllers
             return false;
         }
 
-        public List<CustomerSubscription> GetCustomerSubscriptions(string customerName = null, DateTime? month = null)
+        public async Task<List<CustomerSubscription>> GetCustomerSubscriptionsAsync(string customerName = null, DateTime? month = null)
         {
-            return _customerSubscriptionRepository.GetByCustomerAndMonth(customerName, month).ToList();
+            return await Task.FromResult(_customerSubscriptionRepository.GetByCustomerAndMonth(customerName, month).ToList());
         }
     }
 }

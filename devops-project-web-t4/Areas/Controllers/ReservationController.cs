@@ -4,6 +4,7 @@ using devops_project_web_t4.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
@@ -193,7 +194,7 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             return _meetingroomReservationRepository.GetAll().Where(r => r.From == date).Select(r => r.MeetingRoom.Id).ToList();
         }
-        public List<MeetingRoom> GetAvailableMeetingRoomsWithFilters(DateTime? date, int? capacity, String location)
+        private List<MeetingRoom> GetAvailableMeetingRoomsWithFilters(DateTime? date, int? capacity, String location)
         {
             var rooms = _locationRepository.GetLocationByName(location).MeetingRooms;
             if (date.HasValue && capacity.HasValue)
@@ -215,6 +216,12 @@ namespace devops_project_web_t4.Areas.Controllers
                 return rooms;
             }
         }
+
+        public async Task<List<MeetingRoom>> GetAvailableMeetingRoomsWithFiltersAsync(DateTime? date, int? capacity, String location)
+        {
+            return await Task.FromResult(GetAvailableMeetingRoomsWithFilters(date, capacity, location));
+        }
+
         public List<Object> ProposeReservation(bool hasSub, int meetingRoomId, string timeslot)
         {
             var room = _meetingRoomRepository.GetById(meetingRoomId);

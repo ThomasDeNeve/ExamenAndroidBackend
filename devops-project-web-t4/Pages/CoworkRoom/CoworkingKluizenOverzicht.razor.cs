@@ -19,9 +19,9 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         }
 
 
-        protected override void OnInitialized()
+        protected async override void OnInitialized()
         {
-            _coworkRooms = CoworkRoomRepository.GetAll();
+            _coworkRooms = await CoworkRoomRepository.GetAllAsync();
         }
     }
 }

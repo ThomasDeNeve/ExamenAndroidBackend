@@ -2,6 +2,7 @@
 using devops_project_web_t4.Data.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Areas.Controllers
 {
@@ -11,6 +12,7 @@ namespace devops_project_web_t4.Areas.Controllers
         private readonly ILocationRepository _locationRepository;
         private readonly Location _locationHier;
         private readonly Location _locationKluizen;
+
         public RoomController(ICoworkRoomRepository cr, ILocationRepository lr)
         {
             _coworkRoomRepository = cr;
@@ -18,15 +20,17 @@ namespace devops_project_web_t4.Areas.Controllers
             _locationHier = _locationRepository.GetLocationByName("HIER");
             _locationKluizen = _locationRepository.GetLocationByName("Kluizen");
         }
-        public ICollection<CoworkRoom> GetAllCoworkRooms()
+
+        public async Task<ICollection<CoworkRoom>> GetAllCoworkRoomsAsync()
         {
-            return _coworkRoomRepository.GetAll();
+            return await _coworkRoomRepository.GetAllAsync();
         }
 
         public ICollection<CoworkRoom> GetAllCoworkRoomsHier()
         {
             return _coworkRoomRepository.GetAll().Where(cwr => cwr.LocationId == _locationHier.Id).ToList();
         }
+
         public ICollection<CoworkRoom> GetAllCoworkRoomsKluizen()
         {
             return _coworkRoomRepository.GetAll().Where(cwr => cwr.LocationId == _locationKluizen.Id).ToList();
