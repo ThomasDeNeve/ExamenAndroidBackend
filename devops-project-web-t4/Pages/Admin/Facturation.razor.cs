@@ -66,7 +66,7 @@ namespace devops_project_web_t4.Pages.Admin
             _customerList = CustomerController.GetAll();
 
             _meetingroomReservationList = ReservationController.GetConfirmedMeetingroomReservations(FacturationMonth, Customer?.Username);
-            _customerSubscriptionList = SubscriptionController.GetCustomerSubscriptions(Customer?.Username, FacturationMonth);
+            _customerSubscriptionList = await SubscriptionController.GetCustomerSubscriptionsAsync(Customer?.Username, FacturationMonth);
         }
 
         private void OnChangeCustomer(object value)

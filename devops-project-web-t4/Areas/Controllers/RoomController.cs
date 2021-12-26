@@ -12,16 +12,13 @@ namespace devops_project_web_t4.Areas.Controllers
         private readonly ILocationRepository _locationRepository;
         private readonly Location _locationHier;
         private readonly Location _locationKluizen;
+
         public RoomController(ICoworkRoomRepository cr, ILocationRepository lr)
         {
             _coworkRoomRepository = cr;
             _locationRepository = lr;
             _locationHier = _locationRepository.GetLocationByName("HIER");
             _locationKluizen = _locationRepository.GetLocationByName("Kluizen");
-        }
-        public ICollection<CoworkRoom> GetAllCoworkRooms()
-        {
-            return _coworkRoomRepository.GetAll();
         }
 
         public async Task<ICollection<CoworkRoom>> GetAllCoworkRoomsAsync()
@@ -33,6 +30,7 @@ namespace devops_project_web_t4.Areas.Controllers
         {
             return _coworkRoomRepository.GetAll().Where(cwr => cwr.LocationId == _locationHier.Id).ToList();
         }
+
         public ICollection<CoworkRoom> GetAllCoworkRoomsKluizen()
         {
             return _coworkRoomRepository.GetAll().Where(cwr => cwr.LocationId == _locationKluizen.Id).ToList();
