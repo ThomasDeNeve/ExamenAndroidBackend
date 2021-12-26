@@ -4,5 +4,6 @@
     {
         public int CustomerId { get; set; }
         public int SeatId { get; set; }
+        public string From { get; set; }
     }
 }
