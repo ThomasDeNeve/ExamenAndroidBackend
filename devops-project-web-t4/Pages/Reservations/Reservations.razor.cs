@@ -3,6 +3,7 @@ using devops_project_web_t4.Areas.Domain;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,6 +30,9 @@ namespace devops_project_web_t4.Pages.Reservations
 
         private string _error;
         private string _message;
+
+        private CultureInfo _culture = CultureInfo.InvariantCulture;
+        private readonly string _format = "dd-MM-yyyy";
 
         private List<List<string>> _coworkingTableData = new List<List<string>>();
         private List<List<string>> _meetingroomTableData = new List<List<string>>();
