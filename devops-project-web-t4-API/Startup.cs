@@ -33,6 +33,10 @@ namespace devops_project_web_t4_API
             services.AddServerSideBlazor();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -51,7 +55,6 @@ namespace devops_project_web_t4_API
             services.AddScoped<ISeatRepository, SeatRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
-            services.AddControllers();
             services.AddOpenApiDocument(c =>
             {
                 c.DocumentName = "apidocs";

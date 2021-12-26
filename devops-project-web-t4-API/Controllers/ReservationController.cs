@@ -1,6 +1,7 @@
 ﻿using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Data.Repositories;
 using devops_project_web_t4_API.DataModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,7 @@ namespace devops_project_web_t4_API.Controllers
     [ApiConventionType(typeof(DefaultApiConventions))]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ReservationController : ControllerBase
     {

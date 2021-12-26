@@ -1,5 +1,6 @@
 ﻿using devops_project_web_t4.Areas.Domain;
 using devops_project_web_t4.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,7 @@ namespace devops_project_web_t4_API.Controllers
     [ApiConventionType(typeof(DefaultApiConventions))]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    // Add authentication?
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     [ApiController]
     public class LocationController : ControllerBase
     {
