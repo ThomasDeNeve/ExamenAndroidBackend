@@ -34,6 +34,13 @@ namespace devops_project_web_t4.Data.Repositories
                 .Include(r => r.Seats)
                 .ToList());
         }
+        public async Task<ICollection<CoworkRoom>> GetAllCoworkRoomsOnLocationAsync(Location location)
+        {
+            return await Task.FromResult(_coworkrooms
+                .Include(r => r.Seats)
+                .Where(cwr => cwr.LocationId == location.Id)
+                .ToList());
+        }
 
         public CoworkRoom GetById(int id)
         {
@@ -57,5 +64,6 @@ namespace devops_project_web_t4.Data.Repositories
         {
             _dbContext.SaveChanges();
         }
+
     }
 }

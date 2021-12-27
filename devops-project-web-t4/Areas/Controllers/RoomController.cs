@@ -26,16 +26,14 @@ namespace devops_project_web_t4.Areas.Controllers
             return await _coworkRoomRepository.GetAllAsync();
         }
 
-        public ICollection<CoworkRoom> GetAllCoworkRoomsHier()
+        public async Task<ICollection<CoworkRoom>> GetAllCoworkRoomsHierAsync()
         {
-            return _coworkRoomRepository.GetAll().Where(cwr => cwr.LocationId == _locationHier.Id).ToList();
+            return await _coworkRoomRepository.GetAllCoworkRoomsOnLocationAsync(_locationHier);
         }
 
-        public ICollection<CoworkRoom> GetAllCoworkRoomsKluizen()
+        public async Task<ICollection<CoworkRoom>> GetAllCoworkRoomsKluizenAsync()
         {
-            return _coworkRoomRepository.GetAll().Where(cwr => cwr.LocationId == _locationKluizen.Id).ToList();
+            return await _coworkRoomRepository.GetAllCoworkRoomsOnLocationAsync(_locationKluizen);
         }
-
-
     }
 }
