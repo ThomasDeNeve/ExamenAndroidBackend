@@ -33,8 +33,8 @@ namespace devops_project_web_t4
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 //options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocal")));
-                options.UseMySql(Configuration.GetConnectionString("Mysql"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql")))); //https://dev.mysql.com/downloads/mysql/
-                //options.UseMySql(Configuration.GetConnectionString("Mysqllocal"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysqllocal")))); //https://dev.mysql.com/downloads/mysql/
+                //options.UseMySql(Configuration.GetConnectionString("Mysql"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysql")))); //https://dev.mysql.com/downloads/mysql/
+                options.UseMySql(Configuration.GetConnectionString("Mysqllocal"), ServerVersion.AutoDetect(Configuration.GetConnectionString("Mysqllocal")))); //https://dev.mysql.com/downloads/mysql/
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
@@ -128,12 +128,14 @@ namespace devops_project_web_t4
             services.AddScoped<ICoworkRoomRepository, CoworkRoomRepository>();
             services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             services.AddScoped<ICustomerSubscriptionRepository, CustomerSubscriptionRepository>();
+            services.AddScoped<IProblemRepository, ProblemRepository>();
 
             services.AddScoped<IReservationController, ReservationController>();
             services.AddScoped<ISeatController, SeatController>();
             services.AddScoped<ISubscriptionController, SubscriptionController>();
             services.AddScoped<ICustomerController, CustomerController>();
             services.AddScoped<IRoomController, RoomController>();
+            services.AddScoped<IProblemController, ProblemController>();
 
             services.AddScoped<StateContainer>();
         }

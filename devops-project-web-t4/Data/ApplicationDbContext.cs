@@ -28,6 +28,7 @@ namespace devops_project_web_t4.Data
         public DbSet<CoworkRoom> CoworkRooms { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<CustomerSubscription> CustomerSubscriptions { get; set; }
+        public DbSet<Problem> Problems { get; set; }
 
         //many to many link
         //public DbSet<CustomerSubscription> CustomerSubscriptions { get; set; }
@@ -47,6 +48,7 @@ namespace devops_project_web_t4.Data
             builder.Entity<Customer>(MapCustomer);
             builder.Entity<CoworkReservation>(MapCoworkReservation);
             builder.Entity<MeetingroomReservation>(MapMeetingRoomReservation);
+            builder.Entity<Problem>(MapProblem);
         }
 
         private static void MapLocation(EntityTypeBuilder<Location> location)
@@ -165,6 +167,18 @@ namespace devops_project_web_t4.Data
 
             //customer.HasMany(c => c.CustomerSubscriptions);
             //customer.HasOne(c => c.Subscription);
+        }
+
+        private static void MapProblem(EntityTypeBuilder<Problem> problem)
+        {
+            problem.ToTable("Problem");
+
+            problem.Property(p => p.ProblemId);
+            problem.Property(p => p.ProblemDescription);
+            problem.Property(p => p.LocationId);
+            problem.Property(p => p.LocationDescription);
+            problem.Property(p => p.Solved);
+            problem.Property(p => p.CommentsOnSolvingProgress);
         }
 
         /*modelBuilder.Entity<BookAuthor>() 

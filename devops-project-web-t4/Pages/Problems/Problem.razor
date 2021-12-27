@@ -1,0 +1,30 @@
+﻿@page "/problem"
+@using devops_project_web_t4.Shared.Components
+
+<div class="container">
+    @if (!_problemPosted)
+    {
+        <h3>
+            Meld een probleem
+        </h3>
+        <h4>Omschrijf het probleem:</h4>
+        <input name="ProblemDescription" id="problemDescription" @bind="ProblemDescription" width="200" height="200"/>
+
+        <br />
+        <br />
+        <br />
+        <h4>Omschrijf de locatie van het probleem</h4>
+        <input name="LocationDescription" id="locationDescription" @bind="LocationDescription" width="200" height="200"/>
+
+        <br />
+        <br />
+        <div>
+            <button class="hierButton primaryHierButton" @onclick="PostProblem">Probleem melden</button>
+        </div>
+    }
+
+    @if (_problemPosted)
+    {
+        <h3>Bedankt om dit probleem te melden. We lossen het zo snel mogelijk voor u op.</h3>
+    }
+</div>
