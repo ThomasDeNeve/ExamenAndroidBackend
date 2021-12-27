@@ -1,4 +1,5 @@
-﻿@page "/meetingroom/{Id:int}"
+﻿@page "/meetingroom/{Id:int}/"
+@page "/meetingroom/{Id:int}/{Date}/"
 @implements IDisposable
 @inject devops_project_web_t4.Areas.State.StateContainer StateContainer
 
@@ -12,7 +13,7 @@
             <p>Water, koffie en thee inbegrepen.<br />Digitaal scherm aanwezig</p>
             <div>
                 <div class="spacerBottom">
-                    <RadzenDatePicker @bind-Value=@dateTimeSelected Change=@OnChangeDate />
+                    <RadzenDatePicker @bind-Value=@dateTimeSelected Change=@OnChangeDate DateFormat="dd/MM/yyyy" />
                     <RadzenDropDown TValue="string" Data=@choices Placeholder="@choices[0]"  Change="@OnChangeSelectList" class="dropdownNextToDatePicker" />
                 </div>
                 <div><devops_project_web_t4.Shared.Components.HierButton Title="@_reserveer" Type="Primary" Action="@NavigateToReserve()" /></div>

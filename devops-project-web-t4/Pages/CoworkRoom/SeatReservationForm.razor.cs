@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace devops_project_web_t4.Pages.CoworkRoom
@@ -26,11 +27,14 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         private string _userName;
         private AuthenticationState state;
 
+        private readonly string _format = "yyyy-MM-dd";
+        private CultureInfo _culture = CultureInfo.InvariantCulture;
+
         public void Confirm()
         {
             if (state.User.Identity.IsAuthenticated)
             {
-                var date = DateTime.Parse(Date);
+                var date = DateTime.ParseExact(Date, _format, _culture);
 
                 if (HasSub())
                 {
@@ -48,7 +52,7 @@ namespace devops_project_web_t4.Pages.CoworkRoom
 
         public void Cancel()
         {
-            _navigationManager.NavigateTo("/coworking/locatie");
+            _navigationManager.NavigateTo("/coworking/hier/overzicht");
         }
 
         protected override async Task OnInitializedAsync()
@@ -78,7 +82,7 @@ namespace devops_project_web_t4.Pages.CoworkRoom
 
         public bool HasSub()
         {
-            var date = DateTime.Parse(Date);
+            var date = DateTime.ParseExact(Date, _format, _culture);
             return SubscriptionController.HasActiveSub(_userName, date);
         }
     }

@@ -33,7 +33,7 @@
                 {
                     <td>@cell</td>
                 }
-                @if (DateTime.ParseExact(row[2], _format, _culture) > DateTime.Now)
+                @if (DateTime.ParseExact(row[2].Substring(0,10), _format, _culture) > DateTime.Now)
                 {
                     <td><a class="hierURL" href="" @onclick="() => CancelCoworkingReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
                 }
@@ -89,7 +89,7 @@
                 {
                     <td>@cell</td>
                 }
-                @if (DateTime.Parse(row[2]) > DateTime.Now)
+                @if (DateTime.ParseExact(row[2].Substring(0,10), _format, _culture) > DateTime.Now)
                 {
                     <td><a class="hierURL" href="" @onclick="() => CancelMeetingRoomReservation(row[0])"  @onclick:preventDefault>Annuleer</a></td>
                 }
