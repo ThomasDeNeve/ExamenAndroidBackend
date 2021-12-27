@@ -19,7 +19,7 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         }
         protected override async void OnInitialized()
         {
-            _coworkRooms = await RoomController.GetAllCoworkRoomsAsync();
+            _coworkRooms = await RoomController.GetAllCoworkRoomsHierAsync();
         }
     }
 }

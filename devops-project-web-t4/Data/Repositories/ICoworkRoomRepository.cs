@@ -10,6 +10,7 @@ namespace devops_project_web_t4.Data.Repositories
         public Task<ICollection<CoworkRoom>> GetAllAsync();
         public CoworkRoom GetById(int id);
         public CoworkRoom GetBySeat(Seat seat);
+        public Task<ICollection<CoworkRoom>> GetAllCoworkRoomsOnLocationAsync(Location location);
         public void Remove(CoworkRoom coworkroom);
         public void Add(CoworkRoom coworkroom);
         public void SaveChanges();

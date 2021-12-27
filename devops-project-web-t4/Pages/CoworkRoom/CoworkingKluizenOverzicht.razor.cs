@@ -1,4 +1,5 @@
-﻿using devops_project_web_t4.Data.Repositories;
+﻿using devops_project_web_t4.Areas.Controllers;
+using devops_project_web_t4.Data.Repositories;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace devops_project_web_t4.Pages.CoworkRoom
         [Inject]
         private NavigationManager NavigationManager { get; set; }
         [Inject]
-        private ICoworkRoomRepository CoworkRoomRepository { get; set; }
+        private IRoomController RoomController { get; set; }
 
         private ICollection<devops_project_web_t4.Areas.Domain.CoworkRoom> _coworkRooms;
 
@@ -21,7 +22,7 @@ namespace devops_project_web_t4.Pages.CoworkRoom
 
         protected async override void OnInitialized()
         {
-            _coworkRooms = await CoworkRoomRepository.GetAllAsync();
+            _coworkRooms = await RoomController.GetAllCoworkRoomsKluizenAsync();
         }
     }
 }

@@ -10,9 +10,9 @@ namespace devops_project_web_t4.Areas.Controllers
         Task<ICollection<CoworkRoom>> GetAllCoworkRoomsAsync();
 
         /// <summary>Fetches all the coworking rooms from HIER from the database.</summary>
-        ICollection<CoworkRoom> GetAllCoworkRoomsHier();
+        Task<ICollection<CoworkRoom>> GetAllCoworkRoomsHierAsync();
 
         /// <summary>Fetches all the coworking rooms from KLUIZEN from the database.</summary>
-        ICollection<CoworkRoom> GetAllCoworkRoomsKluizen();
+        Task<ICollection<CoworkRoom>> GetAllCoworkRoomsKluizenAsync();
     }
 }
