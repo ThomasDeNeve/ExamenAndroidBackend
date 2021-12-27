@@ -87,6 +87,11 @@ namespace devops_project_web_t4
 
                 options.Events = new OpenIdConnectEvents
                 {
+                    OnRedirectToIdentityProvider = rc =>
+                    {
+                        rc.ProtocolMessage.SetParameter("audience", Configuration["Auth0:Audience"]);
+                        return Task.CompletedTask;
+                    },
                     // handle the logout redirection
                     OnRedirectToIdentityProviderForSignOut = (context) =>
                     {

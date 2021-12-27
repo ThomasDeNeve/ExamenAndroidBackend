@@ -1,5 +1,6 @@
 using devops_project_web_t4.Data;
 using devops_project_web_t4.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,21 @@ namespace devops_project_web_t4_API
             services.AddServerSideBlazor();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = Configuration["Auth0:Authority"];
+                options.Audience = Configuration["Auth0:ApiIdentifier"];
+                options.RequireHttpsMetadata = false;
+            });
+
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<IMeetingRoomRepository, MeetingRoomRepository>();
             services.AddScoped<ICoworkReservationRepository, CoworkReservationRepository>();
@@ -40,7 +56,6 @@ namespace devops_project_web_t4_API
             services.AddScoped<ISeatRepository, SeatRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
-            services.AddControllers();
             services.AddOpenApiDocument(c =>
             {
                 c.DocumentName = "apidocs";
