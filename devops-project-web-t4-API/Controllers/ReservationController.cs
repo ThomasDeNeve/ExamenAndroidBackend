@@ -20,6 +20,7 @@ namespace devops_project_web_t4_API.Controllers
     {
         private readonly ICoworkReservationRepository _coworkReservationRepository;
         private readonly IMeetingroomReservationRepository _meetingRoomReservationRepository;
+        private readonly ICoworkRoomRepository _coworkRoomRepository;
 
         private readonly ICustomerRepository _customerRepository;
 
@@ -38,6 +39,7 @@ namespace devops_project_web_t4_API.Controllers
         public ReservationController(
             ICoworkReservationRepository coworkReservationRepository,
             IMeetingroomReservationRepository meetingroomReservationRepository,
+            ICoworkRoomRepository coworkRoomRepository,
 
             ICustomerRepository customerRepository,
 
@@ -46,6 +48,7 @@ namespace devops_project_web_t4_API.Controllers
         {
             _coworkReservationRepository = coworkReservationRepository;
             _meetingRoomReservationRepository = meetingroomReservationRepository;
+            _coworkRoomRepository = coworkRoomRepository;
 
             _customerRepository = customerRepository;
 
@@ -325,6 +328,64 @@ namespace devops_project_web_t4_API.Controllers
             return meetingRooms.ToList();
         }
 
+        //GET: api/reservation/allreservations
+        [HttpGet("allreservations")]
+        public ActionResult<List<ReservationModel>> GetAllReservations(string username, RoomType roomType = RoomType.All)
+        {
+            Customer c = _customerRepository.GetByName(username);
+            List<ReservationModel> reservations = new();
+
+            try
+            {
+                // Get reservations for the user
+                ICollection<MeetingroomReservation> meetingroomReservations = new List<MeetingroomReservation>();
+                ICollection<CoworkReservation> coworkReservations = new List<CoworkReservation>();
+
+                if (roomType == RoomType.All || roomType == RoomType.Vergaderzaal)
+                {
+                    meetingroomReservations = _meetingRoomReservationRepository.GetAllByCustomerId(c.CustomerId);
+                }
+                if (roomType == RoomType.All || roomType == RoomType.Coworking)
+                {
+                    coworkReservations = _coworkReservationRepository.GetAllByCustomerId(c.CustomerId);
+                }
+
+                // Convert MeetingroomReservation objects to ReservationModel objects
+                foreach (MeetingroomReservation res in meetingroomReservations)
+                {
+                    reservations.Add(new ReservationModel()
+                    {
+                        Customer = c.Username,
+                        From = res.From.ToString("yyyy-MM-dd HH:mm"),
+                        To = res.To.ToString("yyyy-MM-dd HH:mm"),
+                        Room = res.MeetingRoom.Name,
+                        RoomType = "Vergader zaal"
+                    });
+                }
+
+                // Convert CoworkReservation objects to ReservationModel objects
+                foreach (CoworkReservation res in coworkReservations)
+                {
+                    CoworkRoom room = _coworkRoomRepository.GetBySeat(res.Seat);
+
+                    reservations.Add(new ReservationModel()
+                    {
+                        Customer = c.Username,
+                        From = res.From.ToString("yyyy-MM-dd"),
+                        To = res.From.ToString("yyyy-MM-dd"),
+                        Room = room.Name,
+                        RoomType = RoomType.Coworking.ToString()
+                    });
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return reservations.OrderByDescending(x => x.From).ThenByDescending(x => x.To).ThenBy(x => x.Room).ToList();
+        }
+
         private bool MeetingRoomIsNotAvailable(int roomId, DateTime date, string timeslot)
         {
             DateTime Start = date;
@@ -360,6 +421,13 @@ namespace devops_project_web_t4_API.Controllers
                 .Any(reservation => reservation.MeetingroomId == roomId
                 && reservation.From <= End
                 && reservation.To >= Start);
+        }
+
+        public enum RoomType
+        {
+            All,
+            Coworking,
+            Vergaderzaal
         }
     }
 }
